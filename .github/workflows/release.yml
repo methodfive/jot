@@ -15,7 +15,7 @@ jobs:
             rust-target: x86_64-unknown-linux-gnu
             native-filename: libjot_sr25519-linux-x86_64.so
           - platform: macos-x86_64
-            runner: macos-latest
+            runner: macos-13
             rust-target: x86_64-apple-darwin
             native-filename: libjot_sr25519-macos-x86_64.dylib
           - platform: macos-aarch64

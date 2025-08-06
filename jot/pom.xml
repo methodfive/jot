@@ -119,6 +119,8 @@
 
                 <mkdir dir="${project.build.outputDirectory}/lib"/>
 
+                <echo message="classifier:${classifier}"/>
+
                 <move failonerror="false"
                       file="${project.build.outputDirectory}/lib/libjot_sr25519.so"
                       tofile="${project.build.outputDirectory}/lib/libjot_sr25519-${classifier}.so"/>

@@ -14,10 +14,6 @@ jobs:
             runner: ubuntu-latest
             rust-target: x86_64-unknown-linux-gnu
             native-filename: libjot_sr25519.so
-          - platform: linux-aarch64
-            runner: ubuntu-latest
-            rust-target: aarch64-unknown-linux-gnu
-            native-filename: libjot_sr25519.so
           - platform: macos-x86_64
             runner: macos-latest
             rust-target: x86_64-apple-darwin

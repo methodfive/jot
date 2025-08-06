@@ -13,19 +13,19 @@ jobs:
           - platform: linux-x86_64
             runner: ubuntu-latest
             rust-target: x86_64-unknown-linux-gnu
-            native-filename: libjot_sr25519.so
+            native-filename: libjot_sr25519-linux-x86_64.so
           - platform: macos-x86_64
             runner: macos-latest
             rust-target: x86_64-apple-darwin
-            native-filename: libjot_sr25519.dylib
+            native-filename: libjot_sr25519-macos-x86_64.dylib
           - platform: macos-aarch64
             runner: macos-latest
             rust-target: aarch64-apple-darwin
-            native-filename: libjot_sr25519.dylib
+            native-filename: libjot_sr25519-macos-aarch64.dylib
           - platform: windows-x86_64
             runner: windows-latest
             rust-target: x86_64-pc-windows-msvc
-            native-filename: jot_sr25519.dll
+            native-filename: jot_sr25519-windows-x86_64.dll
 
     env:
       MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
@@ -122,16 +122,16 @@ jobs:
         run: |
           mkdir -p jot/target/classes/lib
 
-          cp native-artifacts/linux-x86_64/libjot_sr25519.so \
+          cp native-artifacts/linux-x86_64/libjot_sr25519-linux-x86_64.so \
              jot/target/classes/lib/libjot_sr25519-linux-x86_64.so
 
-          cp native-artifacts/macos-x86_64/libjot_sr25519.dylib \
+          cp native-artifacts/macos-x86_64/libjot_sr25519-macos-x86_64.dylib \
              jot/target/classes/lib/libjot_sr25519-macos-x86_64.dylib
 
-          cp native-artifacts/macos-aarch64/libjot_sr25519.dylib \
+          cp native-artifacts/macos-aarch64/libjot_sr25519-macos-aarch64.dylib \
              jot/target/classes/lib/libjot_sr25519-macos-aarch64.dylib
 
-          cp native-artifacts/windows-x86_64/jot_sr25519.dll \
+          cp native-artifacts/windows-x86_64/jot_sr25519-windows-x86_64.dll \
              jot/target/classes/lib/jot_sr25519-windows-x86_64.dll
 
       - name: Deploy universal jar + parent POM

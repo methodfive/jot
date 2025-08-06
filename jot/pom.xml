@@ -129,7 +129,7 @@
 
                 <move failonerror="false"
                       file="${project.build.outputDirectory}/lib/jot_sr25519.dll"
-                      tofile="${project.build.outputDirectory}/lib/sr25519-${classifier}.dll"/>
+                      tofile="${project.build.outputDirectory}/lib/jot_sr25519-${classifier}.dll"/>
               </target>
             </configuration>
             <goals><goal>run</goal></goals>

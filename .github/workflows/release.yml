@@ -50,7 +50,7 @@ jobs:
         if: runner.os == 'Linux'
         run: |
           sudo apt-get update
-          sudo apt-get install -y pkg-config libssl-dev gcc-aarch64-linux-gnu
+          sudo apt-get install -y pkg-config libssl-dev
 
       - name: Build native library
         run: |
@@ -92,15 +92,51 @@ jobs:
           server-username: OSSRH_USERNAME
           server-password: OSSRH_PASSWORD
 
-      - name: Download all native artifacts
+      - name: Download native artifacts (linux-x86_64)
         uses: actions/download-artifact@v4
         with:
-          path: native-artifacts
+          name: native-lib-linux-x86_64
+          path: native-artifacts/linux-x86_64
+
+      - name: Download native artifacts (macos-x86_64)
+        uses: actions/download-artifact@v4
+        with:
+          name: native-lib-macos-x86_64
+          path: native-artifacts/macos-x86_64
+
+      - name: Download native artifacts (macos-aarch64)
+        uses: actions/download-artifact@v4
+        with:
+          name: native-lib-macos-aarch64
+          path: native-artifacts/macos-aarch64
+
+      - name: Download native artifacts (windows-x86_64)
+        uses: actions/download-artifact@v4
+        with:
+          name: native-lib-windows-x86_64
+          path: native-artifacts/windows-x86_64
+
+      - name: Debug artifact structure
+        run: |
+          echo "::group::Directory tree of downloaded artifacts"
+          find native-artifacts || echo "Artifacts not found!"
+          echo "::endgroup::"
 
       - name: Organize native libs for universal JAR
         run: |
           mkdir -p jot/target/classes/lib
-          find native-artifacts -type f \( -name "libjot_sr25519.*" -o -name "jot_sr25519.dll" \) -exec cp {} jot/target/classes/lib/ \;
+
+          cp native-artifacts/linux-x86_64/libjot_sr25519.so \
+             jot/target/classes/lib/libjot_sr25519-linux-x86_64.so
+
+          cp native-artifacts/macos-x86_64/libjot_sr25519.dylib \
+             jot/target/classes/lib/libjot_sr25519-macos-x86_64.dylib
+
+          cp native-artifacts/macos-aarch64/libjot_sr25519.dylib \
+             jot/target/classes/lib/libjot_sr25519-macos-aarch64.dylib
+
+          cp native-artifacts/windows-x86_64/jot_sr25519.dll \
+             jot/target/classes/lib/jot_sr25519-windows-x86_64.dll
 
       - name: Deploy universal jar + parent POM
         run: mvn deploy -pl jot -am -DskipTests -P release -DperformRelease=true

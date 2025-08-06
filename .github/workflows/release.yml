@@ -34,10 +34,10 @@ jobs:
           distribution: temurin
           java-version: 21
           gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
-          gpg-passphrase: ${{ secrets.GPG_PASSPHRASE }}
+          gpg-passphrase: GPG_PASSPHRASE
           server-id: ossrh
-          server-username: ${{ secrets.OSSRH_USERNAME }}
-          server-password: ${{ secrets.OSSRH_PASSWORD }}
+          server-username: OSSRH_USERNAME
+          server-password: OSSRH_PASSWORD
 
       - uses: dtolnay/rust-toolchain@stable
         with:
@@ -62,10 +62,10 @@ jobs:
           distribution: temurin
           java-version: 21
           gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
-          gpg-passphrase: ${{ secrets.GPG_PASSPHRASE }}
+          gpg-passphrase: GPG_PASSPHRASE
           server-id: ossrh
-          server-username: ${{ secrets.OSSRH_USERNAME }}
-          server-password: ${{ secrets.OSSRH_PASSWORD }}
+          server-username: OSSRH_USERNAME
+          server-password: OSSRH_PASSWORD
 
       - uses: dtolnay/rust-toolchain@stable
         with:
@@ -81,11 +81,11 @@ jobs:
 
       - name: Build all native variants
         run: |
-          cargo build --release --target x86_64-unknown-linux-gnu --manifest-path src/jot_sr25519/Cargo.toml
-          cargo build --release --target aarch64-unknown-linux-gnu --manifest-path src/jot_sr25519/Cargo.toml
-          cargo build --release --target x86_64-apple-darwin --manifest-path src/jot_sr25519/Cargo.toml
-          cargo build --release --target aarch64-apple-darwin --manifest-path src/jot_sr25519/Cargo.toml
-          cargo build --release --target x86_64-pc-windows-msvc --manifest-path src/jot_sr25519/Cargo.toml
+          cargo build --release --target x86_64-unknown-linux-gnu --manifest-path jot/src/jot_sr25519/Cargo.toml
+          cargo build --release --target aarch64-unknown-linux-gnu --manifest-path jot/src/jot_sr25519/Cargo.toml
+          cargo build --release --target x86_64-apple-darwin --manifest-path jot/src/jot_sr25519/Cargo.toml
+          cargo build --release --target aarch64-apple-darwin --manifest-path jot/src/jot_sr25519/Cargo.toml
+          cargo build --release --target x86_64-pc-windows-msvc --manifest-path jot/src/jot_sr25519/Cargo.toml
 
       - name: Copy all native libs into universal jar
         run: |

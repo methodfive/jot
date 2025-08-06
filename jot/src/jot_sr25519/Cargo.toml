@@ -1,0 +1,16 @@
+[package]
+name = "jot_sr25519"
+version = "0.1.0"
+authors = ["Method5 <info@method5.com>"]
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+jni = "0.21"
+schnorrkel = "0.11.4"
+sha2 = "0.10.8"
+blake2 = "0.11.0-pre.5"
+sp-core = "36.1.0"
+parity-bip39 = "2.0.1"

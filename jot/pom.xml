@@ -1,0 +1,277 @@
+<project
+        xmlns="http://maven.apache.org/POM/4.0.0"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>com.method5</groupId>
+    <artifactId>jot-parent</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+  </parent>
+
+  <artifactId>jot</artifactId>
+
+  <properties>
+    <native.classifier>unknown</native.classifier>
+    <native.os>${os.detected.name}</native.os>
+    <native.arch>${os.detected.arch}</native.arch>
+  </properties>
+
+  <name>Jot SDK</name>
+  <description>A modern Java SDK for interacting with Polkadot and Substrate networks. Includes support for SCALE encoding, RPC, transaction signing, multisig, and sr25519 crypto.</description>
+  <url>https://github.com/methodfive/jot</url>
+
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <developers>
+    <developer>
+      <id>method5</id>
+      <name>Method5</name>
+      <url>https://method5.com</url>
+      <roles>
+        <role>developer</role>
+        <role>maintainer</role>
+      </roles>
+    </developer>
+  </developers>
+
+  <scm>
+    <url>https://github.com/methodfive/jot</url>
+    <connection>scm:git:https://github.com/methodfive/jot.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com:methodfive/jot.git</developerConnection>
+    <tag>HEAD</tag>
+  </scm>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <version>3.6.1</version>
+      </plugin>
+
+      <plugin>
+        <groupId>org.questdb</groupId>
+        <artifactId>rust-maven-plugin</artifactId>
+        <version>1.1.1</version>
+        <executions>
+          <execution>
+            <id>rust-build-sr25519</id>
+            <goals>
+              <goal>build</goal>
+            </goals>
+            <configuration>
+              <path>src/jot_sr25519</path>
+              <copyTo>${project.build.outputDirectory}/lib</copyTo>
+              <copyWithPlatformDir>false</copyWithPlatformDir>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>kr.motd.maven</groupId>
+        <artifactId>os-maven-plugin</artifactId>
+        <version>1.7.0</version>
+        <executions>
+          <execution>
+            <goals><goal>detect</goal></goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <version>3.1.0</version>
+        <executions>
+          <execution>
+            <id>rename-native</id>
+            <phase>process-classes</phase>
+            <configuration>
+              <target>
+                <condition property="os.name.normalized" value="macos">
+                  <equals arg1="${os.detected.name}" arg2="osx"/>
+                </condition>
+                <condition property="os.name.normalized" value="${os.detected.name}">
+                  <not>
+                    <equals arg1="${os.detected.name}" arg2="osx"/>
+                  </not>
+                </condition>
+
+                <condition property="os.arch.normalized" value="aarch64">
+                  <equals arg1="${os.detected.arch}" arg2="aarch_64"/>
+                </condition>
+                <condition property="os.arch.normalized" value="${os.detected.arch}">
+                  <not>
+                    <equals arg1="${os.detected.arch}" arg2="aarch_64"/>
+                  </not>
+                </condition>
+
+                <property name="classifier" value="${os.name.normalized}-${os.arch.normalized}"/>
+
+                <mkdir dir="${project.build.outputDirectory}/lib"/>
+
+                <move failonerror="false"
+                      file="${project.build.outputDirectory}/lib/libjot_sr25519.so"
+                      tofile="${project.build.outputDirectory}/lib/libjot_sr25519-${classifier}.so"/>
+
+                <move failonerror="false"
+                      file="${project.build.outputDirectory}/lib/libjot_sr25519.dylib"
+                      tofile="${project.build.outputDirectory}/lib/libjot_sr25519-${classifier}.dylib"/>
+
+                <move failonerror="false"
+                      file="${project.build.outputDirectory}/lib/jot_sr25519.dll"
+                      tofile="${project.build.outputDirectory}/lib/sr25519-${classifier}.dll"/>
+              </target>
+            </configuration>
+            <goals><goal>run</goal></goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>3.3.1</version>
+        <configuration>
+          <nonFilteredFileExtensions>
+            <nonFilteredFileExtension>dylib</nonFilteredFileExtension>
+            <nonFilteredFileExtension>so</nonFilteredFileExtension>
+            <nonFilteredFileExtension>dll</nonFilteredFileExtension>
+          </nonFilteredFileExtensions>
+        </configuration>
+        <executions>
+          <execution>
+            <id>copy-resources</id>
+            <phase>process-classes</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${basedir}/target/classes/lib</outputDirectory>
+              <resources>
+                <resource>
+                  <directory>${project.basedir}</directory>
+                  <includes>
+                    <include>jot_sr25519*</include>
+                    <include>libjot*</include>
+                  </includes>
+                </resource>
+              </resources>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <version>3.4.0</version>
+        <executions>
+          <execution>
+            <id>attach-native-jar</id>
+            <phase>package</phase>
+            <goals>
+              <goal>attach-artifact</goal>
+            </goals>
+            <configuration>
+              <artifacts>
+                <artifact>
+                  <file>${project.build.directory}/${project.build.finalName}.jar</file>
+                  <type>jar</type>
+                  <classifier>${native.classifier}</classifier>
+                </artifact>
+              </artifacts>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>3.11.2</version>
+        <executions>
+          <execution>
+            <id>attach-javadocs</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <doclint>all,-missing</doclint>
+          <additionalOptions>-html5</additionalOptions>
+          <additionalJOptions>--allow-script-in-comments</additionalJOptions>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>3.2.1</version>
+        <executions>
+          <execution>
+            <id>attach-sources</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.bouncycastle</groupId>
+      <artifactId>bcprov-jdk15to18</artifactId>
+      <version>1.81</version>
+    </dependency>
+    <dependency>
+      <groupId>org.bouncycastle</groupId>
+      <artifactId>bcprov-jdk18on</artifactId>
+      <version>1.81</version>
+    </dependency>
+    <dependency>
+      <groupId>net.jpountz.lz4</groupId>
+      <artifactId>lz4</artifactId>
+      <version>1.3.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.java-websocket</groupId>
+      <artifactId>Java-WebSocket</artifactId>
+      <version>1.5.3</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+      <version>3.18.0</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>2.17.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <version>5.10.2</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+      <version>5.12.0</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+</project>

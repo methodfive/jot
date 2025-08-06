@@ -1,0 +1,5 @@
+.idea
+*.dylib
+*.iml
+target
+*.lock

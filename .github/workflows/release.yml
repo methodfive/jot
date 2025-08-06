@@ -13,21 +13,26 @@ jobs:
           - platform: linux-x86_64
             runner: ubuntu-latest
             rust-target: x86_64-unknown-linux-gnu
+            native-filename: libjot_sr25519.so
           - platform: linux-aarch64
             runner: ubuntu-latest
             rust-target: aarch64-unknown-linux-gnu
+            native-filename: libjot_sr25519.so
           - platform: macos-x86_64
             runner: macos-latest
             rust-target: x86_64-apple-darwin
+            native-filename: libjot_sr25519.dylib
           - platform: macos-aarch64
             runner: macos-latest
             rust-target: aarch64-apple-darwin
+            native-filename: libjot_sr25519.dylib
           - platform: windows-x86_64
             runner: windows-latest
             rust-target: x86_64-pc-windows-msvc
+            native-filename: jot_sr25519.dll
 
     env:
-      MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+      MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
 
     steps:
       - uses: actions/checkout@v4
@@ -51,7 +56,17 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y pkg-config libssl-dev gcc-aarch64-linux-gnu
 
-      - name: Build & deploy SDK + parent POM
+      - name: Build native library
+        run: |
+          cargo build --release --target ${{ matrix.rust-target }} --manifest-path jot/src/jot_sr25519/Cargo.toml
+
+      - name: Upload native lib
+        uses: actions/upload-artifact@v4
+        with:
+          name: native-lib-${{ matrix.platform }}
+          path: target/${{ matrix.rust-target }}/release/${{ matrix.native-filename }}
+
+      - name: Deploy platform-specific native JAR
         run: |
           mvn clean deploy \
             -pl jot \
@@ -65,8 +80,9 @@ jobs:
   publish-universal:
     name: Build & Deploy - universal
     runs-on: ubuntu-latest
+    needs: publish-native
     env:
-      MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+      MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
 
     steps:
       - uses: actions/checkout@v4
@@ -80,32 +96,15 @@ jobs:
           server-username: OSSRH_USERNAME
           server-password: OSSRH_PASSWORD
 
-      - uses: dtolnay/rust-toolchain@stable
+      - name: Download all native artifacts
+        uses: actions/download-artifact@v4
         with:
-          targets: |
-            x86_64-unknown-linux-gnu
-            aarch64-unknown-linux-gnu
-            x86_64-apple-darwin
-            aarch64-apple-darwin
-            x86_64-pc-windows-msvc
+          path: native-artifacts
 
-      - name: Install Linux dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y pkg-config libssl-dev gcc-aarch64-linux-gnu
-
-      - name: Build all native variants
-        run: |
-          cargo build --release --target x86_64-unknown-linux-gnu --manifest-path jot/src/jot_sr25519/Cargo.toml
-          cargo build --release --target aarch64-unknown-linux-gnu --manifest-path jot/src/jot_sr25519/Cargo.toml
-          cargo build --release --target x86_64-apple-darwin --manifest-path jot/src/jot_sr25519/Cargo.toml
-          cargo build --release --target aarch64-apple-darwin --manifest-path jot/src/jot_sr25519/Cargo.toml
-          cargo build --release --target x86_64-pc-windows-msvc --manifest-path jot/src/jot_sr25519/Cargo.toml
-
-      - name: Copy all native libs into universal jar
+      - name: Organize native libs for universal JAR
         run: |
           mkdir -p jot/target/classes/lib
-          find target -type f \( -name "libjot_sr25519.*" -o -name "jot_sr25519.dll" \) -exec cp {} jot/target/classes/lib/ \;
+          find native-artifacts -type f \( -name "libjot_sr25519.*" -o -name "jot_sr25519.dll" \) -exec cp {} jot/target/classes/lib/ \;
 
       - name: Deploy universal jar + parent POM
         run: mvn deploy -pl jot -am -DskipTests -P release -DperformRelease=true

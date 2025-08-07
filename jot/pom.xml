@@ -71,6 +71,11 @@
                       <type>jar</type>
                       <classifier>${native.classifier}</classifier>
                     </artifact>
+                    <artifact>
+                      <file>${project.build.directory}/pom.xml</file>
+                      <type>pom</type>
+                      <classifier>${native.classifier}</classifier>
+                    </artifact>
                   </artifacts>
                 </configuration>
               </execution>

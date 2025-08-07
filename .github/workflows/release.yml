@@ -38,7 +38,7 @@ jobs:
           distribution: temurin
           java-version: 21
           gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
-          server-id: ossrh
+          server-id: central
           server-username: OSSRH_USERNAME
           server-password: OSSRH_PASSWORD
 
@@ -84,7 +84,7 @@ jobs:
           distribution: temurin
           java-version: 21
           gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
-          server-id: ossrh
+          server-id: central
           server-username: OSSRH_USERNAME
           server-password: OSSRH_PASSWORD
 
@@ -136,3 +136,6 @@ jobs:
 
       - name: Deploy universal jar + parent POM
         run: mvn deploy -pl jot -am -DskipTests -P release -DperformRelease=true
+        env:
+          OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+          OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}

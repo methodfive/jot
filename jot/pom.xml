@@ -87,7 +87,6 @@
               <execution>
                 <id>copy-native-pom</id>
                 <phase>initialize</phase>
-                <phase>initialize</phase>
                 <configuration>
                   <target>
                     <copy file="@{pomFile}" tofile="@{targetPom}" />

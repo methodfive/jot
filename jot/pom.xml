@@ -85,6 +85,18 @@
             <artifactId>maven-antrun-plugin</artifactId>
             <executions>
               <execution>
+                <id>copy-native-pom</id>
+                <phase>initialize</phase>
+                <configuration>
+                  <target>
+                    <copy file="${project.file}" tofile="${project.build.directory}/pom.xml" />
+                  </target>
+                </configuration>
+                <goals>
+                  <goal>run</goal>
+                </goals>
+              </execution>
+              <execution>
                 <phase>prepare-package</phase>
                 <configuration>
                   <target>

@@ -13,7 +13,6 @@
   <artifactId>jot</artifactId>
 
   <properties>
-    <native.classifier>unknown</native.classifier>
     <native.os>${os.detected.name}</native.os>
     <native.arch>${os.detected.arch}</native.arch>
   </properties>
@@ -48,6 +47,39 @@
     <developerConnection>scm:git:ssh://git@github.com:methodfive/jot.git</developerConnection>
     <tag>HEAD</tag>
   </scm>
+
+  <profiles>
+    <profile>
+      <id>native</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>build-helper-maven-plugin</artifactId>
+            <version>3.4.0</version>
+            <executions>
+              <execution>
+                <id>attach-native-jar</id>
+                <phase>package</phase>
+                <goals>
+                  <goal>attach-artifact</goal>
+                </goals>
+                <configuration>
+                  <artifacts>
+                    <artifact>
+                      <file>${project.build.directory}/${project.build.finalName}.jar</file>
+                      <type>jar</type>
+                      <classifier>${native.classifier}</classifier>
+                    </artifact>
+                  </artifacts>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 
   <build>
     <plugins>
@@ -168,30 +200,6 @@
                   </includes>
                 </resource>
               </resources>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>build-helper-maven-plugin</artifactId>
-        <version>3.4.0</version>
-        <executions>
-          <execution>
-            <id>attach-native-jar</id>
-            <phase>package</phase>
-            <goals>
-              <goal>attach-artifact</goal>
-            </goals>
-            <configuration>
-              <artifacts>
-                <artifact>
-                  <file>${project.build.directory}/${project.build.finalName}.jar</file>
-                  <type>jar</type>
-                  <classifier>${native.classifier}</classifier>
-                </artifact>
-              </artifacts>
             </configuration>
           </execution>
         </executions>

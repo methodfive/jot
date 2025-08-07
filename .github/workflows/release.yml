@@ -61,7 +61,7 @@ jobs:
             -am \
             -DskipTests \
             "-Dnative.classifier=${{ matrix.platform }}" \
-            -P release \
+            -P 'release,native' \
             -DperformRelease=true
         shell: bash
 

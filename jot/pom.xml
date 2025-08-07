@@ -87,10 +87,15 @@
               <execution>
                 <id>copy-native-pom</id>
                 <phase>initialize</phase>
+                <phase>initialize</phase>
                 <configuration>
                   <target>
-                    <copy file="${project.file}" tofile="${project.build.directory}/pom.xml" />
+                    <copy file="@{pomFile}" tofile="@{targetPom}" />
                   </target>
+                  <properties>
+                    <pomFile>${basedir}/pom.xml</pomFile>
+                    <targetPom>${project.build.directory}/pom.xml</targetPom>
+                  </properties>
                 </configuration>
                 <goals>
                   <goal>run</goal>

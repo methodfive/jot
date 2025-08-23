@@ -2,4 +2,6 @@
 *.dylib
 *.iml
 target
+jot/src/jot_sr25519/target
+jot/src/jot_sr25519/Cargo.lock
 *.lock

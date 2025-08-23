@@ -1,0 +1,17 @@
+com.method5.jot.crypto
+com.method5.jot.entity
+com.method5.jot.entity.metadata
+com.method5.jot.entity.variant
+com.method5.jot.events
+com.method5.jot.extrinsic
+com.method5.jot.extrinsic.call
+com.method5.jot.extrinsic.model
+com.method5.jot.metadata
+com.method5.jot.query
+com.method5.jot.query.model
+com.method5.jot.rpc
+com.method5.jot.scale
+com.method5.jot.signing
+com.method5.jot.spec
+com.method5.jot.util
+com.method5.jot.wallet

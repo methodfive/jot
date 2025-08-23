@@ -75,8 +75,7 @@
             <configuration>
               <doclint>all,-missing</doclint>
               <sourcepath>${project.build.directory}/unpacked-sources</sourcepath>
-              <reportOutputDirectory>${project.basedir}/docs</reportOutputDirectory>
-              <destDir>docs</destDir>
+              <outputDirectory>${project.basedir}</outputDirectory>
               <doctitle>Jot SDK API</doctitle>
               <windowtitle>Jot Javadoc</windowtitle>
               <failOnError>false</failOnError>

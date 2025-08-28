@@ -6,7 +6,7 @@ import com.method5.jot.scale.ScaleWriter;
 import java.math.BigInteger;
 
 public class ScaleEncodingExample {
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         // Encode example
         ScaleWriter scaleWriter = new ScaleWriter();
         scaleWriter.writeU32(12345);

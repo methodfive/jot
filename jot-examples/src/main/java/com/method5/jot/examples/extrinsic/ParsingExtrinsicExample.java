@@ -8,7 +8,7 @@ import com.method5.jot.util.HexUtil;
 import com.method5.jot.examples.ExampleConstants;
 
 public class ParsingExtrinsicExample {
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         MetadataV14 metadata;
         try (PolkadotRpcClient client = new PolkadotRpcClient(new String[] { ExampleConstants.RPC_SERVER }, 10000)) {
             // Retrieve current metadata

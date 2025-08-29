@@ -57,13 +57,9 @@ jobs:
 
       - name: Deploy platform-specific native JAR
         run: |
-          mvn clean deploy \
-            -pl jot \
-            -am \
-            -DskipTests \
+          mvn -B -DskipTests -pl jot -am \
             "-Dnative.classifier=${{ matrix.platform }}" \
-            -P 'release,native' \
-            -DperformRelease=true
+            -P native package
         shell: bash
 
       - name: Upload native lib

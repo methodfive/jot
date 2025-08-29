@@ -18,10 +18,12 @@ docs_dir: docs
 plugins:
   - search
   - include-markdown
+
 nav:
   - Home: index.md
-  - Quick Start: quickstart.md
-  - API (Javadoc): api/index.html
+  - Quick Start: https://methodfive.github.io/jot/quickstart/
+  - API (Javadoc): https://methodfive.github.io/jot/api/index.html
+  - GitHub: https://github.com/methodfive/jot
 
 markdown_extensions:
   - admonition

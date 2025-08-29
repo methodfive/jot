@@ -110,7 +110,8 @@ mvn -q compile exec:java
 
 ## 🧪 3) Where to go next
 
-- Explore the **[jot-examples](https://github.com/methodfive/jot/tree/main/jot-examples/src/main/java/com/method5/jot/examples)** module for 50+ runnable samples.
+- Review the **[README](https://github.com/methodfive/jot)** for most common usage examples.
+- Explore the **[jot-examples](https://github.com/methodfive/jot/tree/main/jot-examples/src/main/java/com/method5/jot/examples)** module for an additional 50+ runnable samples.
 - Browse the **[API Javadoc](https://methodfive.github.io/jot/api/index.html)** for JOT API information.
 - Build real apps on Polkadot in Java 🚀
 

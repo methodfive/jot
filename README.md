@@ -40,13 +40,13 @@ Requires **Java 21+** and **Maven** or **Gradle**.
 <dependency>
   <groupId>com.method5</groupId>
   <artifactId>jot</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1</version>
 </dependency>
 ```
 
 **Gradle (Kotlin DSL):**
 ```kotlin
-implementation("com.method5:jot:1.0.0")
+implementation("com.method5:jot:1.0.1")
 ```
 
 ---

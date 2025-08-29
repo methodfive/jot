@@ -7,7 +7,7 @@
   <parent>
     <groupId>com.method5</groupId>
     <artifactId>jot-parent</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
   </parent>
 
   <artifactId>jot-docs</artifactId>
@@ -101,7 +101,7 @@
     <dependency>
       <groupId>com.method5</groupId>
       <artifactId>jot</artifactId>
-      <version>1.0.0</version>
+      <version>1.0.1</version>
       <classifier>sources</classifier>
       <scope>provided</scope>
     </dependency>

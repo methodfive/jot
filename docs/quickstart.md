@@ -29,7 +29,7 @@ Add Jot to your `pom.xml`:
   <dependency>
     <groupId>com.method5</groupId>
     <artifactId>jot</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
   </dependency>
 </dependencies>
 ```
@@ -59,7 +59,7 @@ cd hello-jot
 Add Jot to `build.gradle.kts`:
 ```kotlin
 dependencies {
-    implementation("com.method5:jot:1.0.0")
+    implementation("com.method5:jot:1.0.1")
 }
 ```
 

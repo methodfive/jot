@@ -24,69 +24,79 @@
     </license>
   </licenses>
 
-  <build>
-    <plugins>
-      <plugin>
-        <artifactId>maven-clean-plugin</artifactId>
-        <version>2.4.1</version>
-        <configuration>
-          <filesets>
-            <fileset>
-              <directory>docs</directory>
-              <includes>
-                <include>**</include>
-              </includes>
-              <followSymlinks>false</followSymlinks>
-            </fileset>
-          </filesets>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-dependency-plugin</artifactId>
-        <version>3.6.0</version>
-        <executions>
-          <execution>
-            <id>unpack-jot-sources</id>
-            <phase>generate-sources</phase>
-            <goals>
-              <goal>unpack-dependencies</goal>
-            </goals>
+  <profiles>
+    <profile>
+      <id>generate-sources</id>
+      <activation>
+        <property>
+          <name>env.GEN_JAVADOC</name>
+          <value>true</value>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-clean-plugin</artifactId>
+            <version>2.4.1</version>
             <configuration>
-              <includeGroupIds>com.method5</includeGroupIds>
-              <includeArtifactIds>jot</includeArtifactIds>
-              <classifier>sources</classifier>
-              <outputDirectory>${project.build.directory}/unpacked-sources</outputDirectory>
+              <filesets>
+                <fileset>
+                  <directory>docs</directory>
+                  <includes>
+                    <include>**</include>
+                  </includes>
+                  <followSymlinks>false</followSymlinks>
+                </fileset>
+              </filesets>
             </configuration>
-          </execution>
-        </executions>
-      </plugin>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-dependency-plugin</artifactId>
+            <version>3.6.0</version>
+            <executions>
+              <execution>
+                <id>unpack-jot-sources</id>
+                <phase>generate-sources</phase>
+                <goals>
+                  <goal>unpack-dependencies</goal>
+                </goals>
+                <configuration>
+                  <includeGroupIds>com.method5</includeGroupIds>
+                  <includeArtifactIds>jot</includeArtifactIds>
+                  <classifier>sources</classifier>
+                  <outputDirectory>${project.build.directory}/unpacked-sources</outputDirectory>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
 
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>generate-docs</id>
-            <phase>process-resources</phase>
-            <goals>
-              <goal>javadoc</goal>
-            </goals>
-            <configuration>
-              <doclint>all,-missing</doclint>
-              <sourcepath>${project.build.directory}/unpacked-sources</sourcepath>
-              <outputDirectory>${project.basedir}</outputDirectory>
-              <doctitle>Jot SDK API</doctitle>
-              <windowtitle>Jot Javadoc</windowtitle>
-              <failOnError>false</failOnError>
-              <includeDependencySources>false</includeDependencySources>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
-  </build>
-
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>generate-docs</id>
+                <phase>process-resources</phase>
+                <goals>
+                  <goal>javadoc</goal>
+                </goals>
+                <configuration>
+                  <doclint>all,-missing</doclint>
+                  <sourcepath>${project.build.directory}/unpacked-sources</sourcepath>
+                  <outputDirectory>${project.basedir}</outputDirectory>
+                  <doctitle>Jot SDK API</doctitle>
+                  <windowtitle>Jot Javadoc</windowtitle>
+                  <failOnError>false</failOnError>
+                  <includeDependencySources>false</includeDependencySources>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
   <dependencies>
     <dependency>
       <groupId>com.method5</groupId>

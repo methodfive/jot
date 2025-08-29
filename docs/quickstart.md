@@ -1,6 +1,6 @@
 # 🚀 Quick Start with Jot
 
-This guide walks you through setting up a Java project with **Jot**, generating a wallet, sending transactions, and interacting with the Polkadot blockchain.
+This guide walks you through setting up a Java project with **Jot**, and interacting with the Polkadot blockchain.
 
 ---
 

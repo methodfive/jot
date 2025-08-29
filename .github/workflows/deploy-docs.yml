@@ -36,9 +36,7 @@ jobs:
       - name: Ensure homepage includes README
         run: |
           mkdir -p docs
-          if [ ! -s docs/index.md ]; then
-            printf '%s\n' '--8<-- "README.md"' > docs/index.md
-          fi
+          cp README.md docs/index.md
 
       - name: Build MkDocs
         run: mkdocs build --strict

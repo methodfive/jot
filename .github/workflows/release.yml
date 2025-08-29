@@ -39,6 +39,7 @@ jobs:
         with:
           distribution: temurin
           java-version: 21
+          gpg-passphrase:  MAVEN_GPG_PASSPHRASE
           gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
           server-id: central
           server-username: OSSRH_USERNAME
@@ -87,6 +88,7 @@ jobs:
         with:
           distribution: temurin
           java-version: 21
+          gpg-passphrase:  MAVEN_GPG_PASSPHRASE
           gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
           server-id: central
           server-username: OSSRH_USERNAME

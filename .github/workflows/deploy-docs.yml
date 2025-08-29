@@ -48,13 +48,6 @@ jobs:
         with:
           path: site
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./site
-          keep_files: false
-
   deploy:
     needs: build
     runs-on: ubuntu-latest

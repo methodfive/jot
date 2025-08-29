@@ -7,6 +7,9 @@ import com.method5.jot.util.HexToIntDeserializer;
 
 import java.util.List;
 
+/**
+ * BlockHeader — class for block header in the Jot SDK. Provides types and data models.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BlockHeader {
     @JsonProperty("parentHash")

@@ -5,6 +5,9 @@ import com.method5.jot.entity.VariantType;
 import com.method5.jot.entity.metadata.MetadataTypeDefinition;
 import com.method5.jot.scale.ScaleWriter;
 
+/**
+ * Primitive — class for primitive in the Jot SDK. Provides types and data models.
+ */
 public class Primitive extends MetadataTypeDefinition {
     private PrimitiveType type;
 

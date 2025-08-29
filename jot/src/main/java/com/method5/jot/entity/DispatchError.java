@@ -6,6 +6,9 @@ import com.method5.jot.metadata.RuntimeTypeDecoder;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * DispatchError — class for dispatch error in the Jot SDK. Provides types and data models.
+ */
 public class DispatchError {
     public enum Kind {
         MODULE,

@@ -1,5 +1,9 @@
 package com.method5.jot.entity;
 
+/**
+ * StorageEntryType — enum for storage entry type in the Jot SDK. Provides chain state / storage
+ * queries; types and data models.
+ */
 public enum StorageEntryType {
     PLAIN(0, "plain"),
     MAP(1, "map");

@@ -5,6 +5,10 @@ import com.method5.jot.scale.ScaleWriter;
 
 import java.math.BigInteger;
 
+/**
+ * SystemPallet — class for system pallet in the Jot SDK. Provides extrinsic construction and
+ * submission; pallet call builders.
+ */
 public class SystemPallet {
     public static byte[] remark(CallIndexResolver resolver, byte[] message) {
         ScaleWriter writer = new ScaleWriter();

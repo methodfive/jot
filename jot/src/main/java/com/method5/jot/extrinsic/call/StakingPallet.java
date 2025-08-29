@@ -11,6 +11,10 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
 
+/**
+ * StakingPallet — class for staking pallet in the Jot SDK. Provides extrinsic construction and
+ * submission; pallet call builders.
+ */
 public class StakingPallet {
     public static byte[] bond(CallIndexResolver resolver, BigDecimal amount, RewardDestination rewardDestination) {
         ScaleWriter writer = new ScaleWriter();

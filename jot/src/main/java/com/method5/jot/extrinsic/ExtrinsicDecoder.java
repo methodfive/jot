@@ -8,6 +8,10 @@ import com.method5.jot.entity.MultiSignature;
 import com.method5.jot.entity.Mortality;
 import com.method5.jot.entity.MultiAddress;
 
+/**
+ * ExtrinsicDecoder — class for extrinsic decoder in the Jot SDK. Provides key management and
+ * signing; extrinsic construction and submission.
+ */
 public final class ExtrinsicDecoder {
     private ExtrinsicDecoder() {}
 

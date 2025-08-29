@@ -7,6 +7,9 @@ import com.method5.jot.query.model.RuntimeVersion;
 import com.method5.jot.rpc.PolkadotClient;
 import com.method5.jot.util.HexUtil;
 
+/**
+ * StateRpc — class for state rpc in the Jot SDK. Provides RPC client / JSON‑RPC integration.
+ */
 public class StateRpc {
     private static final ObjectMapper mapper = new ObjectMapper();
 

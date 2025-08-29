@@ -3,6 +3,10 @@ package com.method5.jot.query.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * RuntimeVersion — class for runtime version in the Jot SDK. Provides extrinsic construction and
+ * submission; runtime metadata decoding; types and data models.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class RuntimeVersion {
     @JsonProperty("specName")

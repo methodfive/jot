@@ -10,6 +10,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * CallIndexResolver — class for call index resolver in the Jot SDK. Provides runtime metadata
+ * decoding; metadata/type resolution.
+ */
 public class CallIndexResolver {
     private final Map<String, byte[]> callMap = new HashMap<>();
     private final Map<Integer, String> moduleIndexToName = new HashMap<>();

@@ -7,6 +7,10 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * MetadataPallet — class for metadata pallet in the Jot SDK. Provides runtime metadata decoding;
+ * types and data models; pallet call builders.
+ */
 public class MetadataPallet {
     private String name;
     private int index;

@@ -8,6 +8,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * PalletStorage — class for pallet storage in the Jot SDK. Provides runtime metadata decoding;
+ * chain state / storage queries; types and data models; pallet call builders.
+ */
 public class PalletStorage {
     private String prefix;
     private int modifier;

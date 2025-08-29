@@ -9,6 +9,10 @@ import com.method5.jot.entity.PrimitiveType;
 
 import java.util.*;
 
+/**
+ * RuntimeTypeDecoder — class for runtime type decoder in the Jot SDK. Provides runtime metadata
+ * decoding.
+ */
 public class RuntimeTypeDecoder {
     private final List<MetadataType> types;
 

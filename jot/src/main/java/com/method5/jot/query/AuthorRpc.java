@@ -6,6 +6,9 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.method5.jot.rpc.PolkadotClient;
 import com.method5.jot.util.HexUtil;
 
+/**
+ * AuthorRpc — class for author rpc in the Jot SDK. Provides RPC client / JSON‑RPC integration.
+ */
 public class AuthorRpc {
     private static final ObjectMapper mapper = new ObjectMapper();
 

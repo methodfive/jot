@@ -5,6 +5,10 @@ import com.method5.jot.query.model.AccountId;
 import com.method5.jot.scale.ScaleReader;
 import com.method5.jot.util.HexUtil;
 
+/**
+ * MultiAddress — class for multi address in the Jot SDK. Provides types and data models; SS58
+ * address encoding/decoding.
+ */
 public class MultiAddress {
     private String address;
 

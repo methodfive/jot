@@ -8,6 +8,10 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * StorageDefinition — class for storage definition in the Jot SDK. Provides runtime metadata
+ * decoding; chain state / storage queries; types and data models.
+ */
 public class StorageDefinition {
     private StorageType details;
 

@@ -3,6 +3,10 @@ package com.method5.jot.extrinsic.model;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
+/**
+ * AccountVoteType — enum for account vote type in the Jot SDK. Provides extrinsic construction and
+ * submission; types and data models.
+ */
 public enum AccountVoteType {
     STANDARD(0),
     SPLIT(1),

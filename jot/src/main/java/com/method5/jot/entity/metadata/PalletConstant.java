@@ -8,6 +8,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * PalletConstant — class for pallet constant in the Jot SDK. Provides runtime metadata decoding;
+ * types and data models; pallet call builders.
+ */
 public class PalletConstant {
     private int type;
     private String name;

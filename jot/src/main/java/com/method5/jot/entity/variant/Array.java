@@ -6,6 +6,9 @@ import com.method5.jot.scale.ScaleWriter;
 
 import java.math.BigInteger;
 
+/**
+ * Array — class for array in the Jot SDK. Provides types and data models.
+ */
 public class Array extends MetadataTypeDefinition {
     private int length;
     private int type;

@@ -13,6 +13,9 @@ import java.util.Arrays;
 import java.util.Base64;
 import java.util.concurrent.locks.ReentrantLock;
 
+/**
+ * Wallet — class for wallet in the Jot SDK. Provides key management and signing.
+ */
 public class Wallet {
     public enum KeyType { SR25519, ED25519, ECDSA }
 

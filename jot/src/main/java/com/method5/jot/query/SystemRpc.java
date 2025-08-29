@@ -11,6 +11,9 @@ import com.method5.jot.query.model.SystemProperties;
 
 import java.math.BigInteger;
 
+/**
+ * SystemRpc — class for system rpc in the Jot SDK. Provides RPC client / JSON‑RPC integration.
+ */
 public class SystemRpc {
     private static final ObjectMapper mapper = new ObjectMapper();
 

@@ -3,7 +3,8 @@ package com.method5.jot.entity;
 import com.method5.jot.scale.ScaleReader;
 
 /**
- * @param extrinsicIndex only valid if APPLY_EXTRINSIC
+ * Phase — record for phase in the Jot SDK. Provides key management and signing; types and data
+ * models.
  */
 public record Phase(com.method5.jot.entity.Phase.Type type, int extrinsicIndex) {
     public enum Type {

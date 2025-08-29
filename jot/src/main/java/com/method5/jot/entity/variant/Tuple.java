@@ -7,6 +7,9 @@ import com.method5.jot.scale.ScaleWriter;
 import java.math.BigInteger;
 import java.util.List;
 
+/**
+ * Tuple — class for tuple in the Jot SDK. Provides types and data models.
+ */
 public class Tuple extends MetadataTypeDefinition {
     private List<Integer> types;
 

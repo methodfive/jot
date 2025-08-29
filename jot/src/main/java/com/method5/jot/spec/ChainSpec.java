@@ -2,6 +2,9 @@ package com.method5.jot.spec;
 
 import java.util.Arrays;
 
+/**
+ * ChainSpec — class for chain spec in the Jot SDK. Provides extrinsic construction and submission.
+ */
 public class ChainSpec {
     private String id;
     private String name;

@@ -10,6 +10,10 @@ import com.method5.jot.util.UnitConverter;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
+/**
+ * ConvictionVotingPallet — class for conviction voting pallet in the Jot SDK. Provides extrinsic
+ * construction and submission; pallet call builders.
+ */
 public class ConvictionVotingPallet {
     public static byte[] vote(CallIndexResolver resolver, int referendumIndex, AccountVote vote) {
         ScaleWriter writer = new ScaleWriter();

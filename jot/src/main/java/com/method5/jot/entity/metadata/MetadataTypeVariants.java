@@ -9,6 +9,10 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * MetadataTypeVariants — class for metadata type variants in the Jot SDK. Provides runtime
+ * metadata decoding; types and data models.
+ */
 public class MetadataTypeVariants extends MetadataTypeDefinition {
     private List<Variant> variants;
 

@@ -5,6 +5,10 @@ import com.method5.jot.events.EventRecord;
 
 import java.util.List;
 
+/**
+ * ExtrinsicResult — class for extrinsic result in the Jot SDK. Provides extrinsic construction and
+ * submission.
+ */
 public class ExtrinsicResult {
     private boolean success;
     private DispatchError error;

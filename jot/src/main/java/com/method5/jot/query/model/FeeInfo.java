@@ -4,6 +4,10 @@ import com.method5.jot.entity.Weight;
 
 import java.math.BigInteger;
 
+/**
+ * FeeInfo — class for fee info in the Jot SDK. Provides types and data models; fee estimation and
+ * payment info.
+ */
 public class FeeInfo {
     private Weight weight;
     private BigInteger partialFee;

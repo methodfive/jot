@@ -4,6 +4,9 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
 
+/**
+ * UnitConverter — class for unit converter in the Jot SDK. Provides utility helpers.
+ */
 public final class UnitConverter {
     private UnitConverter() {}
 

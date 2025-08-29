@@ -9,6 +9,10 @@ import com.method5.jot.entity.Weight;
 
 import java.math.BigInteger;
 
+/**
+ * PaymentRpc — class for payment rpc in the Jot SDK. Provides RPC client / JSON‑RPC integration;
+ * fee estimation and payment info.
+ */
 public class PaymentRpc {
     private static final ObjectMapper mapper = new ObjectMapper();
 

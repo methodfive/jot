@@ -7,6 +7,9 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * ScaleReader — class for scale reader in the Jot SDK. Provides SCALE codec utilities.
+ */
 public class ScaleReader {
     public final ByteArrayInputStream input;
 

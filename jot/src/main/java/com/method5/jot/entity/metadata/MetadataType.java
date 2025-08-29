@@ -7,6 +7,10 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * MetadataType — class for metadata type in the Jot SDK. Provides runtime metadata decoding; types
+ * and data models.
+ */
 public class MetadataType {
     private int id;
     private List<String> path;

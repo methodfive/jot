@@ -23,6 +23,10 @@ import java.util.*;
 import java.util.concurrent.*;
 import java.util.function.Consumer;
 
+/**
+ * PolkadotWsClient — class for polkadot ws client in the Jot SDK. Provides RPC client / JSON‑RPC
+ * integration; key management and signing; WebSocket subscriptions.
+ */
 public class PolkadotWsClient extends PolkadotClient implements AutoCloseable {
     private final Map<String, Consumer<JsonNode>> responseHandlers = new ConcurrentHashMap<>();
     private final Map<String, Consumer<JsonNode>> subscriptionHandlers = new ConcurrentHashMap<>();

@@ -1,5 +1,9 @@
 package com.method5.jot.rpc;
 
+/**
+ * SubscriptionType — enum for subscription type in the Jot SDK. Provides RPC client / JSON‑RPC
+ * integration.
+ */
 public enum SubscriptionType {
     LATEST_HEAD("chain_subscribeNewHead","chain_unsubscribeNewHead"),
     ALL_HEADS("chain_subscribeAllHeads","chain_unsubscribeAllHeads"),

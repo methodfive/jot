@@ -6,6 +6,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Arrays;
 import java.util.Map;
 
+/**
+ * RuntimeVersion — class for runtime version in the Jot SDK. Provides extrinsic construction and
+ * submission; runtime metadata decoding; types and data models.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class NetworkState {
     @JsonProperty("peerId")

@@ -9,6 +9,9 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Composite — class for composite in the Jot SDK. Provides types and data models.
+ */
 public class Composite extends MetadataTypeDefinition {
     private List<MetadataTypeField> fields;
 

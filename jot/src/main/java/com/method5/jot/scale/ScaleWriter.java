@@ -7,6 +7,10 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.function.Function;
 
+/**
+ * ScaleWriter — class for scale writer in the Jot SDK. Provides key management and signing; SCALE
+ * codec utilities.
+ */
 public class ScaleWriter {
     private final ByteArrayOutputStream stream = new ByteArrayOutputStream();
 

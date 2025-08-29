@@ -5,6 +5,10 @@ import com.method5.jot.util.UnitConverter;
 
 import java.math.BigDecimal;
 
+/**
+ * AccountVote — class for account vote in the Jot SDK. Provides extrinsic construction and
+ * submission; types and data models.
+ */
 public class AccountVote {
     private AccountVoteType type;
 

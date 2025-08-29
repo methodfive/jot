@@ -8,6 +8,10 @@ import com.method5.jot.query.model.RuntimeVersion;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * SubscriptionFactory — class for subscription factory in the Jot SDK. Provides RPC client /
+ * JSON‑RPC integration.
+ */
 public class SubscriptionFactory {
     private static final ObjectMapper objectMapper = new ObjectMapper();
     private final static Map<SubscriptionType, MessageParser<?>> parsers = new HashMap<>();

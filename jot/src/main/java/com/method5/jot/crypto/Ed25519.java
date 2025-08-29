@@ -11,6 +11,9 @@ import java.security.spec.EdECPrivateKeySpec;
 import java.security.spec.EdECPublicKeySpec;
 import java.security.spec.NamedParameterSpec;
 
+/**
+ * Ed25519 — class for ed 25519 in the Jot SDK. Provides key management and signing.
+ */
 public class Ed25519 {
     static {
         if (Security.getProvider("BC") == null) {

@@ -3,6 +3,9 @@ package com.method5.jot.util;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
+/**
+ * Base58 — class for base 58 in the Jot SDK. Provides utility helpers.
+ */
 public class Base58 {
     private static final char[] ALPHABET = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz".toCharArray();
     private static final int[] INDEXES = new int[128];

@@ -9,6 +9,10 @@ import com.method5.jot.entity.Mortality;
 
 import java.math.BigInteger;
 
+/**
+ * SignedExtrinsicBuilder — class for signed extrinsic builder in the Jot SDK. Provides key
+ * management and signing; extrinsic construction and submission.
+ */
 public class SignedExtrinsicBuilder {
     public static byte[] build(
         byte[] callData,

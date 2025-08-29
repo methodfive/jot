@@ -6,6 +6,9 @@ import com.method5.jot.scale.ScaleWriter;
 
 import java.math.BigInteger;
 
+/**
+ * Sequence — class for sequence in the Jot SDK. Provides types and data models.
+ */
 public class Sequence extends MetadataTypeDefinition {
     private int type;
 

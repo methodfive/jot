@@ -3,6 +3,9 @@ package com.method5.jot.entity;
 import com.method5.jot.scale.ScaleReader;
 import com.method5.jot.scale.ScaleWriter;
 
+/**
+ * Timepoint — record for timepoint in the Jot SDK. Provides types and data models.
+ */
 public record Timepoint(int height, int index) {
     public byte[] encode() {
         ScaleWriter scaleWriter = new ScaleWriter();

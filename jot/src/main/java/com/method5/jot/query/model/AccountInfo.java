@@ -5,6 +5,9 @@ import com.method5.jot.util.UnitConverter;
 
 import java.math.BigDecimal;
 
+/**
+ * AccountInfo — class for account info in the Jot SDK. Provides types and data models.
+ */
 public class AccountInfo {
     private long nonce;
     private long consumers;

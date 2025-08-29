@@ -2,6 +2,10 @@ package com.method5.jot.entity;
 
 import com.method5.jot.scale.ScaleReader;
 
+/**
+ * Mortality — class for mortality in the Jot SDK. Provides key management and signing; types and
+ * data models.
+ */
 public class Mortality {
     private final boolean isImmortal;
     private final int period;

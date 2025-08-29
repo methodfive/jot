@@ -4,6 +4,10 @@ import java.io.*;
 import java.nio.file.*;
 import java.util.Locale;
 
+/**
+ * NativeLibLoader — class for native lib loader in the Jot SDK. Provides key management and
+ * signing; utility helpers.
+ */
 public class NativeLibLoader {
     private static boolean loaded = false;
 

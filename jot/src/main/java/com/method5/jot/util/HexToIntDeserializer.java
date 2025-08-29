@@ -6,6 +6,10 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 
 import java.io.IOException;
 
+/**
+ * HexToIntDeserializer — class for hex to int deserializer in the Jot SDK. Provides key management
+ * and signing; utility helpers.
+ */
 public class HexToIntDeserializer extends JsonDeserializer<Integer> {
     @Override
     public Integer deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {

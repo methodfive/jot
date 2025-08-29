@@ -3,6 +3,10 @@ package com.method5.jot.entity.metadata;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * MetadataTypeField — class for metadata type field in the Jot SDK. Provides runtime metadata
+ * decoding; types and data models.
+ */
 public class MetadataTypeField {
     private String name;
     private int type;

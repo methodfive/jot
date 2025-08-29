@@ -6,6 +6,9 @@ import com.method5.jot.scale.ScaleWriter;
 
 import java.math.BigInteger;
 
+/**
+ * Bits — class for bits in the Jot SDK. Provides types and data models.
+ */
 public class Bits extends MetadataTypeDefinition {
     private int type;
     private int order;

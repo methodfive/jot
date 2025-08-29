@@ -1,5 +1,8 @@
 package com.method5.jot.entity;
 
+/**
+ * VariantType — enum for variant type in the Jot SDK. Provides types and data models.
+ */
 public enum VariantType {
     COMPOSITE(0, "composite"),
     VARIANT(1, "variant"),

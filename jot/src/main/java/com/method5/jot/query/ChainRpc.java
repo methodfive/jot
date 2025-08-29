@@ -8,6 +8,10 @@ import com.method5.jot.query.model.SignedBlock;
 import com.method5.jot.rpc.PolkadotClient;
 import com.method5.jot.util.HexUtil;
 
+/**
+ * ChainRpc — class for chain rpc in the Jot SDK. Provides RPC client / JSON‑RPC integration; key
+ * management and signing.
+ */
 public class ChainRpc {
     private static final ObjectMapper mapper = new ObjectMapper();
 

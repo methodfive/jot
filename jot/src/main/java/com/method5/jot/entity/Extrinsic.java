@@ -4,6 +4,10 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Extrinsic — class for extrinsic in the Jot SDK. Provides key management and signing; extrinsic
+ * construction and submission; types and data models.
+ */
 public class Extrinsic {
     private int version;
     private boolean isSigned;

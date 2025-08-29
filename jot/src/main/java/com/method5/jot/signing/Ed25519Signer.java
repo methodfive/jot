@@ -7,6 +7,9 @@ import org.bouncycastle.crypto.params.Ed25519PrivateKeyParameters;
 import java.security.KeyPair;
 import java.security.interfaces.EdECPrivateKey;
 
+/**
+ * Ed25519Signer — class for ed 25519 signer in the Jot SDK. Provides key management and signing.
+ */
 public class Ed25519Signer extends SigningProvider {
     private final KeyPair keyPair;
 

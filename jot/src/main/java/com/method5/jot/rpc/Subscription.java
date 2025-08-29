@@ -7,6 +7,10 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.function.Consumer;
 
+/**
+ * Subscription — class for subscription in the Jot SDK. Provides RPC client / JSON‑RPC
+ * integration.
+ */
 public class Subscription<T> {
     private static final ObjectMapper objectMapper = new ObjectMapper();
     private final SubscriptionType subscriptionType;

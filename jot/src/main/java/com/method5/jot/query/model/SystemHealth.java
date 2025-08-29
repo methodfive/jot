@@ -3,6 +3,9 @@ package com.method5.jot.query.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * SystemHealth — class for system health in the Jot SDK. Provides types and data models.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SystemHealth {
     @JsonProperty("isSyncing")

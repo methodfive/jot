@@ -1,5 +1,8 @@
 package com.method5.jot.entity;
 
+/**
+ * PrimitiveType — enum for primitive type in the Jot SDK. Provides types and data models.
+ */
 public enum PrimitiveType {
     BOOLEAN(0),
     CHAR(1),

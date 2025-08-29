@@ -5,6 +5,9 @@ import org.bouncycastle.crypto.digests.Blake2bDigest;
 
 import java.nio.charset.StandardCharsets;
 
+/**
+ * Hasher — class for hasher in the Jot SDK.
+ */
 public class Hasher {
     private static final XXHashFactory XX = XXHashFactory.fastestInstance();
 

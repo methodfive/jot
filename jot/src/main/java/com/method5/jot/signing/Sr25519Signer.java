@@ -3,6 +3,9 @@ package com.method5.jot.signing;
 import com.method5.jot.crypto.Sr25519;
 import com.method5.jot.wallet.Wallet;
 
+/**
+ * Sr25519Signer — class for sr 25519 signer in the Jot SDK. Provides key management and signing.
+ */
 public class Sr25519Signer extends SigningProvider {
     private final byte[] seed;
 

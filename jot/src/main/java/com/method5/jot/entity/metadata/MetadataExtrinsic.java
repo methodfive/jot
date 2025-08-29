@@ -5,6 +5,10 @@ import com.method5.jot.scale.ScaleWriter;
 
 import java.math.BigInteger;
 
+/**
+ * MetadataExtrinsic — class for metadata extrinsic in the Jot SDK. Provides extrinsic construction
+ * and submission; runtime metadata decoding; types and data models.
+ */
 public class MetadataExtrinsic {
     private String name;
     private int type;

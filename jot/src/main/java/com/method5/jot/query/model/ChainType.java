@@ -3,6 +3,10 @@ package com.method5.jot.query.model;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
+/**
+ * ChainType — enum for chain type in the Jot SDK. Provides key management and signing; types and
+ * data models.
+ */
 public enum ChainType {
     DEVELOPMENT("Development"),
     LOCAL("Local"),

@@ -1,5 +1,9 @@
 package com.method5.jot.extrinsic.model;
 
+/**
+ * Conviction — enum for conviction in the Jot SDK. Provides extrinsic construction and submission;
+ * types and data models.
+ */
 public enum Conviction {
     NONE(0),        // 0.1x lock, no additional weight
     LOCKED_1X(1),   // 1x conviction, locked for 1 enactment

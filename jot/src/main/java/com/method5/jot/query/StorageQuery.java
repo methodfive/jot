@@ -16,6 +16,10 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
 
+/**
+ * StorageQuery — class for storage query in the Jot SDK. Provides RPC client / JSON‑RPC
+ * integration; chain state / storage queries.
+ */
 public class StorageQuery {
     public static AccountInfo getAccountInfo(PolkadotClient client, AccountId accountId) throws Exception {
         byte[] key = ArrayUtils.addAll(

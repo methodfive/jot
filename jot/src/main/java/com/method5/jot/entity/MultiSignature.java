@@ -4,6 +4,10 @@ import com.method5.jot.scale.ScaleReader;
 import com.method5.jot.util.HexUtil;
 import com.method5.jot.wallet.Wallet;
 
+/**
+ * MultiSignature — class for multi signature in the Jot SDK. Provides key management and signing;
+ * types and data models.
+ */
 public class MultiSignature {
     private Wallet.KeyType type;
     private String signature;

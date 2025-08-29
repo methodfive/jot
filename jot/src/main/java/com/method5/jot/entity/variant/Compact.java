@@ -6,6 +6,9 @@ import com.method5.jot.scale.ScaleWriter;
 
 import java.math.BigInteger;
 
+/**
+ * Compact — class for compact in the Jot SDK. Provides types and data models.
+ */
 public class Compact extends MetadataTypeDefinition {
     private int type;
 

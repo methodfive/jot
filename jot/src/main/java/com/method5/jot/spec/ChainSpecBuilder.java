@@ -7,6 +7,10 @@ import com.method5.jot.query.model.RuntimeVersion;
 import com.method5.jot.query.model.SystemProperties;
 import com.method5.jot.rpc.PolkadotClient;
 
+/**
+ * ChainSpecBuilder — class for chain spec builder in the Jot SDK. Provides RPC client / JSON‑RPC
+ * integration; extrinsic construction and submission.
+ */
 public class ChainSpecBuilder {
     private final PolkadotClient client;
 

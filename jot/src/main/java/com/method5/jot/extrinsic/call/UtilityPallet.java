@@ -6,6 +6,10 @@ import com.method5.jot.scale.ScaleWriter;
 import java.math.BigInteger;
 import java.util.List;
 
+/**
+ * UtilityPallet — class for utility pallet in the Jot SDK. Provides extrinsic construction and
+ * submission; utility helpers; pallet call builders.
+ */
 public class UtilityPallet {
     public static byte[] batchAll(CallIndexResolver resolver, List<byte[]> calls) {
         ScaleWriter writer = new ScaleWriter();

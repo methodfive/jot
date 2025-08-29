@@ -2,6 +2,10 @@ package com.method5.jot.signing;
 
 import com.method5.jot.wallet.Wallet;
 
+/**
+ * SigningProvider — class for signing provider in the Jot SDK. Provides key management and
+ * signing.
+ */
 public abstract class SigningProvider {
     protected final Wallet.KeyType keyType;
 

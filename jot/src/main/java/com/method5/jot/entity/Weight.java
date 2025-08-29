@@ -5,6 +5,9 @@ import com.method5.jot.scale.ScaleWriter;
 
 import java.math.BigInteger;
 
+/**
+ * Weight — record for weight in the Jot SDK. Provides types and data models.
+ */
 public record Weight(BigInteger refTime, BigInteger proofSize) {
     public byte[] encode() {
         ScaleWriter writer = new ScaleWriter();

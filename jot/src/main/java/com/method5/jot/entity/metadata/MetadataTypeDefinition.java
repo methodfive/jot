@@ -8,6 +8,10 @@ import com.method5.jot.entity.VariantType;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * MetadataTypeDefinition — class for metadata type definition in the Jot SDK. Provides runtime
+ * metadata decoding; types and data models.
+ */
 public abstract class MetadataTypeDefinition {
     public static MetadataTypeDefinition decode(ScaleReader reader) {
         int defIndex = reader.readByte();

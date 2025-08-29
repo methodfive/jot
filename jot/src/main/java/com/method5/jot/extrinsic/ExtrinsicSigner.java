@@ -13,6 +13,10 @@ import com.method5.jot.util.HexUtil;
 
 import java.math.BigInteger;
 
+/**
+ * ExtrinsicSigner — class for extrinsic signer in the Jot SDK. Provides RPC client / JSON‑RPC
+ * integration; key management and signing; extrinsic construction and submission.
+ */
 public class ExtrinsicSigner {
     public static byte[] signAndBuild(
             PolkadotClient client,

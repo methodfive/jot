@@ -5,6 +5,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Map;
 
+/**
+ * SystemProperties — class for system properties in the Jot SDK. Provides types and data models.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SystemProperties {
     @JsonProperty("ss58Format")

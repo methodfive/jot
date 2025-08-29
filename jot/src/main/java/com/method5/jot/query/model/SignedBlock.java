@@ -5,6 +5,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
+/**
+ * SignedBlock — class for signed block in the Jot SDK. Provides key management and signing; types
+ * and data models.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SignedBlock {
     @JsonProperty("block")

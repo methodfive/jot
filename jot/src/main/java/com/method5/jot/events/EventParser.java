@@ -13,6 +13,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * EventParser — class for event parser in the Jot SDK. Provides key management and signing; event
+ * parsing and dispatch errors.
+ */
 public class EventParser {
     public static List<EventRecord> parse(byte[] raw, MetadataV14 metadata, CallIndexResolver callIndexResolver) {
         ScaleReader reader = new ScaleReader(raw);

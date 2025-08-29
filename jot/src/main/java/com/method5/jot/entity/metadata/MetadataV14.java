@@ -7,6 +7,10 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * MetadataV14 — class for metadata v 14 in the Jot SDK. Provides runtime metadata decoding; types
+ * and data models.
+ */
 public class MetadataV14 {
     private int magic;
     private int version;

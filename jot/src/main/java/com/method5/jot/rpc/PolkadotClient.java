@@ -10,6 +10,10 @@ import com.method5.jot.spec.ChainSpecBuilder;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ * PolkadotClient — class for polkadot client in the Jot SDK. Provides RPC client / JSON‑RPC
+ * integration.
+ */
 public abstract class PolkadotClient implements AutoCloseable {
     static final ObjectMapper objectMapper = new ObjectMapper();
 

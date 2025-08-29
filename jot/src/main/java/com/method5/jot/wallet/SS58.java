@@ -5,6 +5,10 @@ import com.method5.jot.util.Base58;
 
 import java.util.Arrays;
 
+/**
+ * SS58 — class for ss 58 in the Jot SDK. Provides key management and signing; SS58 address
+ * encoding/decoding.
+ */
 public class SS58 {
     private static final byte[] SS58_PREFIX = "SS58PRE".getBytes();
 

@@ -1,5 +1,8 @@
 # 🧠 Jot – A Modern Java SDK for Polkadot
 
+[![Maven Central](https://img.shields.io/maven-central/v/com.method5/jot.svg?label=Maven%20Central)](https://central.sonatype.com/artifact/com.method5/jot)
+[![Javadoc](https://img.shields.io/badge/docs-Javadoc-informational.svg)](https://methodfive.github.io/jot/api/index.html)
+
 **Jot** is a clean, modular SDK built from the ground up for developers working with **Polkadot** and **Substrate-based chains**.
 
 > ⚡️ Everything you need to build real Substrate connected apps in Java — no outdated libs, no workarounds.

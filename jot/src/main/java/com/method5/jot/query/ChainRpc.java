@@ -28,6 +28,10 @@ public class ChainRpc {
         return HexUtil.hexToBytes(result.asText());
     }
 
+    public static byte[] getGenesisBlockHash(PolkadotClient client) throws Exception {
+        return getBlockHash(client, 0);
+    }
+
     public static byte[] getBlockHash(PolkadotClient client, long blockNumber) throws Exception {
         ArrayNode params = mapper.createArrayNode();
         String hexBlockNumber = "0x" + Long.toHexString(blockNumber);

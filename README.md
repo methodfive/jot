@@ -29,6 +29,8 @@
 
 ## 🔧 Getting Started
 
+Requires **Java 21+** and **Maven** or **Gradle**.
+
 ### Import via Maven
 
 ```xml
@@ -37,6 +39,11 @@
   <artifactId>jot</artifactId>
   <version>1.0.0</version>
 </dependency>
+```
+
+**Gradle (Kotlin DSL):**
+```kotlin
+implementation("com.method5:jot:1.0.0")
 ```
 
 ---
@@ -160,7 +167,11 @@ if (!result.isSuccess()) {
 }
 ```
 
-Many more usage examples can be found in the jot-examples module.
+👉 For full setup instructions, see [Quick Start Guide](https://methodfive.github.io/jot/quickstart/).  
+
+👉 API reference: [Javadoc](https://methodfive.github.io/jot/api/index.html).  
+
+👉 See [jot-examples](https://github.com/methodfive/jot/tree/main/jot-examples/src/main/java/com/method5/jot/examples) module for 50+ ready to run examples.
 
 ---
 

@@ -1,0 +1,37 @@
+site_name: Jot — Java SDK for Polkadot
+site_description: Modern Java SDK for Polkadot/Substrate
+site_url: https://methodfive.github.io/jot/
+repo_url: https://github.com/methodfive/jot
+theme:
+  name: material
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - content.code.copy
+    - toc.integrate
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+
+docs_dir: docs
+plugins:
+  - search
+  - include-markdown
+nav:
+  - Home: index.md
+  - Quick Start: quickstart.md
+  - API (Javadoc): api/index.html
+
+markdown_extensions:
+  - admonition
+  - toc:
+      permalink: true
+  - codehilite
+  - footnotes
+  - tables
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/methodfive/jot

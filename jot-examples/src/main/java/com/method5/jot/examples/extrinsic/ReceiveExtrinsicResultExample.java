@@ -4,7 +4,6 @@ import com.method5.jot.examples.ExampleConstants;
 import com.method5.jot.extrinsic.ExtrinsicResult;
 import com.method5.jot.extrinsic.ExtrinsicSigner;
 import com.method5.jot.extrinsic.call.BalancesPallet;
-import com.method5.jot.query.AuthorRpc;
 import com.method5.jot.query.model.AccountId;
 import com.method5.jot.rpc.PolkadotWsClient;
 import com.method5.jot.wallet.Wallet;

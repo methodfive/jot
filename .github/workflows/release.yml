@@ -3,6 +3,9 @@ name: Release SDK
 on:
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   publish-native:
     name: Build & Deploy - ${{ matrix.platform }}
@@ -39,7 +42,7 @@ jobs:
         with:
           distribution: temurin
           java-version: 21
-          gpg-passphrase:  MAVEN_GPG_PASSPHRASE
+          gpg-passphrase: MAVEN_GPG_PASSPHRASE
           gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
           server-id: central
           server-username: OSSRH_USERNAME
@@ -84,7 +87,7 @@ jobs:
         with:
           distribution: temurin
           java-version: 21
-          gpg-passphrase:  MAVEN_GPG_PASSPHRASE
+          gpg-passphrase: MAVEN_GPG_PASSPHRASE
           gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
           server-id: central
           server-username: OSSRH_USERNAME
@@ -138,3 +141,65 @@ jobs:
 
       - name: Deploy universal jar + parent POM
         run: mvn deploy -pl jot -am -DskipTests -P release -DperformRelease=true
+
+      - name: Bundle release files
+        run: |
+          mkdir -p release-bundle/natives
+          cp -v jot/target/*.jar release-bundle/ || true
+          cp -v jot/target/*.pom* release-bundle/ || true
+          cp -v jot/target/*.asc release-bundle/ || true
+          cp -v jot/target/*.sha* release-bundle/ || true
+          cp -v jot/target/*.md5 release-bundle/ || true
+          cp -v native-artifacts/linux-x86_64/* release-bundle/natives/ || true
+          cp -v native-artifacts/macos-x86_64/* release-bundle/natives/ || true
+          cp -v native-artifacts/macos-aarch64/* release-bundle/natives/ || true
+          cp -v native-artifacts/windows-x86_64/* release-bundle/natives/ || true
+          echo "Contents of release-bundle:"
+          find release-bundle
+
+      - name: Upload release bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-bundle
+          path: release-bundle
+
+  github-release:
+    name: Create GitHub Release
+    runs-on: ubuntu-latest
+    needs: publish-universal
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Java (to read Maven version)
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Determine version
+        id: ver
+        run: |
+          VERSION=$(mvn -q -Dexec.skip=true -DskipTests help:evaluate -Dexpression=project.version -DforceStdout)
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Tag will be v$VERSION"
+
+      - name: Download release bundle
+        uses: actions/download-artifact@v4
+        with:
+          name: release-bundle
+          path: release-bundle
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.ver.outputs.version }}
+          name: Jot ${{ steps.ver.outputs.version }}
+          body: |
+            Jot ${{ steps.ver.outputs.version }}
+
+            - Published to Maven Central under `com.method5:jot:${{ steps.ver.outputs.version }}`
+          files: |
+            release-bundle/**
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

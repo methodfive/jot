@@ -147,9 +147,6 @@ jobs:
           mkdir -p release-bundle/natives
           cp -v jot/target/*.jar release-bundle/ || true
           cp -v jot/target/*.pom* release-bundle/ || true
-          cp -v jot/target/*.asc release-bundle/ || true
-          cp -v jot/target/*.sha* release-bundle/ || true
-          cp -v jot/target/*.md5 release-bundle/ || true
           cp -v native-artifacts/linux-x86_64/* release-bundle/natives/ || true
           cp -v native-artifacts/macos-x86_64/* release-bundle/natives/ || true
           cp -v native-artifacts/macos-aarch64/* release-bundle/natives/ || true

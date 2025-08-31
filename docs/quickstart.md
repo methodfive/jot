@@ -82,13 +82,16 @@ Create `src/main/java/com/example/HelloPolkadot.java`:
 ```java
 package com.example;
 
-import com.method5.jot.rpc.PolkadotRpcClient;
+import com.method5.jot.query.ChainRpc;
+import com.method5.jot.query.SystemRpc;
+import com.method5.jot.rpc.PolkadotWsClient;
+import com.method5.jot.util.HexUtil;
 
 public class HelloPolkadot {
     public static void main(String[] args) throws Exception {
-        try (PolkadotRpcClient rpc = new PolkadotRpcClient("wss://rpc.polkadot.io")) {
-            System.out.println("Connected to chain: " + SystemRpc.chain(client));
-            System.out.println("Genesis hash: " + ChainRpc.getGenesisBlockHash(client));
+        try (PolkadotWsClient rpc = new PolkadotWsClient("wss://polkadot.api.onfinality.io/public-ws")) {
+            System.out.println("Connected to chain: " + SystemRpc.chain(rpc));
+            System.out.println("Genesis hash: " + HexUtil.bytesToHex(ChainRpc.getGenesisBlockHash(rpc)));
         }
     }
 }

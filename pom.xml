@@ -98,7 +98,7 @@
             <configuration>
               <publishingServerId>central</publishingServerId>
               <autoPublish>true</autoPublish>
-              <waitUntil>validated</waitUntil>
+              <waitUntil>uploaded</waitUntil>
             </configuration>
           </plugin>
         </plugins>

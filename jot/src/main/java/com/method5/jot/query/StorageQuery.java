@@ -1,11 +1,11 @@
 package com.method5.jot.query;
 
+import com.method5.jot.crypto.Hasher;
 import com.method5.jot.events.EventParser;
 import com.method5.jot.events.EventRecord;
 import com.method5.jot.query.model.AccountId;
 import com.method5.jot.query.model.AccountInfo;
 import com.method5.jot.rpc.PolkadotClient;
-import com.method5.jot.crypto.Hasher;
 import com.method5.jot.scale.ScaleReader;
 import com.method5.jot.scale.ScaleWriter;
 import com.method5.jot.util.HexUtil;

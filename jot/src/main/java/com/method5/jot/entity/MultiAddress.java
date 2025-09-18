@@ -1,9 +1,9 @@
 package com.method5.jot.entity;
 
-import com.method5.jot.wallet.SS58;
 import com.method5.jot.query.model.AccountId;
 import com.method5.jot.scale.ScaleReader;
 import com.method5.jot.util.HexUtil;
+import com.method5.jot.wallet.SS58;
 
 /**
  * MultiAddress — class for multi address in the Jot SDK. Provides types and data models; SS58

@@ -1,8 +1,8 @@
 package com.method5.jot.query;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.method5.jot.query.model.BlockHeader;
 import com.method5.jot.query.model.SignedBlock;
 import com.method5.jot.rpc.PolkadotClient;

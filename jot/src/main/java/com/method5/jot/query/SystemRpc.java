@@ -4,10 +4,10 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
-import com.method5.jot.rpc.PolkadotClient;
 import com.method5.jot.query.model.ChainType;
 import com.method5.jot.query.model.SystemHealth;
 import com.method5.jot.query.model.SystemProperties;
+import com.method5.jot.rpc.PolkadotClient;
 
 import java.math.BigInteger;
 

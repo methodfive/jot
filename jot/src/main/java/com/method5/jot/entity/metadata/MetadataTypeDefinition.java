@@ -1,9 +1,9 @@
 package com.method5.jot.entity.metadata;
 
-import com.method5.jot.entity.variant.*;
-import com.method5.jot.scale.ScaleReader;
 import com.method5.jot.entity.PrimitiveType;
 import com.method5.jot.entity.VariantType;
+import com.method5.jot.entity.variant.*;
+import com.method5.jot.scale.ScaleReader;
 
 import java.util.ArrayList;
 import java.util.List;

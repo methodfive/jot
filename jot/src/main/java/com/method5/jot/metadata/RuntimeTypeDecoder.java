@@ -1,13 +1,16 @@
 package com.method5.jot.metadata;
 
+import com.method5.jot.entity.PrimitiveType;
 import com.method5.jot.entity.metadata.MetadataType;
 import com.method5.jot.entity.metadata.MetadataTypeField;
 import com.method5.jot.entity.metadata.MetadataTypeVariants;
 import com.method5.jot.entity.variant.*;
 import com.method5.jot.scale.ScaleReader;
-import com.method5.jot.entity.PrimitiveType;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * RuntimeTypeDecoder — class for runtime type decoder in the Jot SDK. Provides runtime metadata

@@ -1,10 +1,10 @@
 package com.method5.jot.extrinsic.call;
 
+import com.method5.jot.entity.MultiAddress;
+import com.method5.jot.entity.RewardDestination;
 import com.method5.jot.metadata.CallIndexResolver;
 import com.method5.jot.query.model.AccountId;
 import com.method5.jot.scale.ScaleWriter;
-import com.method5.jot.entity.MultiAddress;
-import com.method5.jot.entity.RewardDestination;
 import com.method5.jot.util.UnitConverter;
 
 import java.math.BigDecimal;

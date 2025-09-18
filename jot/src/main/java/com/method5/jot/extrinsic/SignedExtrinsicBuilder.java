@@ -1,11 +1,11 @@
 package com.method5.jot.extrinsic;
 
+import com.method5.jot.entity.Mortality;
+import com.method5.jot.entity.MultiAddress;
+import com.method5.jot.entity.MultiSignature;
 import com.method5.jot.scale.ScaleWriter;
 import com.method5.jot.signing.SigningProvider;
 import com.method5.jot.util.HexUtil;
-import com.method5.jot.entity.MultiAddress;
-import com.method5.jot.entity.MultiSignature;
-import com.method5.jot.entity.Mortality;
 
 import java.math.BigInteger;
 

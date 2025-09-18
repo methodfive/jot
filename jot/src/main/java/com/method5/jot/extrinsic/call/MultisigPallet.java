@@ -1,12 +1,12 @@
 package com.method5.jot.extrinsic.call;
 
 import com.method5.jot.crypto.Hasher;
+import com.method5.jot.entity.Timepoint;
+import com.method5.jot.entity.Weight;
 import com.method5.jot.metadata.CallIndexResolver;
 import com.method5.jot.query.model.AccountId;
 import com.method5.jot.scale.ScaleWriter;
 import com.method5.jot.util.HexUtil;
-import com.method5.jot.entity.Timepoint;
-import com.method5.jot.entity.Weight;
 
 import java.util.ArrayList;
 import java.util.Comparator;

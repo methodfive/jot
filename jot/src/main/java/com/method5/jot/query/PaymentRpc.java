@@ -3,9 +3,9 @@ package com.method5.jot.query;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.method5.jot.rpc.PolkadotClient;
-import com.method5.jot.query.model.FeeInfo;
 import com.method5.jot.entity.Weight;
+import com.method5.jot.query.model.FeeInfo;
+import com.method5.jot.rpc.PolkadotClient;
 
 import java.math.BigInteger;
 

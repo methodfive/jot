@@ -1,6 +1,7 @@
 package com.method5.jot.crypto;
 
-import org.bouncycastle.crypto.params.*;
+import org.bouncycastle.crypto.params.Ed25519PrivateKeyParameters;
+import org.bouncycastle.crypto.params.Ed25519PublicKeyParameters;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 import java.math.BigInteger;

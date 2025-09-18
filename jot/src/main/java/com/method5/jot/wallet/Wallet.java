@@ -1,7 +1,7 @@
 package com.method5.jot.wallet;
 
-import com.method5.jot.crypto.Sr25519;
 import com.method5.jot.crypto.Ed25519;
+import com.method5.jot.crypto.Sr25519;
 import com.method5.jot.signing.Ed25519Signer;
 import com.method5.jot.signing.SigningProvider;
 import com.method5.jot.signing.Sr25519Signer;

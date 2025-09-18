@@ -1,9 +1,9 @@
 package com.method5.jot.metadata;
 
-import com.method5.jot.entity.metadata.MetadataV14;
 import com.method5.jot.entity.metadata.MetadataPallet;
 import com.method5.jot.entity.metadata.MetadataType;
 import com.method5.jot.entity.metadata.MetadataTypeVariants;
+import com.method5.jot.entity.metadata.MetadataV14;
 
 import java.util.ArrayList;
 import java.util.HashMap;

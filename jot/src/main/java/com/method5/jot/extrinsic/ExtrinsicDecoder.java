@@ -1,12 +1,12 @@
 package com.method5.jot.extrinsic;
 
+import com.method5.jot.entity.Extrinsic;
+import com.method5.jot.entity.Mortality;
+import com.method5.jot.entity.MultiAddress;
+import com.method5.jot.entity.MultiSignature;
 import com.method5.jot.entity.metadata.MetadataV14;
 import com.method5.jot.metadata.RuntimeTypeDecoder;
 import com.method5.jot.scale.ScaleReader;
-import com.method5.jot.entity.Extrinsic;
-import com.method5.jot.entity.MultiSignature;
-import com.method5.jot.entity.Mortality;
-import com.method5.jot.entity.MultiAddress;
 
 /**
  * ExtrinsicDecoder — class for extrinsic decoder in the Jot SDK. Provides key management and

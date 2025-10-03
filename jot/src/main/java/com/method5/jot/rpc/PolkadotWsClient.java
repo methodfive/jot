@@ -186,8 +186,7 @@ public class PolkadotWsClient extends PolkadotClient implements AutoCloseable {
                     if(client != null) {
                         client.sendPing();
                     }
-                } catch (Exception e) {
-                    System.err.println("Failed to send ping: " + e.getMessage());
+                } catch (Exception ignored) {
                 }
             }
         }, 0, 5000);

@@ -158,8 +158,42 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-dependency-plugin</artifactId>
         <version>3.6.1</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>properties</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
-
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>3.5.4</version>
+        <configuration>
+          <argLine>@{argLine} -javaagent:${org.mockito:mockito-core:jar} -Xshare:off -Dslf4j.internal.verbosity=WARN --enable-native-access=ALL-UNNAMED -XX:+EnableDynamicAgentLoading</argLine>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>0.8.13</version>
+        <executions>
+          <execution>
+            <id>prepare-agent</id>
+            <goals>
+              <goal>prepare-agent</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>report</id>
+            <phase>prepare-package</phase>
+            <goals>
+              <goal>report</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
       <plugin>
         <groupId>org.questdb</groupId>
         <artifactId>rust-maven-plugin</artifactId>
@@ -222,19 +256,34 @@
 
                 <mkdir dir="${project.build.outputDirectory}/lib"/>
 
-                <echo message="classifier:${classifier}"/>
+                <echo level="info" message="classifier:${classifier}"/>
 
-                <move failonerror="false"
-                      file="${project.build.outputDirectory}/lib/libjot_sr25519.so"
-                      tofile="${project.build.outputDirectory}/lib/libjot_sr25519-${classifier}.so"/>
+                <move todir="${project.build.outputDirectory}/lib">
+                  <fileset dir="${project.build.outputDirectory}/lib">
+                    <include name="libjot_sr25519.so"/>
+                  </fileset>
+                  <mapper type="glob"
+                          from="libjot_sr25519.so"
+                          to="libjot_sr25519-${classifier}.so"/>
+                </move>
 
-                <move failonerror="false"
-                      file="${project.build.outputDirectory}/lib/libjot_sr25519.dylib"
-                      tofile="${project.build.outputDirectory}/lib/libjot_sr25519-${classifier}.dylib"/>
+                <move todir="${project.build.outputDirectory}/lib">
+                  <fileset dir="${project.build.outputDirectory}/lib">
+                    <include name="libjot_sr25519.dylib"/>
+                  </fileset>
+                  <mapper type="glob"
+                          from="libjot_sr25519.dylib"
+                          to="libjot_sr25519-${classifier}.dylib"/>
+                </move>
 
-                <move failonerror="false"
-                      file="${project.build.outputDirectory}/lib/jot_sr25519.dll"
-                      tofile="${project.build.outputDirectory}/lib/jot_sr25519-${classifier}.dll"/>
+                <move todir="${project.build.outputDirectory}/lib">
+                  <fileset dir="${project.build.outputDirectory}/lib">
+                    <include name="jot_sr25519.dll"/>
+                  </fileset>
+                  <mapper type="glob"
+                          from="jot_sr25519.dll"
+                          to="jot_sr25519-${classifier}.dll"/>
+                </move>
               </target>
             </configuration>
             <goals><goal>run</goal></goals>
@@ -279,6 +328,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
+        <version>3.5.0</version>
         <executions>
           <execution>
             <id>attach-javadocs</id>
@@ -328,6 +378,16 @@
       <version>2.17.1</version>
     </dependency>
     <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>2.0.15</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-simple</artifactId>
+      <version>2.0.15</version>
+    </dependency>
+    <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter</artifactId>
       <version>5.10.2</version>
@@ -336,7 +396,7 @@
     <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-core</artifactId>
-      <version>5.12.0</version>
+      <version>5.20.0</version>
       <scope>test</scope>
     </dependency>
   </dependencies>

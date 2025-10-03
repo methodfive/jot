@@ -34,6 +34,8 @@
 
 Requires **Java 21+** and **Maven** or **Gradle**.
 
+(If you want to build Jot from source, see [Build from Source](#️-build-from-source) at the bottom.)
+
 ### Import via Maven
 
 ```xml
@@ -175,6 +177,30 @@ if (!result.isSuccess()) {
 👉 API reference: [Javadoc](https://methodfive.github.io/jot/api/index.html).  
 
 👉 See [jot-examples](https://github.com/methodfive/jot/tree/main/jot-examples/src/main/java/com/method5/jot/examples) module for 50+ ready to run examples.
+
+---
+
+## 🛠️ Building Jot from Source
+
+If you want to build Jot from source, you’ll need:
+
+- Java 21+
+- Maven 3.9+
+- [Rust 1.81.0+](https://www.rust-lang.org/tools/install) (required for SR25519 support)
+
+> ⚠️ After installing Rust, make sure your environment is configured by sourcing `~/.cargo/env`:
+> ```bash
+> source ~/.cargo/env
+> ```
+
+Building Jot:
+
+```bash
+# (Optional) make sure the build script is executable
+chmod 755 ./build.sh
+
+./build.sh
+```
 
 ---
 

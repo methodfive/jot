@@ -16,6 +16,8 @@ import com.method5.jot.util.HexUtil;
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.exceptions.WebsocketNotConnectedException;
 import org.java_websocket.handshake.ServerHandshake;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -28,6 +30,7 @@ import java.util.function.Consumer;
  * integration; key management and signing; WebSocket subscriptions.
  */
 public class PolkadotWsClient extends PolkadotClient implements AutoCloseable {
+    private static Logger logger = LoggerFactory.getLogger(PolkadotWsClient.class);
     private final Map<String, Consumer<JsonNode>> responseHandlers = new ConcurrentHashMap<>();
     private final Map<String, Consumer<JsonNode>> subscriptionHandlers = new ConcurrentHashMap<>();
 
@@ -148,7 +151,7 @@ public class PolkadotWsClient extends PolkadotClient implements AutoCloseable {
                         if (handler != null) {
                             handler.accept(response);
                         } else {
-                            System.err.println("No handler found for id: " + id);
+                            logger.error("No handler found for id: " + id);
                         }
                     } else if (response.has("method") && response.has("params")) {
                         JsonNode params = response.get("params");
@@ -158,12 +161,12 @@ public class PolkadotWsClient extends PolkadotClient implements AutoCloseable {
                             if (subHandler != null) {
                                 subHandler.accept(params.get("result"));
                             } else {
-                                System.err.println("No handler found for subscription: " + subscriptionId);
+                                logger.error("No handler found for subscription: " + subscriptionId);
                             }
                         }
                     }
                 } catch (Exception e) {
-                    System.err.println("OnMessage failed:" + e.getMessage());
+                    logger.error("OnMessage failed:" + e.getMessage());
                 }
             }
 
@@ -205,7 +208,7 @@ public class PolkadotWsClient extends PolkadotClient implements AutoCloseable {
                 subscriptionHandlers.put(subscriptionId, onSubscriptionUpdate);
                 future.complete(subscriptionId);
             } else {
-                System.err.println("Subscription failed: " + initialResponse);
+                logger.error("Subscription failed: " + initialResponse);
             }
         });
 

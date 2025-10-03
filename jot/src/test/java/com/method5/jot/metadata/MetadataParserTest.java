@@ -4,6 +4,8 @@ import com.method5.jot.entity.metadata.MetadataV14;
 import com.method5.jot.util.HexUtil;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -12,6 +14,8 @@ import java.nio.file.Paths;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class MetadataParserTest {
+    private static Logger logger = LoggerFactory.getLogger(MetadataParserTest.class);
+
     private static byte[] metadata;
 
     @BeforeAll
@@ -42,8 +46,8 @@ public class MetadataParserTest {
         assertEquals(2, transferIndex.length, "Call index should be 2 bytes");
         assertEquals(2, remarkIndex.length, "Call index should be 2 bytes");
 
-        System.out.printf("Balances.transfer = [%02X, %02X]%n", transferIndex[0], transferIndex[1]);
-        System.out.printf("System.remark = [%02X, %02X]%n", remarkIndex[0], remarkIndex[1]);
+        logger.info("Balances.transfer = [{}, {}]%n", transferIndex[0], transferIndex[1]);
+        logger.info("System.remark = [{}, {}]%n", remarkIndex[0], remarkIndex[1]);
     }
 
     @Test

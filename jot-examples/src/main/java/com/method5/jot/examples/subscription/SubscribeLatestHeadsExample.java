@@ -5,11 +5,15 @@ import com.method5.jot.rpc.PolkadotWsClient;
 import com.method5.jot.rpc.Subscription;
 import com.method5.jot.rpc.SubscriptionType;
 import com.method5.jot.examples.ExampleConstants;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 public class SubscribeLatestHeadsExample {
+    private static final Logger logger = LoggerFactory.getLogger(SubscribeLatestHeadsExample.class);
+
     public static void main(String[] args) throws Exception {
         try (PolkadotWsClient client = new PolkadotWsClient(new String[] { ExampleConstants.WSS_RPC_SERVER }, 1000)) {
             Thread.sleep(100);
@@ -21,7 +25,7 @@ public class SubscribeLatestHeadsExample {
                     SubscriptionType.LATEST_HEAD,
                     client,
                     header -> {
-                        System.out.println("New head: " + header);
+                        logger.info("New head: {}", header);
                         latch.countDown();
                     }
             );

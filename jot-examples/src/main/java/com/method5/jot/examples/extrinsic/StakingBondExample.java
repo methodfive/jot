@@ -7,10 +7,14 @@ import com.method5.jot.examples.ExampleConstants;
 import com.method5.jot.extrinsic.ExtrinsicSigner;
 import com.method5.jot.extrinsic.call.StakingPallet;
 import com.method5.jot.entity.RewardDestination;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
 
 public class StakingBondExample {
+    private static final Logger logger = LoggerFactory.getLogger(StakingBondExample.class);
+
     public static void main(String[] args) throws Exception {
         // Load (or generate) new wallet
         Wallet wallet = Wallet.generate();
@@ -33,7 +37,7 @@ public class StakingBondExample {
             // Submit extrinsic to RPC
             String hash = AuthorRpc.submitExtrinsic(client, extrinsic);
 
-            System.out.println("Extrinsic hash: " + hash);
+            logger.info("Extrinsic hash: {}", hash);
         }
     }
 }

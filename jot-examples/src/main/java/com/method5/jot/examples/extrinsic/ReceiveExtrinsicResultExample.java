@@ -7,10 +7,14 @@ import com.method5.jot.extrinsic.call.BalancesPallet;
 import com.method5.jot.query.model.AccountId;
 import com.method5.jot.rpc.PolkadotWsClient;
 import com.method5.jot.wallet.Wallet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
 
 public class ReceiveExtrinsicResultExample {
+    private static final Logger logger = LoggerFactory.getLogger(ReceiveExtrinsicResultExample.class);
+
     public static void main(String[] args) throws Exception {
         // Load (or generate) new wallet
         Wallet wallet = Wallet.generate();
@@ -34,14 +38,14 @@ public class ReceiveExtrinsicResultExample {
             ExtrinsicResult result = client.submitAndWaitForExtrinsic(extrinsic, PolkadotWsClient.Confirmation.BEST, 10000);
 
             // Result
-            System.out.println("Successful: " + result.isSuccess());
+            logger.info("Successful: {}", result.isSuccess());
 
             // Individual events related to extrinsic
-            System.out.println("Events: " + result.getEvents());
+            logger.info("Events: {}", result.getEvents());
 
             // Failure reason (if it failed)
             if (!result.isSuccess()) {
-                System.err.println("Failed because: " + result.getError().toHuman());
+                logger.error("Failed because: {}", result.getError().toHuman());
             }
         }
     }

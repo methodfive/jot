@@ -8,12 +8,16 @@ import com.method5.jot.examples.ExampleConstants;
 import com.method5.jot.extrinsic.call.BalancesPallet;
 import com.method5.jot.extrinsic.ExtrinsicSigner;
 import com.method5.jot.extrinsic.call.UtilityPallet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UtilityBatchExample {
+    private static final Logger logger = LoggerFactory.getLogger(UtilityBatchExample.class);
+
     public static void main(String[] args) throws Exception {
         // Load (or generate) new wallet
         Wallet wallet = Wallet.generate();
@@ -45,7 +49,7 @@ public class UtilityBatchExample {
             // Submit extrinsic to RPC
             String hash = AuthorRpc.submitExtrinsic(client, extrinsic);
 
-            System.out.println("Extrinsic hash: " + hash);
+            logger.info("Extrinsic hash: {}", hash);
         }
     }
 }

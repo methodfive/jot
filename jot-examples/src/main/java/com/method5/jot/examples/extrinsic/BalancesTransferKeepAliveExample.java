@@ -7,10 +7,14 @@ import com.method5.jot.wallet.Wallet;
 import com.method5.jot.examples.ExampleConstants;
 import com.method5.jot.extrinsic.call.BalancesPallet;
 import com.method5.jot.extrinsic.ExtrinsicSigner;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
 
 public class BalancesTransferKeepAliveExample {
+    private static final Logger logger = LoggerFactory.getLogger(BalancesTransferKeepAliveExample.class);
+
     public static void main(String[] args) throws Exception {
         // Load (or generate) new wallet
         Wallet wallet = Wallet.generate();
@@ -33,7 +37,7 @@ public class BalancesTransferKeepAliveExample {
             // Submit extrinsic to RPC
             String hash = AuthorRpc.submitExtrinsic(client, extrinsic);
 
-            System.out.println("Extrinsic hash: " + hash);
+            logger.info("Extrinsic hash: {}", hash);
         }
     }
 }

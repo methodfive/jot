@@ -8,10 +8,14 @@ import com.method5.jot.extrinsic.ExtrinsicSigner;
 import com.method5.jot.extrinsic.call.SystemPallet;
 import com.method5.jot.query.model.FeeInfo;
 import com.method5.jot.query.PaymentRpc;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.nio.charset.StandardCharsets;
 
 public class QueryFeeInfoExample {
+    private static final Logger logger = LoggerFactory.getLogger(QueryFeeInfoExample.class);
+
     public static void main(String[] args) throws Exception {
         // Load (or generate) new wallet
         Wallet wallet = Wallet.generate();
@@ -33,9 +37,9 @@ public class QueryFeeInfoExample {
             // Query fee info for extrinsic
             FeeInfo feeInfo = PaymentRpc.queryInfo(client, "0x"+HexUtil.bytesToHex(extrinsic));
 
-            System.out.println("Weight (ref_time): " + feeInfo.getWeight().refTime());
-            System.out.println("Weight (proof_size): " + feeInfo.getWeight().proofSize());
-            System.out.println("Partial Fee: " + feeInfo.getPartialFee());
+            logger.info("Weight (ref_time): {}", feeInfo.getWeight().refTime());
+            logger.info("Weight (proof_size): {}", feeInfo.getWeight().proofSize());
+            logger.info("Partial Fee: {}", feeInfo.getPartialFee());
         }
     }
 }

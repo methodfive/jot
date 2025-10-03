@@ -6,8 +6,12 @@ import com.method5.jot.extrinsic.ExtrinsicDecoder;
 import com.method5.jot.rpc.PolkadotRpcClient;
 import com.method5.jot.util.HexUtil;
 import com.method5.jot.examples.ExampleConstants;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ParsingExtrinsicExample {
+    private static final Logger logger = LoggerFactory.getLogger(ParsingExtrinsicExample.class);
+
     public static void main(String[] args) {
         MetadataV14 metadata;
         try (PolkadotRpcClient client = new PolkadotRpcClient(new String[] { ExampleConstants.RPC_SERVER }, 10000)) {
@@ -20,6 +24,6 @@ public class ParsingExtrinsicExample {
         // Parse extrinsic
         Extrinsic extrinsic = ExtrinsicDecoder.decode(HexUtil.hexToBytes(extrinsicHex), metadata);
 
-        System.out.println(extrinsic);
+        logger.info(extrinsic.toString());
     }
 }

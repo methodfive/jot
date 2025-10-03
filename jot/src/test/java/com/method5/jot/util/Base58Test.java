@@ -2,6 +2,8 @@ package com.method5.jot.util;
 
 import com.method5.jot.crypto.Hasher;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.security.SecureRandom;
 import java.util.Arrays;
@@ -10,6 +12,8 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class Base58Test {
+    private static Logger logger = LoggerFactory.getLogger(Base58Test.class);
+
     @Test
     public void testBase58RoundTripSS58Format() {
         byte[] publicKey = new byte[32];
@@ -28,9 +32,9 @@ public class Base58Test {
         String encoded = Base58.encode(full);
         byte[] decoded = Base58.decode(encoded);
 
-        System.out.println("Original: " + Arrays.toString(full));
-        System.out.println("Decoded : " + Arrays.toString(decoded));
-        System.out.println("Length  : " + decoded.length);
+        logger.info("Original: " + Arrays.toString(full));
+        logger.info("Decoded : " + Arrays.toString(decoded));
+        logger.info("Length  : " + decoded.length);
 
         assertEquals(35, decoded.length, "Decoded length must be 35 bytes");
         assertArrayEquals(full, decoded, "Base58 round-trip failed");

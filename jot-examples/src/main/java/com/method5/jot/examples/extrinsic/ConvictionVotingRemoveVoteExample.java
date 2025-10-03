@@ -6,8 +6,12 @@ import com.method5.jot.query.AuthorRpc;
 import com.method5.jot.rpc.PolkadotRpcClient;
 import com.method5.jot.wallet.Wallet;
 import com.method5.jot.examples.ExampleConstants;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ConvictionVotingRemoveVoteExample {
+    private static final Logger logger = LoggerFactory.getLogger(ConvictionVotingRemoveVoteExample.class);
+
     public static void main(String[] args) throws Exception {
         // Load (or generate) new wallet
         Wallet wallet = Wallet.generate();
@@ -30,7 +34,7 @@ public class ConvictionVotingRemoveVoteExample {
             // Submit extrinsic to RPC
             String hash = AuthorRpc.submitExtrinsic(client, extrinsic);
 
-            System.out.println("Extrinsic hash: " + hash);
+            logger.info("Extrinsic hash: {}", hash);
         }
     }
 }

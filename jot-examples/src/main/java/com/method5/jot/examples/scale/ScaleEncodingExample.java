@@ -2,10 +2,15 @@ package com.method5.jot.examples.scale;
 
 import com.method5.jot.scale.ScaleReader;
 import com.method5.jot.scale.ScaleWriter;
+import com.method5.jot.util.HexUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.math.BigInteger;
 
 public class ScaleEncodingExample {
+    private static final Logger logger = LoggerFactory.getLogger(ScaleEncodingExample.class);
+
     public static void main(String[] args) {
         // Encode example
         ScaleWriter scaleWriter = new ScaleWriter();
@@ -15,10 +20,15 @@ public class ScaleEncodingExample {
 
         byte[] encodingResult = scaleWriter.toByteArray();
 
+        logger.info("Encoded: {}", HexUtil.bytesToHex(encodingResult));
+
         // Decode example
         ScaleReader scaleReader = new ScaleReader(encodingResult);
         int intValue = scaleReader.readInt();
         BigInteger compactValue = scaleReader.readCompact();
         String stringValue = scaleReader.readString();
+
+        logger.info("Decoded: {}, {}, {}", intValue, compactValue, stringValue);
+
     }
 }

@@ -9,6 +9,8 @@ import com.method5.jot.extrinsic.ExtrinsicSigner;
 import com.method5.jot.extrinsic.call.MultisigPallet;
 import com.method5.jot.extrinsic.call.SystemPallet;
 import com.method5.jot.entity.Weight;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
@@ -16,6 +18,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class MultisigAsMultiExample {
+    private static final Logger logger = LoggerFactory.getLogger(MultisigAsMultiExample.class);
+
     public static void main(String[] args) throws Exception {
         // Load (or generate) new wallet
         Wallet wallet = Wallet.generate();
@@ -52,7 +56,7 @@ public class MultisigAsMultiExample {
             // Submit extrinsic to RPC
             String hash = AuthorRpc.submitExtrinsic(client, extrinsic);
 
-            java.lang.System.out.println("Extrinsic hash: " + hash);
+            logger.info("Extrinsic hash: {}", hash);
         }
     }
 }

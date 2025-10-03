@@ -46,8 +46,8 @@ public class MetadataParserTest {
         assertEquals(2, transferIndex.length, "Call index should be 2 bytes");
         assertEquals(2, remarkIndex.length, "Call index should be 2 bytes");
 
-        logger.info("Balances.transfer = [{}, {}]%n", transferIndex[0], transferIndex[1]);
-        logger.info("System.remark = [{}, {}]%n", remarkIndex[0], remarkIndex[1]);
+        logger.info("Balances.transfer = [{}, {}]", transferIndex[0], transferIndex[1]);
+        logger.info("System.remark = [{}, {}]", remarkIndex[0], remarkIndex[1]);
     }
 
     @Test

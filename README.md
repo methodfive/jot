@@ -34,7 +34,7 @@
 
 Requires **Java 21+** and **Maven** or **Gradle**.
 
-(If you want to build Jot from source, see [Build from Source](#️-build-from-source) at the bottom.)
+(If you want to build Jot from source, see [Building Jot from Source](#%EF%B8%8F-building-jot-from-source).)
 
 ### Import via Maven
 

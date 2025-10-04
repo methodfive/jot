@@ -5,7 +5,8 @@ import com.method5.jot.util.NativeLibLoader;
 /**
  * Sr25519 — class for sr 25519 in the Jot SDK. Provides key management and signing.
  */
-public class Sr25519 {
+public final class Sr25519 {
+    private Sr25519() {}
     private static volatile boolean initialized = false;
 
     private static synchronized void ensureLoaded() {

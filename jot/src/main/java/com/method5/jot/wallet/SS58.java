@@ -11,6 +11,8 @@ import java.util.Arrays;
  */
 public class SS58 {
     private static final byte[] SS58_PREFIX = "SS58PRE".getBytes();
+    
+    private SS58() {}
 
     public static String encode(byte[] publicKey, int prefix) {
         if (publicKey.length != 32) {

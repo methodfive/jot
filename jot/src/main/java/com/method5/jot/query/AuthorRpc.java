@@ -9,7 +9,8 @@ import com.method5.jot.util.HexUtil;
 /**
  * AuthorRpc — class for author rpc in the Jot SDK. Provides RPC client / JSON‑RPC integration.
  */
-public class AuthorRpc {
+public final class AuthorRpc {
+    private AuthorRpc() {}
     private static final ObjectMapper mapper = new ObjectMapper();
 
     public static String submitExtrinsic(PolkadotClient client, byte[] extrinsic) throws Exception {

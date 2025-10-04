@@ -16,7 +16,9 @@ import java.util.List;
  * MultisigPallet — class for multisig pallet in the Jot SDK. Provides key management and signing;
  * extrinsic construction and submission; pallet call builders.
  */
-public class MultisigPallet {
+public final class MultisigPallet {
+    private MultisigPallet() {}
+
     public static byte[] approveAsMulti(
             CallIndexResolver resolver,
             int threshold,

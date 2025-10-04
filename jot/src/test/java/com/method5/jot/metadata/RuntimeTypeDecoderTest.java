@@ -7,6 +7,8 @@ import com.method5.jot.entity.metadata.MetadataTypeVariants;
 import com.method5.jot.entity.variant.*;
 import com.method5.jot.scale.ScaleReader;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.math.BigInteger;
 import java.util.List;
@@ -17,6 +19,8 @@ import static org.mockito.Mockito.*;
 
 @SuppressWarnings("unchecked")
 class RuntimeTypeDecoderTest {
+    private static final Logger logger = LoggerFactory.getLogger(RuntimeTypeDecoderTest.class);
+
     private static MetadataType primitive(int id, PrimitiveType type) {
         return new MetadataType(id, new Primitive(type));
     }
@@ -47,6 +51,102 @@ class RuntimeTypeDecoderTest {
 
         Object result = decoder.decodeValue(1, reader);
         assertEquals((byte) 42, result);
+    }
+
+    @Test
+    void testDecodePrimitiveU16() {
+        ScaleReader reader = mock(ScaleReader.class);
+        when(reader.readU16()).thenReturn(42);
+
+        MetadataType type = primitive(1, PrimitiveType.U16);
+        RuntimeTypeDecoder decoder = new RuntimeTypeDecoder(List.of(type));
+
+        Object result = decoder.decodeValue(1, reader);
+        assertEquals(42, result);
+    }
+
+    @Test
+    void testDecodePrimitiveU64() {
+        ScaleReader reader = mock(ScaleReader.class);
+        when(reader.readU64()).thenReturn((long)42);
+
+        MetadataType type = primitive(1, PrimitiveType.U64);
+        RuntimeTypeDecoder decoder = new RuntimeTypeDecoder(List.of(type));
+
+        Object result = decoder.decodeValue(1, reader);
+        assertEquals((long)42, result);
+    }
+
+    @Test
+    void testDecodePrimitiveU128() {
+        ScaleReader reader = mock(ScaleReader.class);
+        when(reader.readU128()).thenReturn(BigInteger.valueOf(42));
+
+        MetadataType type = primitive(1, PrimitiveType.U128);
+        RuntimeTypeDecoder decoder = new RuntimeTypeDecoder(List.of(type));
+
+        Object result = decoder.decodeValue(1, reader);
+        assertEquals(BigInteger.valueOf(42), result);
+    }
+
+    @Test
+    void testDecodePrimitiveU256() {
+        ScaleReader reader = mock(ScaleReader.class);
+        when(reader.readU256()).thenReturn(BigInteger.valueOf(42));
+
+        MetadataType type = primitive(1, PrimitiveType.U256);
+        RuntimeTypeDecoder decoder = new RuntimeTypeDecoder(List.of(type));
+
+        Object result = decoder.decodeValue(1, reader);
+        assertEquals(BigInteger.valueOf(42), result);
+    }
+
+    @Test
+    void testDecodePrimitiveI64() {
+        ScaleReader reader = mock(ScaleReader.class);
+        when(reader.readI64()).thenReturn((long)42);
+
+        MetadataType type = primitive(1, PrimitiveType.I64);
+        RuntimeTypeDecoder decoder = new RuntimeTypeDecoder(List.of(type));
+
+        Object result = decoder.decodeValue(1, reader);
+        assertEquals((long)42, result);
+    }
+
+    @Test
+    void testDecodePrimitiveI128() {
+        ScaleReader reader = mock(ScaleReader.class);
+        when(reader.readI128()).thenReturn(BigInteger.valueOf(42));
+
+        MetadataType type = primitive(1, PrimitiveType.I128);
+        RuntimeTypeDecoder decoder = new RuntimeTypeDecoder(List.of(type));
+
+        Object result = decoder.decodeValue(1, reader);
+        assertEquals(BigInteger.valueOf(42), result);
+    }
+
+    @Test
+    void testDecodePrimitiveI256() {
+        ScaleReader reader = mock(ScaleReader.class);
+        when(reader.readI256()).thenReturn(BigInteger.valueOf(42));
+
+        MetadataType type = primitive(1, PrimitiveType.I256);
+        RuntimeTypeDecoder decoder = new RuntimeTypeDecoder(List.of(type));
+
+        Object result = decoder.decodeValue(1, reader);
+        assertEquals(BigInteger.valueOf(42), result);
+    }
+
+    @Test
+    void testDecodeChar() {
+        ScaleReader reader = mock(ScaleReader.class);
+        when(reader.readChar()).thenReturn('B');
+
+        MetadataType type = primitive(1, PrimitiveType.CHAR);
+        RuntimeTypeDecoder decoder = new RuntimeTypeDecoder(List.of(type));
+
+        Object result = decoder.decodeValue(1, reader);
+        assertEquals('B', result);
     }
 
     @Test
@@ -163,5 +263,20 @@ class RuntimeTypeDecoderTest {
         assertThrows(UnsupportedOperationException.class, () ->
                 decoder.decodeValue(1, mock(ScaleReader.class))
         );
+    }
+
+    @Test
+    void testTypeAndValueCreation() {
+        RuntimeTypeDecoder.TypeAndValue typeAndValue = new RuntimeTypeDecoder.TypeAndValue(0, null);
+        assertEquals(0, typeAndValue.getType());
+        assertNull(typeAndValue.getValue());
+
+        typeAndValue.setType(1);
+        typeAndValue.setValue("test");
+
+        assertEquals(1, typeAndValue.getType());
+        assertEquals("test", typeAndValue.getValue());
+
+        logger.info(typeAndValue.toString());
     }
 }

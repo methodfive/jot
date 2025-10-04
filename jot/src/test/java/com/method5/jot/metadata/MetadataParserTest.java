@@ -14,7 +14,7 @@ import java.nio.file.Paths;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class MetadataParserTest {
-    private static Logger logger = LoggerFactory.getLogger(MetadataParserTest.class);
+    private static final Logger logger = LoggerFactory.getLogger(MetadataParserTest.class);
 
     private static byte[] metadata;
 

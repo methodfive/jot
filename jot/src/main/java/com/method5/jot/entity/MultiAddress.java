@@ -56,11 +56,4 @@ public class MultiAddress {
     public void setAddress(String address) {
         this.address = address;
     }
-
-    @Override
-    public String toString() {
-        return "MultiAddress{" +
-                "address='" + address + '\'' +
-                '}';
-    }
 }

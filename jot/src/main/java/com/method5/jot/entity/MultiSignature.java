@@ -69,12 +69,4 @@ public class MultiSignature {
     public void setSignature(String signature) {
         this.signature = signature;
     }
-
-    @Override
-    public String toString() {
-        return "MultiSignature{" +
-                "type=" + type +
-                ", signature='" + signature + '\'' +
-                '}';
-    }
 }

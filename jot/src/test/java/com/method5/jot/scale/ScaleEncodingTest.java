@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.math.BigInteger;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ScaleEncodingTest {
     @Test
@@ -107,5 +107,34 @@ public class ScaleEncodingTest {
         char decoded = reader.readChar();
 
         assertEquals(original, decoded);
+    }
+
+    @Test
+    public void testReadRemaining() {
+        ScaleWriter writer = new ScaleWriter();
+        writer.writeCompact(BigInteger.valueOf(134566));
+
+        ScaleReader reader = new ScaleReader(writer.toByteArray());
+        byte[] data = reader.readRemaining();
+
+        assertArrayEquals(new byte[] {-102,54,8,0}, data);
+
+        reader = new ScaleReader(writer.toByteArray());
+        reader.readByte(); // discard one byte
+        data = reader.readRemaining();
+
+        assertArrayEquals(new byte[] {54,8,0}, data);
+    }
+
+    @Test
+    public void testReadTooManyBytes() {
+        ScaleReader reader = new ScaleReader(new byte[] { 1,2,3 });
+        assertThrows(Exception.class, () -> reader.readBytes(10));
+    }
+
+    @Test
+    public void testInvalidWrite() {
+        ScaleWriter writer = new ScaleWriter();
+        assertThrows(Exception.class, () -> writer.writeBytes(null));
     }
 }

@@ -44,7 +44,7 @@ public class ReceiveExtrinsicResultExample {
             logger.info("Events: {}", result.getEvents());
 
             // Failure reason (if it failed)
-            if (!result.isSuccess()) {
+            if (!result.isSuccess() && result.getError() != null) {
                 logger.error("Failed because: {}", result.getError().toHuman());
             }
         }

@@ -14,10 +14,12 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * EventParser — class for event parser in the Jot SDK. Provides key management and signing; event
- * parsing and dispatch errors.
+ * EventParser — class for event parser in the Jot SDK. Provides event
+ * parsing and dispatch error resolution.
  */
-public class EventParser {
+public final class EventParser {
+    private EventParser() {}
+
     public static List<EventRecord> parse(byte[] raw, MetadataV14 metadata, CallIndexResolver callIndexResolver) {
         ScaleReader reader = new ScaleReader(raw);
         BigInteger count = reader.readCompact();

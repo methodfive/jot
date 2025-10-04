@@ -19,12 +19,4 @@ public record Timepoint(int height, int index) {
         int index = reader.readInt();
         return new Timepoint(height, index);
     }
-
-    @Override
-    public String toString() {
-        return "Timepoint{" +
-                "height=" + height +
-                ", index=" + index +
-                '}';
-    }
 }

@@ -21,13 +21,5 @@ public record Weight(BigInteger refTime, BigInteger proofSize) {
         BigInteger proofSize = reader.readCompact();
         return new Weight(refTime, proofSize);
     }
-
-    @Override
-    public String toString() {
-        return "Weight{" +
-                "refTime=" + refTime +
-                ", proofSize=" + proofSize +
-                '}';
-    }
 }
 

@@ -14,7 +14,8 @@ import java.math.BigInteger;
 /**
  * SystemRpc — class for system rpc in the Jot SDK. Provides RPC client / JSON‑RPC integration.
  */
-public class SystemRpc {
+public final class SystemRpc {
+    private SystemRpc() {}
     private static final ObjectMapper mapper = new ObjectMapper();
 
     public static BigInteger accountNextIndex(PolkadotClient client, String address) throws Exception {

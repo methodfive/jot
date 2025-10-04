@@ -13,7 +13,9 @@ import java.math.BigInteger;
  * BalancesPallet — class for balances pallet in the Jot SDK. Provides extrinsic construction and
  * submission; pallet call builders.
  */
-public class BalancesPallet {
+public final class BalancesPallet {
+    private BalancesPallet() {}
+
     public static byte[] transferKeepAlive(CallIndexResolver resolver, AccountId accountId, BigDecimal amount) {
         return buildTransfer(resolver.resolveCallIndex("Balances", "transfer_keep_alive"), accountId, UnitConverter.toPlanck(amount));
     }

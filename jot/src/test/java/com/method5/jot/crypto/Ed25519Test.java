@@ -73,4 +73,20 @@ public class Ed25519Test {
         assertTrue(point.isXOdd());
         assertNotNull(point.getY());
     }
+
+    @Test
+    public void testVerifyBadKey() {
+        byte[] payload = HexUtil.hexToBytes("0102030405");
+
+        assertThrows(IllegalArgumentException.class, () -> Ed25519.verify(new byte[0], payload, new byte[0]));
+    }
+
+    @Test
+    public void testVerifyBadSignature() throws Exception {
+        byte[] payload = HexUtil.hexToBytes("0102030405");
+        KeyPair keyPair = Ed25519.generate().keyPair();
+        SigningProvider signer = new Ed25519Signer(keyPair);
+
+        assertThrows(IllegalArgumentException.class, () -> Ed25519.verify(signer.getPublicKey(), payload, new byte[0]));
+    }
 }

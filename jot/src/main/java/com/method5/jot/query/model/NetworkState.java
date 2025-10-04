@@ -3,7 +3,6 @@ package com.method5.jot.query.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.Arrays;
 import java.util.Map;
 
 /**
@@ -42,33 +41,12 @@ public class NetworkState {
             return enabled;
         }
 
-        public void setEnabled(boolean enabled) {
-            this.enabled = enabled;
-        }
-
         public String[] getKnownAddresses() {
             return knownAddresses;
         }
 
-        public void setKnownAddresses(String[] knownAddresses) {
-            this.knownAddresses = knownAddresses;
-        }
-
         public Long getLatestPingTime() {
             return latestPingTime;
-        }
-
-        public void setLatestPingTime(Long latestPingTime) {
-            this.latestPingTime = latestPingTime;
-        }
-
-        @Override
-        public String toString() {
-            return "PeerInfo{" +
-                    "enabled=" + enabled +
-                    ", knownAddresses=" + Arrays.toString(knownAddresses) +
-                    ", latestPingTime=" + latestPingTime +
-                    '}';
         }
     }
 
@@ -76,50 +54,19 @@ public class NetworkState {
         return peerId;
     }
 
-    public void setPeerId(String peerId) {
-        this.peerId = peerId;
-    }
-
     public Map<String, PeerInfo> getPeers() {
         return peers;
-    }
-
-    public void setPeers(Map<String, PeerInfo> peers) {
-        this.peers = peers;
     }
 
     public String[] getListenedAddresses() {
         return listenedAddresses;
     }
 
-    public void setListenedAddresses(String[] listenedAddresses) {
-        this.listenedAddresses = listenedAddresses;
-    }
-
     public String[] getExternalAddresses() {
         return externalAddresses;
     }
 
-    public void setExternalAddresses(String[] externalAddresses) {
-        this.externalAddresses = externalAddresses;
-    }
-
     public String[] getConnectedPeers() {
         return connectedPeers;
-    }
-
-    public void setConnectedPeers(String[] connectedPeers) {
-        this.connectedPeers = connectedPeers;
-    }
-
-    @Override
-    public String toString() {
-        return "NetworkState{" +
-                "peerId='" + peerId + '\'' +
-                ", peers=" + peers +
-                ", listenedAddresses=" + Arrays.toString(listenedAddresses) +
-                ", externalAddresses=" + Arrays.toString(externalAddresses) +
-                ", connectedPeers=" + Arrays.toString(connectedPeers) +
-                '}';
     }
 }

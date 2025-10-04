@@ -37,12 +37,4 @@ public enum VariantType {
         }
         throw new IllegalArgumentException("Unknown VariantType id: " + id);
     }
-
-    @Override
-    public String toString() {
-        return "VariantType{" +
-                "type=" + type +
-                ", name='" + name + '\'' +
-                '}';
-    }
 }

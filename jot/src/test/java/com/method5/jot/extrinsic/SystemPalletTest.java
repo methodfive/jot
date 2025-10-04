@@ -1,35 +1,21 @@
 package com.method5.jot.extrinsic;
 
 import com.method5.jot.TestBase;
-import com.method5.jot.extrinsic.call.BalancesPallet;
-import com.method5.jot.query.model.AccountId;
+import com.method5.jot.extrinsic.call.SystemPallet;
 import com.method5.jot.util.HexUtil;
 import org.junit.jupiter.api.Test;
 
-import java.math.BigDecimal;
+import java.nio.charset.StandardCharsets;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class SystemPalletTest extends TestBase {
     @Test
-    public void testSystemPallet() {
-        byte[] callData = BalancesPallet.transferAll(resolver,
-                AccountId.fromSS58("13UVJyLnbVp9RBZYFwFGyDvVd1y27Tt8tkntv6Q7JVPhFsTB"),
-                true);
+    public void testRemark() {
+        byte[] callData = SystemPallet.remark(resolver,
+                "test".getBytes(StandardCharsets.UTF_8));
         assertNotNull(callData);
-        assertEquals("0504006d6f646c70792f7472737279000000000000000000000000000000000000000001", HexUtil.bytesToHex(callData));
-
-        callData = BalancesPallet.transferAllowDeath(resolver,
-                AccountId.fromSS58("13UVJyLnbVp9RBZYFwFGyDvVd1y27Tt8tkntv6Q7JVPhFsTB"),
-                new BigDecimal(1));
-        assertNotNull(callData);
-        assertEquals("0500006d6f646c70792f747273727900000000000000000000000000000000000000000700e40b5402", HexUtil.bytesToHex(callData));
-
-        callData = BalancesPallet.transferKeepAlive(resolver,
-                AccountId.fromSS58("13UVJyLnbVp9RBZYFwFGyDvVd1y27Tt8tkntv6Q7JVPhFsTB"),
-                new BigDecimal(1));
-        assertNotNull(callData);
-        assertEquals("0503006d6f646c70792f747273727900000000000000000000000000000000000000000700e40b5402", HexUtil.bytesToHex(callData));
+        assertEquals("00001074657374", HexUtil.bytesToHex(callData));
     }
 }

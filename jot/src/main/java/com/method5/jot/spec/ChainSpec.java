@@ -1,6 +1,6 @@
 package com.method5.jot.spec;
 
-import java.util.Arrays;
+import com.method5.jot.util.HexUtil;
 
 /**
  * ChainSpec — class for chain spec in the Jot SDK. Provides extrinsic construction and submission.
@@ -101,8 +101,7 @@ public class ChainSpec {
                 ", tokenDecimals=" + tokenDecimals +
                 ", tokenSymbol='" + tokenSymbol + '\'' +
                 ", transactionVersion=" + transactionVersion +
-                ", genesisHash=" + Arrays.toString(genesisHash) +
-                ", metadata=" + Arrays.toString(metadata) +
+                ", genesisHash=" + HexUtil.bytesToHex(genesisHash) +
                 ", ss58Prefix=" + ss58Prefix +
                 '}';
     }

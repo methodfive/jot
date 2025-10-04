@@ -23,10 +23,6 @@ public class CallIndexResolver {
 
     public CallIndexResolver() {}
 
-    public CallIndexResolver(MetadataV14 metadata) {
-        initialize(metadata);
-    }
-
     public void initialize(MetadataV14 metadata) {
         List<MetadataPallet> pallets = metadata.getPallets();
         List<MetadataType> types = metadata.getTypes();
@@ -57,10 +53,14 @@ public class CallIndexResolver {
             if (pallet.getEvent() != null) {
                 List<MetadataTypeVariants.Variant> eventVariants = resolveVariants(types, pallet.getEvent().getType());
                 for (MetadataTypeVariants.Variant variant : eventVariants) {
-                    moduleEvents.computeIfAbsent(palletName, k -> new ArrayList<>()).add(variant.getName());
+                    registerEvent(palletName, variant.getName());
                 }
             }
         }
+    }
+
+    public void registerEvent(String palletName, String variant) {
+        moduleEvents.computeIfAbsent(palletName, k -> new ArrayList<>()).add(variant);
     }
 
     public void clear() {
@@ -112,7 +112,7 @@ public class CallIndexResolver {
         return events.get(eventIndex);
     }
 
-    private List<MetadataTypeVariants.Variant> resolveVariants(List<MetadataType> types, Integer typeId) {
+    List<MetadataTypeVariants.Variant> resolveVariants(List<MetadataType> types, Integer typeId) {
         if (typeId == null) return List.of();
         for (MetadataType type : types) {
             if (type.getId() == typeId && type.getDef() instanceof MetadataTypeVariants) {

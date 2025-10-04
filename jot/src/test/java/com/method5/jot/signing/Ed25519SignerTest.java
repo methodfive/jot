@@ -9,6 +9,7 @@ import java.security.KeyPairGenerator;
 import static org.junit.jupiter.api.Assertions.*;
 
 class Ed25519SignerTest {
+    @SuppressWarnings("OptionalGetWithoutIsPresent")
     @Test
     void testGetPublicKeyMatchesDerivedKey() throws Exception {
         KeyPairGenerator generator = KeyPairGenerator.getInstance("Ed25519");

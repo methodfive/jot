@@ -76,14 +76,5 @@ public class Mortality {
     public int getPhase() {
         return phase;
     }
-
-    @Override
-    public String toString() {
-        return "Mortality{" +
-                "isImmortal=" + isImmortal +
-                ", period=" + period +
-                ", phase=" + phase +
-                '}';
-    }
 }
 

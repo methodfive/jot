@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class Base58Test {
-    private static Logger logger = LoggerFactory.getLogger(Base58Test.class);
+    private static final Logger logger = LoggerFactory.getLogger(Base58Test.class);
 
     @Test
     public void testBase58RoundTripSS58Format() {
@@ -32,9 +32,9 @@ public class Base58Test {
         String encoded = Base58.encode(full);
         byte[] decoded = Base58.decode(encoded);
 
-        logger.info("Original: " + Arrays.toString(full));
-        logger.info("Decoded : " + Arrays.toString(decoded));
-        logger.info("Length  : " + decoded.length);
+        logger.info("Original: {}", Arrays.toString(full));
+        logger.info("Decoded : {}", Arrays.toString(decoded));
+        logger.info("Length  : {}", decoded.length);
 
         assertEquals(35, decoded.length, "Decoded length must be 35 bytes");
         assertArrayEquals(full, decoded, "Base58 round-trip failed");

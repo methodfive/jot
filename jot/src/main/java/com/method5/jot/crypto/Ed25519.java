@@ -15,12 +15,14 @@ import java.security.spec.NamedParameterSpec;
 /**
  * Ed25519 — class for ed 25519 in the Jot SDK. Provides key management and signing.
  */
-public class Ed25519 {
+public final class Ed25519 {
     static {
         if (Security.getProvider("BC") == null) {
             Security.addProvider(new BouncyCastleProvider());
         }
     }
+
+    private Ed25519() {}
 
     public static byte[] sign(PrivateKey privateKey, byte[] payload) throws NoSuchAlgorithmException, InvalidKeyException, SignatureException {
         Signature signature = Signature.getInstance("Ed25519");

@@ -203,16 +203,6 @@ public class MetadataV14 {
         public void setArgTypes(List<Integer> argTypes) {
             this.argTypes = argTypes;
         }
-
-        @Override
-        public String toString() {
-            return "CallInfo{" +
-                    "palletName='" + palletName + '\'' +
-                    ", callName='" + callName + '\'' +
-                    ", args=" + args +
-                    ", argTypes=" + argTypes +
-                    '}';
-        }
     }
 
     public int getMagic() {
@@ -235,24 +225,12 @@ public class MetadataV14 {
         return types;
     }
 
-    public void setTypes(List<MetadataType> types) {
-        this.types = types;
-    }
-
     public List<MetadataPallet> getPallets() {
         return pallets;
     }
 
-    public void setPallets(List<MetadataPallet> pallets) {
-        this.pallets = pallets;
-    }
-
     public List<MetadataExtrinsic> getExtrinsics() {
         return extrinsics;
-    }
-
-    public void setExtrinsics(List<MetadataExtrinsic> extrinsics) {
-        this.extrinsics = extrinsics;
     }
 
     public int getRuntimeType() {
@@ -277,19 +255,5 @@ public class MetadataV14 {
 
     public void setExtrinsicType(int extrinsicType) {
         this.extrinsicType = extrinsicType;
-    }
-
-    @Override
-    public String toString() {
-        return "MetadataV14{" +
-                "magic=" + magic +
-                ", version=" + version +
-                ", types=" + types +
-                ", pallets=" + pallets +
-                ", extrinsicType=" + extrinsicType +
-                ", extrinsicVersion=" + extrinsicVersion +
-                ", extrinsics=" + extrinsics +
-                ", runtimeType=" + runtimeType +
-                '}';
     }
 }

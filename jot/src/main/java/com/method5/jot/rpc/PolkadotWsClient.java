@@ -30,7 +30,7 @@ import java.util.function.Consumer;
  * integration; key management and signing; WebSocket subscriptions.
  */
 public class PolkadotWsClient extends PolkadotClient implements AutoCloseable {
-    private static Logger logger = LoggerFactory.getLogger(PolkadotWsClient.class);
+    private static final Logger logger = LoggerFactory.getLogger(PolkadotWsClient.class);
     private final Map<String, Consumer<JsonNode>> responseHandlers = new ConcurrentHashMap<>();
     private final Map<String, Consumer<JsonNode>> subscriptionHandlers = new ConcurrentHashMap<>();
 
@@ -67,7 +67,7 @@ public class PolkadotWsClient extends PolkadotClient implements AutoCloseable {
     }
 
     public List<EventRecord> waitForEvents(Confirmation confirmation, String extrinsicHash, long timeoutMs) throws Exception {
-        List<EventRecord> results = new ArrayList<>();
+        List<EventRecord> results = Collections.synchronizedList(new ArrayList<>());
         CompletableFuture<Void> found = new CompletableFuture<>();
 
         Subscription<BlockHeader> subscription = new Subscription<>(
@@ -81,14 +81,13 @@ public class PolkadotWsClient extends PolkadotClient implements AutoCloseable {
                         for (int i = 0; i < block.getBlock().getExtrinsics().size(); i++) {
                             String actualHash = HexUtil.bytesToHex(Hasher.hash256(HexUtil.hexToBytes(block.getBlock().getExtrinsics().get(i))));
                             if (HexUtil.trim(extrinsicHash).compareToIgnoreCase(actualHash) == 0) {
-
                                 List<EventRecord> allEvents = StorageQuery.getSystemEvents(this, blockHash);
+
                                 int finalI = i;
                                 List<EventRecord> matchingEvents = allEvents.stream()
                                         .filter(ev -> ev.phase().isApplyExtrinsic(finalI))
                                         .toList();
                                 results.addAll(matchingEvents);
-
                                 found.complete(null);
                                 return;
                             }
@@ -151,7 +150,7 @@ public class PolkadotWsClient extends PolkadotClient implements AutoCloseable {
                         if (handler != null) {
                             handler.accept(response);
                         } else {
-                            logger.error("No handler found for id: " + id);
+                            logger.error("No handler found for id: {}", id);
                         }
                     } else if (response.has("method") && response.has("params")) {
                         JsonNode params = response.get("params");
@@ -161,12 +160,12 @@ public class PolkadotWsClient extends PolkadotClient implements AutoCloseable {
                             if (subHandler != null) {
                                 subHandler.accept(params.get("result"));
                             } else {
-                                logger.error("No handler found for subscription: " + subscriptionId);
+                                logger.error("No handler found for subscription: {}", subscriptionId);
                             }
                         }
                     }
                 } catch (Exception e) {
-                    logger.error("OnMessage failed:" + e.getMessage());
+                    logger.error("OnMessage failed:{}", e.getMessage());
                 }
             }
 
@@ -208,7 +207,7 @@ public class PolkadotWsClient extends PolkadotClient implements AutoCloseable {
                 subscriptionHandlers.put(subscriptionId, onSubscriptionUpdate);
                 future.complete(subscriptionId);
             } else {
-                logger.error("Subscription failed: " + initialResponse);
+                logger.error("Subscription failed: {}", initialResponse);
             }
         });
 
@@ -229,7 +228,7 @@ public class PolkadotWsClient extends PolkadotClient implements AutoCloseable {
         return send(UUID.randomUUID().toString(), method, params);
     }
 
-    private JsonNode send(String id, String method, JsonNode params) throws RpcException {
+    JsonNode send(String id, String method, JsonNode params) throws RpcException {
         for (int i = 0; i < servers.length; i++) {
             try {
                 CompletableFuture<JsonNode> future = new CompletableFuture<>();

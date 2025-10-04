@@ -12,7 +12,8 @@ import com.method5.jot.util.HexUtil;
  * ChainRpc — class for chain rpc in the Jot SDK. Provides RPC client / JSON‑RPC integration; key
  * management and signing.
  */
-public class ChainRpc {
+public final class ChainRpc {
+    private ChainRpc() {}
     private static final ObjectMapper mapper = new ObjectMapper();
 
     public static SignedBlock getBlock(PolkadotClient client) throws Exception {

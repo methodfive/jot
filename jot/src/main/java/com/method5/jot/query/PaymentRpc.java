@@ -13,7 +13,8 @@ import java.math.BigInteger;
  * PaymentRpc — class for payment rpc in the Jot SDK. Provides RPC client / JSON‑RPC integration;
  * fee estimation and payment info.
  */
-public class PaymentRpc {
+public final class PaymentRpc {
+    private PaymentRpc() {}
     private static final ObjectMapper mapper = new ObjectMapper();
 
     public static FeeInfo queryInfo(PolkadotClient client, String extrinsic) throws Exception {

@@ -13,20 +13,26 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class BalancesPalletTest extends TestBase {
     @Test
-    public void testBalancesPallet() {
+    public void testBalancesTransferAll() {
         byte[] callData = BalancesPallet.transferAll(resolver,
                 AccountId.fromSS58("13UVJyLnbVp9RBZYFwFGyDvVd1y27Tt8tkntv6Q7JVPhFsTB"),
                 true);
         assertNotNull(callData);
         assertEquals("0504006d6f646c70792f7472737279000000000000000000000000000000000000000001", HexUtil.bytesToHex(callData));
+    }
 
-        callData = BalancesPallet.transferAllowDeath(resolver,
+    @Test
+    public void testBalancesTransferAllowDeath() {
+        byte[] callData = BalancesPallet.transferAllowDeath(resolver,
                 AccountId.fromSS58("13UVJyLnbVp9RBZYFwFGyDvVd1y27Tt8tkntv6Q7JVPhFsTB"),
                 new BigDecimal(1));
         assertNotNull(callData);
         assertEquals("0500006d6f646c70792f747273727900000000000000000000000000000000000000000700e40b5402", HexUtil.bytesToHex(callData));
+    }
 
-        callData = BalancesPallet.transferKeepAlive(resolver,
+    @Test
+    public void testBalancesTransferKeepAlive() {
+        byte[] callData = BalancesPallet.transferKeepAlive(resolver,
                 AccountId.fromSS58("13UVJyLnbVp9RBZYFwFGyDvVd1y27Tt8tkntv6Q7JVPhFsTB"),
                 new BigDecimal(1));
         assertNotNull(callData);

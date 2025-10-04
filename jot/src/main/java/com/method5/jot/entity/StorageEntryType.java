@@ -32,12 +32,4 @@ public enum StorageEntryType {
         }
         throw new IllegalArgumentException("Unknown StorageEntryType id: " + id);
     }
-
-    @Override
-    public String toString() {
-        return "StorageEntryType{" +
-                "type=" + type +
-                ", name='" + name + '\'' +
-                '}';
-    }
 }

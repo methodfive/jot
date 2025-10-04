@@ -14,7 +14,9 @@ import java.math.BigInteger;
  * ConvictionVotingPallet — class for conviction voting pallet in the Jot SDK. Provides extrinsic
  * construction and submission; pallet call builders.
  */
-public class ConvictionVotingPallet {
+public final class ConvictionVotingPallet {
+    private ConvictionVotingPallet() {}
+
     public static byte[] vote(CallIndexResolver resolver, int referendumIndex, AccountVote vote) {
         ScaleWriter writer = new ScaleWriter();
         writer.writeBytes(resolver.resolveCallIndex("ConvictionVoting", "vote"));

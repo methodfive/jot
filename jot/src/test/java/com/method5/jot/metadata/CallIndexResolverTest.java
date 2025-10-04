@@ -2,6 +2,8 @@ package com.method5.jot.metadata;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class CallIndexResolverTest {
@@ -27,6 +29,19 @@ class CallIndexResolverTest {
     }
 
     @Test
+    void testRegisterAndResolveEvent() {
+        CallIndexResolver resolver = new CallIndexResolver();
+        byte[] index = new byte[]{5, 10};
+        resolver.registerCall("Balances", "transfer", index);
+        resolver.registerEvent("Balances", "event");
+
+        assertArrayEquals(index, resolver.resolveCallIndex("Balances", "transfer"));
+        assertEquals("event", resolver.getEventName(index[0], 0));
+        assertEquals("UnknownModule", resolver.getEventName(99, 0));
+        assertEquals("UnknownEvent", resolver.getEventName(index[0], 99));
+    }
+
+    @Test
     void testUnknownModuleAndErrorHandling() {
         CallIndexResolver resolver = new CallIndexResolver();
         resolver.registerCall("Staking", "bond", new byte[]{2, 0});
@@ -48,5 +63,11 @@ class CallIndexResolverTest {
         assertNull(resolver.getModuleName(0));
         assertThrows(IndexOutOfBoundsException.class, () -> resolver.getFunctionName("System", 0));
         assertNull(resolver.getModuleError(0, 1));
+    }
+
+    @Test
+    void testResolveUnknownVariants() {
+        CallIndexResolver resolver = new CallIndexResolver();
+        assertEquals(0, resolver.resolveVariants(new ArrayList<>(), 99).size());
     }
 }

@@ -34,56 +34,28 @@ public class AccountInfo {
         return nonce;
     }
 
-    public void setNonce(long nonce) {
-        this.nonce = nonce;
-    }
-
     public long getConsumers() {
         return consumers;
-    }
-
-    public void setConsumers(long consumers) {
-        this.consumers = consumers;
     }
 
     public long getProviders() {
         return providers;
     }
 
-    public void setProviders(long providers) {
-        this.providers = providers;
-    }
-
     public long getSufficients() {
         return sufficients;
-    }
-
-    public void setSufficients(long sufficients) {
-        this.sufficients = sufficients;
     }
 
     public BigDecimal getFree() {
         return free;
     }
 
-    public void setFree(BigDecimal free) {
-        this.free = free;
-    }
-
     public BigDecimal getReserved() {
         return reserved;
     }
 
-    public void setReserved(BigDecimal reserved) {
-        this.reserved = reserved;
-    }
-
     public BigDecimal getFrozen() {
         return frozen;
-    }
-
-    public void setFrozen(BigDecimal frozen) {
-        this.frozen = frozen;
     }
 
     @Override

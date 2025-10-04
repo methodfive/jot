@@ -9,7 +9,9 @@ import java.math.BigInteger;
  * SystemPallet — class for system pallet in the Jot SDK. Provides extrinsic construction and
  * submission; pallet call builders.
  */
-public class SystemPallet {
+public final class SystemPallet {
+    private SystemPallet() {}
+
     public static byte[] remark(CallIndexResolver resolver, byte[] message) {
         ScaleWriter writer = new ScaleWriter();
         writer.writeBytes(resolver.resolveCallIndex("System", "remark"));

@@ -105,17 +105,4 @@ public class RuntimeVersion {
     public void setStateVersion(int stateVersion) {
         this.stateVersion = stateVersion;
     }
-
-    @Override
-    public String toString() {
-        return "RuntimeVersion{" +
-                "specName='" + specName + '\'' +
-                ", implName='" + implName + '\'' +
-                ", authoringVersion=" + authoringVersion +
-                ", specVersion=" + specVersion +
-                ", implVersion=" + implVersion +
-                ", transactionVersion=" + transactionVersion +
-                ", stateVersion=" + stateVersion +
-                '}';
-    }
 }

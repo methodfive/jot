@@ -80,6 +80,10 @@ public class DispatchError {
         return kind == Kind.MODULE;
     }
 
+    public boolean isUnknown() {
+        return kind == Kind.UNKNOWN;
+    }
+
     public boolean isNamedError(String expected) {
         return kind == Kind.NAMED && name.equals(expected);
     }

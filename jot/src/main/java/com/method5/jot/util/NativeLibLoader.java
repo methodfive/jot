@@ -12,7 +12,9 @@ import java.util.Locale;
  * NativeLibLoader — class for native lib loader in the Jot SDK. Provides key management and
  * signing; utility helpers.
  */
-public class NativeLibLoader {
+public final class NativeLibLoader {
+    private NativeLibLoader() {}
+
     private static boolean loaded = false;
 
     public static synchronized void load() {
@@ -42,7 +44,7 @@ public class NativeLibLoader {
         }
     }
 
-    private static String getResourcePath(String os, String arch) {
+    static String getResourcePath(String os, String arch) {
         String resourcePath;
         if (os.contains("win")) {
             resourcePath = "lib/jot_sr25519-windows-x86_64.dll";

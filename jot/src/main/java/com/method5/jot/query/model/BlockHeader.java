@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.method5.jot.util.HexToIntDeserializer;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * BlockHeader — class for block header in the Jot SDK. Provides types and data models.
@@ -46,6 +47,18 @@ public class BlockHeader {
 
         public void setLogs(List<String> logs) {
             this.logs = logs;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (o == null || getClass() != o.getClass()) return false;
+            Digest digest = (Digest) o;
+            return Objects.equals(logs, digest.logs);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hashCode(logs);
         }
 
         @Override
@@ -97,13 +110,14 @@ public class BlockHeader {
     }
 
     @Override
-    public String toString() {
-        return "BlockHeader{" +
-                "parentHash='" + parentHash + '\'' +
-                ", number=" + number +
-                ", stateRoot='" + stateRoot + '\'' +
-                ", extrinsicsRoot='" + extrinsicsRoot + '\'' +
-                ", digest=" + digest +
-                '}';
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        BlockHeader that = (BlockHeader) o;
+        return number == that.number && Objects.equals(parentHash, that.parentHash) && Objects.equals(stateRoot, that.stateRoot) && Objects.equals(extrinsicsRoot, that.extrinsicsRoot) && Objects.equals(digest, that.digest);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(parentHash, number, stateRoot, extrinsicsRoot, digest);
     }
 }

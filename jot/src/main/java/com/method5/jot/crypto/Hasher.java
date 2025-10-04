@@ -8,7 +8,9 @@ import java.nio.charset.StandardCharsets;
 /**
  * Hasher — class for hasher in the Jot SDK.
  */
-public class Hasher {
+public final class Hasher {
+    private Hasher() {}
+
     private static final XXHashFactory XX = XXHashFactory.fastestInstance();
 
     public static byte[] hash256(byte[] input) {

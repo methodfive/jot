@@ -48,4 +48,10 @@ public class HexUtilTest {
         String roundTrip = HexUtil.bytesToHex(bytes);
         assertEquals("1234567890abcdef", roundTrip);
     }
+
+    @Test
+    void testHexTrim() {
+        assertEquals("deadbeef", HexUtil.trim("0xdeadbeef"));
+        assertEquals("deadbeef", HexUtil.trim("deadbeef"));
+    }
 }

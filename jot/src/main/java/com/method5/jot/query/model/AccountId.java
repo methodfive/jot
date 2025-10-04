@@ -2,12 +2,10 @@ package com.method5.jot.query.model;
 
 import com.method5.jot.wallet.SS58;
 
-import java.util.Arrays;
-
 /**
  * AccountId — class for account id in the Jot SDK. Provides types and data models.
  */
-public class AccountId {
+public final class AccountId {
     private byte[] publicKey;
 
     public AccountId(byte[] publicKey) {
@@ -23,16 +21,5 @@ public class AccountId {
 
     public byte[] getPublicKey() {
         return publicKey;
-    }
-
-    public void setPublicKey(byte[] publicKey) {
-        this.publicKey = publicKey;
-    }
-
-    @Override
-    public String toString() {
-        return "AccountId{" +
-                "publicKey=" + Arrays.toString(publicKey) +
-                '}';
     }
 }

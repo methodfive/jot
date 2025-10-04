@@ -56,93 +56,52 @@ public class AccountVote {
         return aye;
     }
 
-    public void setAye(boolean aye) {
-        this.aye = aye;
-    }
-
     public Conviction getConviction() {
         return conviction;
-    }
-
-    public void setConviction(Conviction conviction) {
-        this.conviction = conviction;
     }
 
     public BigDecimal getBalance() {
         return balance;
     }
 
-    public void setBalance(BigDecimal balance) {
-        this.balance = balance;
-    }
-
     public AccountVoteType getType() {
         return type;
-    }
-
-    public void setType(AccountVoteType type) {
-        this.type = type;
     }
 
     public BigDecimal getTotalAye() {
         return totalAye;
     }
 
-    public void setTotalAye(BigDecimal totalAye) {
-        this.totalAye = totalAye;
-    }
-
     public BigDecimal getTotalNay() {
         return totalNay;
-    }
-
-    public void setTotalNay(BigDecimal totalNay) {
-        this.totalNay = totalNay;
     }
 
     public BigDecimal getTotalAbstain() {
         return totalAbstain;
     }
 
-    public void setTotalAbstain(BigDecimal totalAbstain) {
-        this.totalAbstain = totalAbstain;
-    }
-
     public byte[] encode() {
         if(type == AccountVoteType.STANDARD) {
-            int voteByte = (aye ? 0b10000000 : 0) | (conviction.index() & 0b01111111);
+            int voteByte = (isAye() ? 0b10000000 : 0) | (getConviction().index() & 0b01111111);
             ScaleWriter writer = new ScaleWriter();
-            writer.writeByte(type.getValue());
+            writer.writeByte(getType().getValue());
             writer.writeByte(voteByte);
-            writer.writeU128(UnitConverter.toPlanck(balance));
+            writer.writeU128(UnitConverter.toPlanck(getBalance()));
             return writer.toByteArray();
         } else if(type == AccountVoteType.SPLIT) {
             ScaleWriter writer = new ScaleWriter();
-            writer.writeByte(type.getValue());
-            writer.writeU128(UnitConverter.toPlanck(totalAye));
-            writer.writeU128(UnitConverter.toPlanck(totalNay));
+            writer.writeByte(getType().getValue());
+            writer.writeU128(UnitConverter.toPlanck(getTotalAye()));
+            writer.writeU128(UnitConverter.toPlanck(getTotalNay()));
             return writer.toByteArray();
         } else {
             ScaleWriter writer = new ScaleWriter();
-            writer.writeByte(type.getValue());
-            writer.writeU128(UnitConverter.toPlanck(totalAye));
-            writer.writeU128(UnitConverter.toPlanck(totalNay));
-            writer.writeU128(UnitConverter.toPlanck(totalAbstain));
+            writer.writeByte(getType().getValue());
+            writer.writeU128(UnitConverter.toPlanck(getTotalAye()));
+            writer.writeU128(UnitConverter.toPlanck(getTotalNay()));
+            writer.writeU128(UnitConverter.toPlanck(getTotalAbstain()));
             return writer.toByteArray();
         }
-    }
-
-    @Override
-    public String toString() {
-        return "AccountVote{" +
-                "type=" + type +
-                ", aye=" + aye +
-                ", conviction=" + conviction +
-                ", balance=" + balance +
-                ", totalAye=" + totalAye +
-                ", totalNay=" + totalNay +
-                ", totalAbstain=" + totalAbstain +
-                '}';
     }
 }
 

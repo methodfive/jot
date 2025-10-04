@@ -2,16 +2,25 @@ package com.method5.jot.wallet;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Path;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class WalletTest {
+    private static final Logger logger = LoggerFactory.getLogger(WalletTest.class);
+
     @Test
     public void testGenerateAndExportMnemonic() throws Exception {
         Wallet wallet = Wallet.generate();
+
+        logger.info(wallet.toString());
+
+        assertNotNull(wallet.getSr25519Seed());
 
         String mnemonic = wallet.getMnemonic();
         assertNotNull(mnemonic);
@@ -23,6 +32,11 @@ public class WalletTest {
         assertEquals(Wallet.KeyType.SR25519, wallet.getKeyType());
         assertNull(wallet.getKeyPair());
         assertNotNull(wallet.getSigner());
+    }
+
+    @Test
+    public void testGenerateUnsupportedType() {
+        assertThrows(UnsupportedOperationException.class, () -> Wallet.generate(Wallet.KeyType.ECDSA));
     }
 
     @Test
@@ -69,7 +83,10 @@ public class WalletTest {
         byte[] payload = new byte[] { 3,5,2,4,7,3};
 
         wallet.verify(payload, wallet.sign(payload));
+
+        assertNotNull(wallet.getKeyPair());
     }
+
     @Test
     public void testSaveAndLoadEd25519(@TempDir Path tempDir) throws Exception {
         File file = new File(tempDir.toAbsolutePath() + "/wallet.dat");
@@ -83,5 +100,16 @@ public class WalletTest {
         assertArrayEquals(wallet1.getSigner().getPublicKey(), wallet2.getSigner().getPublicKey());
         assertArrayEquals(wallet1.getKeyPair().getPrivate().getEncoded(), wallet2.getKeyPair().getPrivate().getEncoded());
         assertArrayEquals(wallet1.getKeyPair().getPublic().getEncoded(), wallet2.getKeyPair().getPublic().getEncoded());
+    }
+
+    @Test
+    public void testLoadInvalidFile() {
+        assertThrows(IOException.class, () -> Wallet.fromFile(new File("non-existent")));
+    }
+
+    @Test
+    public void testMnemonicOfEd25519() throws Exception {
+        Wallet wallet = Wallet.generate(Wallet.KeyType.ED25519);
+        assertThrows(UnsupportedOperationException.class, wallet::getMnemonic);
     }
 }

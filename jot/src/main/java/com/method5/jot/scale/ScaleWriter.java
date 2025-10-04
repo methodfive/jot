@@ -1,7 +1,6 @@
 package com.method5.jot.scale;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
@@ -21,7 +20,7 @@ public class ScaleWriter {
     public void writeBytes(byte[] bytes) {
         try {
             stream.write(bytes);
-        } catch (IOException e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }

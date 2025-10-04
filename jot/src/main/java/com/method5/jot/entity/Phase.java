@@ -31,14 +31,4 @@ public record Phase(com.method5.jot.entity.Phase.Type type, int extrinsicIndex) 
             default -> new Phase(Type.UNKNOWN, -1);
         };
     }
-
-    @Override
-    public String toString() {
-        return switch (type) {
-            case APPLY_EXTRINSIC -> "ApplyExtrinsic(" + extrinsicIndex + ")";
-            case FINALIZATION -> "Finalization";
-            case INITIALIZATION -> "Initialization";
-            default -> "Unknown";
-        };
-    }
 }

@@ -2,8 +2,6 @@ package com.method5.jot.entity;
 
 import com.method5.jot.scale.ScaleReader;
 
-import java.util.Arrays;
-
 /**
  * RewardDestination — class for reward destination in the Jot SDK. Provides key management and
  * signing; types and data models.
@@ -94,14 +92,6 @@ public class RewardDestination {
 
     public byte[] getAccount() {
         return account;
-    }
-
-    @Override
-    public String toString() {
-        return "RewardDestination{" +
-                "type=" + type +
-                ", account=" + Arrays.toString(account) +
-                '}';
     }
 }
 

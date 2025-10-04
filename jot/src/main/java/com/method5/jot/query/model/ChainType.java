@@ -30,11 +30,4 @@ public enum ChainType {
         }
         return null;
     }
-
-    @Override
-    public String toString() {
-        return "ChainType{" +
-                "value='" + value + '\'' +
-                '}';
-    }
 }

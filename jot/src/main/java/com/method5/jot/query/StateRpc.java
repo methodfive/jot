@@ -10,7 +10,8 @@ import com.method5.jot.util.HexUtil;
 /**
  * StateRpc — class for state rpc in the Jot SDK. Provides RPC client / JSON‑RPC integration.
  */
-public class StateRpc {
+public final class StateRpc {
+    private StateRpc() {}
     private static final ObjectMapper mapper = new ObjectMapper();
 
     public static byte[] metadata(PolkadotClient client) throws Exception {

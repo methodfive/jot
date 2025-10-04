@@ -3,7 +3,9 @@ package com.method5.jot.util;
 /**
  * HexUtil — class for hex util in the Jot SDK. Provides utility helpers.
  */
-public class HexUtil {
+public final class HexUtil {
+    private HexUtil() {}
+
     public static String trim(String hex) {
         if (hex.startsWith("0x") || hex.startsWith("0X")) {
             return hex.substring(2);

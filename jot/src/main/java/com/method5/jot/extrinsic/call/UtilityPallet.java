@@ -10,7 +10,9 @@ import java.util.List;
  * UtilityPallet — class for utility pallet in the Jot SDK. Provides extrinsic construction and
  * submission; utility helpers; pallet call builders.
  */
-public class UtilityPallet {
+public final class UtilityPallet {
+    private UtilityPallet() {}
+
     public static byte[] batchAll(CallIndexResolver resolver, List<byte[]> calls) {
         ScaleWriter writer = new ScaleWriter();
         writer.writeBytes(resolver.resolveCallIndex("Utility", "batch_all"));

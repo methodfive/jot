@@ -32,12 +32,4 @@ public class FeeInfo {
     public void setPartialFee(BigInteger partialFee) {
         this.partialFee = partialFee;
     }
-
-    @Override
-    public String toString() {
-        return "FeeInfo{" +
-                "weight=" + weight +
-                ", partialFee=" + partialFee +
-                '}';
-    }
 }

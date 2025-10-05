@@ -3,7 +3,6 @@ package com.method5.jot.examples.subscription;
 import com.method5.jot.examples.Config;
 import com.method5.jot.query.model.BlockHeader;
 import com.method5.jot.rpc.PolkadotWs;
-import com.method5.jot.rpc.RpcException;
 import com.method5.jot.rpc.Subscription;
 import com.method5.jot.rpc.SubscriptionType;
 import com.method5.jot.util.ExampleBase;

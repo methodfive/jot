@@ -37,6 +37,7 @@ jobs:
         run: |
           mkdir -p docs
           cp README.md docs/index.md
+          cp jot-examples/README.md docs/examples.md
 
       - name: Build MkDocs
         run: mkdocs build --strict

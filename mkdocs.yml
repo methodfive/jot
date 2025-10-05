@@ -23,6 +23,7 @@ nav:
   - Home: index.md
   - Quick Start: https://methodfive.github.io/jot/quickstart/
   - API (Javadoc): https://methodfive.github.io/jot/api/index.html
+  - Examples: https://methodfive.github.io/jot/examples/index.html
   - GitHub: https://github.com/methodfive/jot
 
 markdown_extensions:

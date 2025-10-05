@@ -123,10 +123,10 @@ public final class MetadataCache {
     }
 
     public static CachedBundle getLatest() {
-        return getLatestInternal(null);
+        return getLatest(null);
     }
 
-    private static CachedBundle getLatestInternal(String genesisFilter) {
+    static CachedBundle getLatest(String genesisFilter) {
         final Path ROOT = CacheDirs.defaultCacheDir("jot");
         if (!Files.isDirectory(ROOT)) return null;
 

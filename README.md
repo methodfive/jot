@@ -125,7 +125,7 @@ subscription.unsubscribe();
 AccountId account = AccountId.fromSS58("13UVJyLnbVp9RBZYFwFGyDvVd1y27Tt8tkntv6Q7JVPhFsTB");
 
 // Query balance
-AccountInfo accountInfo = api.query().storage().accountInfo(rpc, account);
+AccountInfo accountInfo = api.query().storage().accountInfo(account);
 
 System.out.println("Free balance: " + accountInfo.getFree());
 System.out.println("Reserved balance: " + accountInfo.getReserved());

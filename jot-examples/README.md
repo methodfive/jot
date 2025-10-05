@@ -133,7 +133,7 @@ mvn exec:java -Dexec.mainClass="<ExampleClass>"
 
 ## 💰 “Out of Funds” — How to Fix
 
-Transaction examples need WND to cover fees. If you see errors like **InsufficientBalance**:
+Transaction examples need WND to cover fees. If you see errors like **Inability to pay some fees**:
 
 1. Open the **Polkadot Faucet**: https://faucet.polkadot.io/
 2. Select **Westend**.

@@ -3,8 +3,8 @@ package com.method5.jot.examples;
 import java.util.List;
 
 public class Config {
-    // Mnemonic phrase for Jot examples (defaults to //Alice)
-    public static final String MNEMONIC_PHRASE = "bottom drive obey lake curtain smoke basket hold race lonely fit walk";
+    // Mnemonic phrase for Jot examples (defaults to 5FLiJC6HyT8f25aLtXtFpAeVPpa2jVFWPBhwLyearfXnCirq)
+    public static final String MNEMONIC_PHRASE = "true this awkward beyond stand second garment throw bless two online hurry";
 
     // RPC servers for Jot examples
     public static final String[] WSS_SERVER = List.of(

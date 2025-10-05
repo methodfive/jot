@@ -3,8 +3,9 @@ package com.method5.jot.extrinsic.call;
 import com.method5.jot.crypto.Hasher;
 import com.method5.jot.entity.Timepoint;
 import com.method5.jot.entity.Weight;
-import com.method5.jot.metadata.CallIndexResolver;
 import com.method5.jot.query.model.AccountId;
+import com.method5.jot.rpc.Api;
+import com.method5.jot.rpc.CallOrQuery;
 import com.method5.jot.scale.ScaleWriter;
 import com.method5.jot.util.HexUtil;
 
@@ -16,45 +17,45 @@ import java.util.List;
  * MultisigPallet — class for multisig pallet in the Jot SDK. Provides key management and signing;
  * extrinsic construction and submission; pallet call builders.
  */
-public final class MultisigPallet {
-    private MultisigPallet() {}
-
-    public static byte[] approveAsMulti(
-            CallIndexResolver resolver,
-            int threshold,
-            List<AccountId> otherSignatories,
-            Timepoint timepoint,
-            byte[] call,
-            Weight weight) {
-        List<byte[]> sortedSigners = sortSigners(convertSigners(otherSignatories));
-
-        ScaleWriter writer = new ScaleWriter();
-        writer.writeBytes(resolver.resolveCallIndex("Multisig", "approve_as_multi"));
-        writer.writeU16(threshold);
-        writer.writeByteArrayVector(sortedSigners);
-        writer.writeOptional(timepoint, Timepoint::encode);
-        writer.writeBytes(Hasher.hash256(call));
-        writer.writeBytes(weight.encode());
-        return writer.toByteArray();
+public class MultisigPallet extends CallOrQuery {
+    public MultisigPallet(Api api) {
+        super(api);
     }
 
-    public static byte[] asMulti(
-            CallIndexResolver resolver,
+    public Call approveAsMulti(
             int threshold,
             List<AccountId> otherSignatories,
             Timepoint timepoint,
-            byte[] call,
+            Call call,
             Weight weight) {
         List<byte[]> sortedSigners = sortSigners(convertSigners(otherSignatories));
 
         ScaleWriter writer = new ScaleWriter();
-        writer.writeBytes(resolver.resolveCallIndex("Multisig", "as_multi"));
+        writer.writeBytes(getResolver().resolveCallIndex("Multisig", "approve_as_multi"));
         writer.writeU16(threshold);
         writer.writeByteArrayVector(sortedSigners);
         writer.writeOptional(timepoint, Timepoint::encode);
-        writer.writeBytes(call);
+        writer.writeBytes(Hasher.hash256(call.callData()));
         writer.writeBytes(weight.encode());
-        return writer.toByteArray();
+        return new Call(api, writer.toByteArray());
+    }
+
+    public Call asMulti(
+            int threshold,
+            List<AccountId> otherSignatories,
+            Timepoint timepoint,
+            Call call,
+            Weight weight) {
+        List<byte[]> sortedSigners = sortSigners(convertSigners(otherSignatories));
+
+        ScaleWriter writer = new ScaleWriter();
+        writer.writeBytes(getResolver().resolveCallIndex("Multisig", "as_multi"));
+        writer.writeU16(threshold);
+        writer.writeByteArrayVector(sortedSigners);
+        writer.writeOptional(timepoint, Timepoint::encode);
+        writer.writeBytes(call.callData());
+        writer.writeBytes(weight.encode());
+        return new Call(api, writer.toByteArray());
     }
 
     private static List<byte[]> convertSigners(List<AccountId> otherSignatories) {

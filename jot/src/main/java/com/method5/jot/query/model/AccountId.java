@@ -6,7 +6,7 @@ import com.method5.jot.wallet.SS58;
  * AccountId — class for account id in the Jot SDK. Provides types and data models.
  */
 public final class AccountId {
-    private byte[] publicKey;
+    private final byte[] publicKey;
 
     public AccountId(byte[] publicKey) {
         if (publicKey.length != 32) {

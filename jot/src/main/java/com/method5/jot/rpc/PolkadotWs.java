@@ -7,9 +7,6 @@ import com.method5.jot.entity.DispatchError;
 import com.method5.jot.events.EventRecord;
 import com.method5.jot.extrinsic.ExtrinsicResult;
 import com.method5.jot.metadata.RuntimeTypeDecoder;
-import com.method5.jot.query.AuthorRpc;
-import com.method5.jot.query.ChainRpc;
-import com.method5.jot.query.StorageQuery;
 import com.method5.jot.query.model.BlockHeader;
 import com.method5.jot.query.model.SignedBlock;
 import com.method5.jot.util.HexUtil;
@@ -29,19 +26,19 @@ import java.util.function.Consumer;
  * PolkadotWsClient — class for polkadot ws client in the Jot SDK. Provides RPC client / JSON‑RPC
  * integration; key management and signing; WebSocket subscriptions.
  */
-public class PolkadotWsClient extends PolkadotClient implements AutoCloseable {
-    private static final Logger logger = LoggerFactory.getLogger(PolkadotWsClient.class);
+public class PolkadotWs extends Api implements AutoCloseable {
+    private static final Logger logger = LoggerFactory.getLogger(PolkadotWs.class);
     private final Map<String, Consumer<JsonNode>> responseHandlers = new ConcurrentHashMap<>();
     private final Map<String, Consumer<JsonNode>> subscriptionHandlers = new ConcurrentHashMap<>();
 
     private Timer pingTimer;
     private WebSocketClient client;
 
-    public PolkadotWsClient(String server) {
+    public PolkadotWs(String server) {
         this(new String[] { server }, 10000);
     }
 
-    public PolkadotWsClient(String[] servers, long timeoutInMillis) {
+    public PolkadotWs(String[] servers, long timeoutInMillis) {
         super(servers, timeoutInMillis);
         connect();
     }
@@ -75,13 +72,13 @@ public class PolkadotWsClient extends PolkadotClient implements AutoCloseable {
                 this,
                 header -> {
                     try {
-                        String blockHash = HexUtil.bytesToHex(ChainRpc.getBlockHash(this, header.getNumber()));
-                        SignedBlock block = ChainRpc.getBlock(this, blockHash);
+                        String blockHash = query().chain().blockHash(header.getNumber());
+                        SignedBlock block = query().chain().block(blockHash);
 
                         for (int i = 0; i < block.getBlock().getExtrinsics().size(); i++) {
                             String actualHash = HexUtil.bytesToHex(Hasher.hash256(HexUtil.hexToBytes(block.getBlock().getExtrinsics().get(i))));
                             if (HexUtil.trim(extrinsicHash).compareToIgnoreCase(actualHash) == 0) {
-                                List<EventRecord> allEvents = StorageQuery.getSystemEvents(this, blockHash);
+                                List<EventRecord> allEvents = query().storage().systemEvents(blockHash);
 
                                 int finalI = i;
                                 List<EventRecord> matchingEvents = allEvents.stream()
@@ -108,7 +105,7 @@ public class PolkadotWsClient extends PolkadotClient implements AutoCloseable {
     }
 
     public ExtrinsicResult submitAndWaitForExtrinsic(byte[] extrinsic, Confirmation confirmation, long timeoutMs) throws Exception {
-        String extrinsicHash = AuthorRpc.submitExtrinsic(this, extrinsic);
+        String extrinsicHash = query().author().submitExtrinsic(extrinsic);
         return waitForExtrinsic(extrinsicHash, confirmation, timeoutMs);
     }
 
@@ -165,6 +162,7 @@ public class PolkadotWsClient extends PolkadotClient implements AutoCloseable {
                         }
                     }
                 } catch (Exception e) {
+                    if(e instanceof RejectedExecutionException) return;
                     logger.error("OnMessage failed:{}", e.getMessage());
                 }
             }

@@ -1,40 +1,37 @@
 package com.method5.jot.examples.extrinsic;
 
-import com.method5.jot.extrinsic.call.ConvictionVotingPallet;
-import com.method5.jot.extrinsic.ExtrinsicSigner;
-import com.method5.jot.query.AuthorRpc;
-import com.method5.jot.rpc.PolkadotRpcClient;
+import com.method5.jot.examples.Config;
+import com.method5.jot.extrinsic.call.Call;
+import com.method5.jot.rpc.PolkadotWs;
+import com.method5.jot.signing.SigningProvider;
+import com.method5.jot.util.ExampleBase;
 import com.method5.jot.wallet.Wallet;
-import com.method5.jot.examples.ExampleConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ConvictionVotingRemoveVoteExample {
+public class ConvictionVotingRemoveVoteExample extends ExampleBase {
     private static final Logger logger = LoggerFactory.getLogger(ConvictionVotingRemoveVoteExample.class);
 
     public static void main(String[] args) throws Exception {
-        // Load (or generate) new wallet
-        Wallet wallet = Wallet.generate();
+        Wallet wallet = Wallet.fromMnemonic(Config.MNEMONIC_PHRASE);
 
-        try (PolkadotRpcClient client = new PolkadotRpcClient(new String[] { ExampleConstants.RPC_SERVER }, 10000)) {
-
-            // Build call data for ConvictionVoting.undelegate
-            byte[] callData = ConvictionVotingPallet.removeVote(
-                    client.getResolver(),
-                    null,  // class
-                    12345          // referendum #
-            );
-
-            // Create and sign extrinsic for the split_abstain vote
-            byte[] extrinsic = ExtrinsicSigner.signAndBuild(client,
-                    wallet.getSigner(),
-                    callData
-            );
-
-            // Submit extrinsic to RPC
-            String hash = AuthorRpc.submitExtrinsic(client, extrinsic);
-
-            logger.info("Extrinsic hash: {}", hash);
+        try (PolkadotWs api = new PolkadotWs(Config.WSS_SERVER, 10000)) {
+            execute(api, wallet.getSigner());
         }
+    }
+
+    private static void execute(PolkadotWs api, SigningProvider signingProvider) throws Exception {
+        logger.info("Conviction Voting Remove Vote Example");
+
+        // Referendum index
+        int referendumIndex = 12345;
+        // Class
+        Integer classOf = null;
+
+        Call call = api.tx().convictionVoting().removeVote(classOf, referendumIndex);
+
+        String hash = call.signAndSend(signingProvider);
+
+        logger.info("Extrinsic hash: {}", hash);
     }
 }

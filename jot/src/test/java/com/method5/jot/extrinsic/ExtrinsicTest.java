@@ -4,7 +4,6 @@ import com.method5.jot.TestBase;
 import com.method5.jot.entity.DispatchError;
 import com.method5.jot.entity.Phase;
 import com.method5.jot.events.EventRecord;
-import com.method5.jot.extrinsic.call.BalancesPallet;
 import com.method5.jot.entity.Extrinsic;
 import com.method5.jot.entity.Mortality;
 import com.method5.jot.query.model.AccountId;
@@ -29,10 +28,9 @@ public class ExtrinsicTest extends TestBase {
     public void testSignedEncodeDecodeWithAllDetails() throws Exception {
         Wallet wallet = Wallet.generate();
 
-        byte[] callData = BalancesPallet.transferKeepAlive(
-                resolver,
+        byte[] callData = api.tx().balances().transferKeepAlive(
                 AccountId.fromSS58("13NHcoGFJsHJoCYVsJrrv2ygLtz2XJSR17KrnA9QTNYz3Zkz"),
-                new BigDecimal("0.001"));
+                new BigDecimal("0.001")).callData();
 
         assertNotNull(callData);
 

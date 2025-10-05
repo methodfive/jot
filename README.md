@@ -42,13 +42,13 @@ Requires **Java 21+** and **Maven** or **Gradle**.
 <dependency>
   <groupId>com.method5</groupId>
   <artifactId>jot</artifactId>
-  <version>1.0.1</version>
+  <version>1.0.2</version>
 </dependency>
 ```
 
 **Gradle (Kotlin DSL):**
 ```kotlin
-implementation("com.method5:jot:1.0.1")
+implementation("com.method5:jot:1.0.2")
 ```
 
 ---
@@ -82,29 +82,15 @@ System.out.println(wallet.getAddress());
 
 ### 💸 Send a Transfer (Balances.transferKeepAlive)
 ```java
-try (PolkadotRpcClient rpc = new PolkadotRpcClient(new String[] { ExampleConstants.RPC_SERVER }, 10000)) {
+try (PolkadotRpc api = new PolkadotRpc(new String[] { ExampleConstants.RPC_SERVER }, 10000)) {
     String to = "15..."; // destination address
-    BigInteger amount = BigInteger.ONE; // 1 DOT
+    BigInteger amount = BigInteger.valueOf(1); // 1 DOT
     
-    // Build call data for Balances.transferKeepAlive
-    byte[] callData = BalancesPallet.transferKeepAlive(
-        rpc.getResolver(),
-        to,
-        amount
-    );
+    Call call = api.tx().balances().transferKeepAlive(to, amount);
     
-    // Create and sign extrinsic
-    byte[] extrinsic = ExtrinsicSigner.signAndBuild(rpc,
-        wallet.getSigner(),
-        callData
-    );
-    
-    // Submit extrinsic to RPC
-    String hash = AuthorRpc.submitExtrinsic(rpc, extrinsic);
-    
+    String hash = call.signAndSend(wallet.getSigner());
     System.out.println("Extrinsic hash: "+ hash);
 }
-
 ```
 
 ### 🛠️ Decode a Signed Extrinsic
@@ -120,7 +106,7 @@ System.out.println(decoded);
 // Subscribe to finalized blocks
 Subscription<BlockHeader> subscription = new Subscription<>(
     SubscriptionType.FINALIZED_HEAD,
-    rpc,
+    api,
     header -> {
         System.out.println("New head: " + header);
     }
@@ -129,6 +115,9 @@ Subscription<BlockHeader> subscription = new Subscription<>(
 // Unsubscribe
 subscription.unsubscribe();
 ```
+
+> ⚠️ Note: api must be of type PolkadotWs for subscriptions!
+
 
 ### 🔍 Query wallet balance
 ```java
@@ -145,20 +134,9 @@ System.out.println("Frozen balance: " + accountInfo.getFrozen());
 
 ### ⏱️ Submit extrinsic and wait for result
 ```java
-// Build call data for System.remark
-byte[] callData = SystemPallet.remark(
-    client.getResolver(),
-    "test".getBytes(StandardCharsets.UTF_8) // remark
-);
-
-// Create and sign extrinsic
-byte[] extrinsic = ExtrinsicSigner.signAndBuild(client,
-    wallet.getSigner(),
-    callData
-);
-
-// Submit to RPC and wait for result
-ExtrinsicResult result = client.submitAndWaitForExtrinsic(extrinsic, PolkadotWsClient.Confirmation.BEST, 10000);
+Call call = api.tx().system().remark("test");
+        
+ExtrinsicResult result = call.signAndWaitForResults(wallet.getSigner());
 
 // Result
 System.out.println("Successful: " + result.isSuccess());
@@ -186,7 +164,7 @@ If you want to build Jot from source, you’ll need:
 
 - Java 21+
 - Maven 3.9+
-- [Rust 1.81.0+](https://www.rust-lang.org/tools/install) (required for SR25519 support)
+- Rust 1.81.0+
 
 > ⚠️ After installing Rust, make sure your environment is configured by sourcing `~/.cargo/env`:
 > ```bash

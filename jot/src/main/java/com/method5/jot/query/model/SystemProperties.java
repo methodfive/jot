@@ -53,4 +53,14 @@ public class SystemProperties {
     public void setAdditional(Map<String, Object> additional) {
         this.additional = additional;
     }
+
+    @Override
+    public String toString() {
+        return "SystemProperties{" +
+                "ss58Format=" + ss58Format +
+                ", tokenSymbol='" + tokenSymbol + '\'' +
+                ", tokenDecimals=" + tokenDecimals +
+                ", additional=" + additional +
+                '}';
+    }
 }

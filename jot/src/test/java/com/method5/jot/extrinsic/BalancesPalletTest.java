@@ -1,7 +1,6 @@
 package com.method5.jot.extrinsic;
 
 import com.method5.jot.TestBase;
-import com.method5.jot.extrinsic.call.BalancesPallet;
 import com.method5.jot.query.model.AccountId;
 import com.method5.jot.util.HexUtil;
 import org.junit.jupiter.api.Test;
@@ -14,27 +13,27 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 public class BalancesPalletTest extends TestBase {
     @Test
     public void testBalancesTransferAll() {
-        byte[] callData = BalancesPallet.transferAll(resolver,
+        byte[] callData = api.tx().balances().transferAll(
                 AccountId.fromSS58("13UVJyLnbVp9RBZYFwFGyDvVd1y27Tt8tkntv6Q7JVPhFsTB"),
-                true);
+                true).callData();
         assertNotNull(callData);
         assertEquals("0504006d6f646c70792f7472737279000000000000000000000000000000000000000001", HexUtil.bytesToHex(callData));
     }
 
     @Test
     public void testBalancesTransferAllowDeath() {
-        byte[] callData = BalancesPallet.transferAllowDeath(resolver,
+        byte[] callData = api.tx().balances().transferAllowDeath(
                 AccountId.fromSS58("13UVJyLnbVp9RBZYFwFGyDvVd1y27Tt8tkntv6Q7JVPhFsTB"),
-                new BigDecimal(1));
+                new BigDecimal(1)).callData();
         assertNotNull(callData);
         assertEquals("0500006d6f646c70792f747273727900000000000000000000000000000000000000000700e40b5402", HexUtil.bytesToHex(callData));
     }
 
     @Test
     public void testBalancesTransferKeepAlive() {
-        byte[] callData = BalancesPallet.transferKeepAlive(resolver,
+        byte[] callData = api.tx().balances().transferKeepAlive(
                 AccountId.fromSS58("13UVJyLnbVp9RBZYFwFGyDvVd1y27Tt8tkntv6Q7JVPhFsTB"),
-                new BigDecimal(1));
+                new BigDecimal(1)).callData();
         assertNotNull(callData);
         assertEquals("0503006d6f646c70792f747273727900000000000000000000000000000000000000000700e40b5402", HexUtil.bytesToHex(callData));
     }

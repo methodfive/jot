@@ -1,63 +1,64 @@
 package com.method5.jot.query;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.method5.jot.query.model.BlockHeader;
 import com.method5.jot.query.model.SignedBlock;
-import com.method5.jot.rpc.PolkadotClient;
+import com.method5.jot.rpc.Api;
+import com.method5.jot.rpc.CallOrQuery;
 import com.method5.jot.util.HexUtil;
 
 /**
  * ChainRpc — class for chain rpc in the Jot SDK. Provides RPC client / JSON‑RPC integration; key
  * management and signing.
  */
-public final class ChainRpc {
-    private ChainRpc() {}
-    private static final ObjectMapper mapper = new ObjectMapper();
+public class ChainRpc extends CallOrQuery {
+    public ChainRpc(Api api) {
+        super(api);
+    }
 
-    public static SignedBlock getBlock(PolkadotClient client) throws Exception {
-        JsonNode result = client.send("chain_getBlock", mapper.createArrayNode());
+    public SignedBlock block() throws Exception {
+        JsonNode result = api.send("chain_getBlock", mapper.createArrayNode());
         return mapper.treeToValue(result, SignedBlock.class);
     }
 
-    public static SignedBlock getBlock(PolkadotClient client, String at) throws Exception {
+    public SignedBlock block(String at) throws Exception {
         ArrayNode params = mapper.createArrayNode();
         params.add(at);
-        JsonNode result = client.send("chain_getBlock", params);
+        JsonNode result = api.send("chain_getBlock", params);
         return mapper.treeToValue(result, SignedBlock.class);
     }
 
-    public static byte[] getBlockHash(PolkadotClient client) throws Exception {
-        JsonNode result = client.send("chain_getBlockHash", mapper.createArrayNode());
-        return HexUtil.hexToBytes(result.asText());
+    public String blockHash() throws Exception {
+        JsonNode result = api.send("chain_getBlockHash", mapper.createArrayNode());
+        return result.asText();
     }
 
-    public static byte[] getGenesisBlockHash(PolkadotClient client) throws Exception {
-        return getBlockHash(client, 0);
+    public String genesisBlockHash() throws Exception {
+        return blockHash(0);
     }
 
-    public static byte[] getBlockHash(PolkadotClient client, long blockNumber) throws Exception {
+    public String blockHash(long blockNumber) throws Exception {
         ArrayNode params = mapper.createArrayNode();
         String hexBlockNumber = "0x" + Long.toHexString(blockNumber);
         params.add(hexBlockNumber);
-        JsonNode result = client.send("chain_getBlockHash", params);
-        return HexUtil.hexToBytes(result.asText());
+        JsonNode result = api.send("chain_getBlockHash", params);
+        return result.asText();
     }
 
-    public static byte[] getFinalizedHead(PolkadotClient client) throws Exception {
-        return HexUtil.hexToBytes(client.send("chain_getFinalizedHead", mapper.createArrayNode()).asText());
+    public byte[] finalizedHead() throws Exception {
+        return HexUtil.hexToBytes(api.send("chain_getFinalizedHead", mapper.createArrayNode()).asText());
     }
 
-    public static BlockHeader getHeader(PolkadotClient client) throws Exception {
-        JsonNode result = client.send("chain_getHeader", mapper.createArrayNode());
+    public BlockHeader header() throws Exception {
+        JsonNode result = api.send("chain_getHeader", mapper.createArrayNode());
         return mapper.treeToValue(result, BlockHeader.class);
     }
 
-    public static BlockHeader getHeader(PolkadotClient client, String at) throws Exception {
+    public BlockHeader header(String at) throws Exception {
         ArrayNode params = mapper.createArrayNode();
         params.add(at);
-        JsonNode result = client.send("chain_getHeader", params);
+        JsonNode result = api.send("chain_getHeader", params);
         return mapper.treeToValue(result, BlockHeader.class);
     }
 }

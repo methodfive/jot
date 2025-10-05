@@ -1,6 +1,6 @@
 package com.method5.jot.examples.keys;
 
-import com.method5.jot.examples.query.QueryBlockEventsExample;
+import com.method5.jot.util.ExampleBase;
 import com.method5.jot.util.HexUtil;
 import com.method5.jot.wallet.Wallet;
 import org.slf4j.Logger;
@@ -8,10 +8,16 @@ import org.slf4j.LoggerFactory;
 
 import java.nio.charset.StandardCharsets;
 
-public class Ed25519WalletExample {
+public class Ed25519WalletExample extends ExampleBase {
     private static final Logger logger = LoggerFactory.getLogger(Ed25519WalletExample.class);
 
     public static void main(String[] args) throws Exception {
+        execute();
+    }
+
+    private static void execute() throws Exception {
+        logger.info("Ed25519 Wallet Example");
+
         // Generate new wallet using ED25519 keys
         Wallet wallet = Wallet.generate(Wallet.KeyType.ED25519);
 
@@ -29,5 +35,8 @@ public class Ed25519WalletExample {
 
         // Verify signature
         boolean valid = wallet.verify(payload, signature);
+
+        logger.info("Signature: {}", HexUtil.bytesToHex(signature));
+        logger.info("Valid: {}", valid);
     }
 }

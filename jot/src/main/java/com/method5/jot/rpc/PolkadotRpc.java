@@ -14,15 +14,15 @@ import java.util.UUID;
  * PolkadotRpcClient — class for polkadot rpc client in the Jot SDK. Provides RPC client / JSON‑RPC
  * integration.
  */
-public class PolkadotRpcClient extends PolkadotClient {
+public class PolkadotRpc extends Api {
     private final HttpClient httpClient;
     private boolean closed = false;
 
-    public PolkadotRpcClient(String server) {
+    public PolkadotRpc(String server) {
         this(new String[] { server }, 10000);
     }
 
-    public PolkadotRpcClient(String[] servers, long timeoutInMillis) {
+    public PolkadotRpc(String[] servers, long timeoutInMillis) {
         super(servers, timeoutInMillis);
 
         this.httpClient = HttpClient.newBuilder()

@@ -7,8 +7,9 @@ import com.fasterxml.jackson.databind.node.BigIntegerNode;
 import com.fasterxml.jackson.databind.node.TextNode;
 import com.method5.jot.TestBase;
 import com.method5.jot.entity.Mortality;
+import com.method5.jot.query.Query;
 import com.method5.jot.query.model.SignedBlock;
-import com.method5.jot.rpc.PolkadotWsClient;
+import com.method5.jot.rpc.PolkadotWs;
 import com.method5.jot.spec.ChainSpec;
 import com.method5.jot.util.HexUtil;
 import com.method5.jot.wallet.Wallet;
@@ -28,7 +29,7 @@ public class ExtrinsicSignerTest extends TestBase {
 
         byte[] callData = HexUtil.hexToBytes("05030068b48f12d74877afb8c3a3db239fa11179ab344e071b8a53a9ca2e865b29d026025a6202");
 
-        PolkadotWsClient client = mock(PolkadotWsClient.class);
+        PolkadotWs client = mock(PolkadotWs.class);
         when(client.send("chain_getFinalizedHead", mapper.createArrayNode())).thenReturn(new TextNode("120c0a19ed212ed7d1309efe01e74691ec66d34819a82e2db3c9253024e7351b"));
 
         ArrayNode params = mapper.createArrayNode();
@@ -40,6 +41,7 @@ public class ExtrinsicSignerTest extends TestBase {
         when(client.send("system_accountNextIndex", params2)).thenReturn(new BigIntegerNode(BigInteger.TEN));
 
         when(client.getChainSpec()).thenReturn(new ChainSpec());
+        when(client.query()).thenReturn(new Query(client));
 
         ArrayNode params3 = mapper.createArrayNode();
         String hexBlockNumber = "0x" + Long.toHexString(0);

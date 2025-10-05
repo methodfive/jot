@@ -120,4 +120,15 @@ public class BlockHeader {
     public int hashCode() {
         return Objects.hash(parentHash, number, stateRoot, extrinsicsRoot, digest);
     }
+
+    @Override
+    public String toString() {
+        return "BlockHeader{" +
+                "parentHash='" + parentHash + '\'' +
+                ", number=" + number +
+                ", stateRoot='" + stateRoot + '\'' +
+                ", extrinsicsRoot='" + extrinsicsRoot + '\'' +
+                ", digest=" + digest +
+                '}';
+    }
 }

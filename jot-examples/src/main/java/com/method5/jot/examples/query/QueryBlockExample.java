@@ -1,24 +1,28 @@
 package com.method5.jot.examples.query;
 
-import com.method5.jot.query.ChainRpc;
 import com.method5.jot.query.model.SignedBlock;
-import com.method5.jot.rpc.PolkadotRpcClient;
-import com.method5.jot.util.HexUtil;
-import com.method5.jot.examples.ExampleConstants;
+import com.method5.jot.rpc.PolkadotWs;
+import com.method5.jot.examples.Config;
+import com.method5.jot.util.ExampleBase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class QueryBlockExample {
+public class QueryBlockExample extends ExampleBase {
     private static final Logger logger = LoggerFactory.getLogger(QueryBlockExample.class);
 
     public static void main(String[] args) throws Exception {
-        try (PolkadotRpcClient client = new PolkadotRpcClient(new String[] { ExampleConstants.RPC_SERVER }, 10000)) {
-
-            byte[] blockHash = ChainRpc.getBlockHash(client, 0);
-            logger.info("Genesis hash512: {}", HexUtil.bytesToHex(blockHash));
-
-            SignedBlock block = ChainRpc.getBlock(client, HexUtil.bytesToHex(blockHash));
-            logger.info("Genesis block: {}", block);
+        try (PolkadotWs api = new PolkadotWs(Config.WSS_SERVER, 10000)) {
+            execute(api);
         }
+    }
+
+    private static void execute(PolkadotWs api) throws Exception {
+        logger.info("Query Block Example");
+
+        String blockHash = api.query().chain().genesisBlockHash();
+        logger.info("Genesis hash: {}", blockHash);
+
+        SignedBlock block = api.query().chain().block(blockHash);
+        logger.info("Genesis block: {}", block);
     }
 }

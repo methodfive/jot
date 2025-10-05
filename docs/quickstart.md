@@ -29,7 +29,7 @@ Add Jot to your `pom.xml`:
   <dependency>
     <groupId>com.method5</groupId>
     <artifactId>jot</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
   </dependency>
 </dependencies>
 ```
@@ -59,7 +59,7 @@ cd hello-jot
 Add Jot to `build.gradle.kts`:
 ```kotlin
 dependencies {
-    implementation("com.method5:jot:1.0.1")
+    implementation("com.method5:jot:1.0.2")
 }
 ```
 
@@ -82,16 +82,13 @@ Create `src/main/java/com/example/HelloPolkadot.java`:
 ```java
 package com.example;
 
-import com.method5.jot.query.ChainRpc;
-import com.method5.jot.query.SystemRpc;
-import com.method5.jot.rpc.PolkadotWsClient;
-import com.method5.jot.util.HexUtil;
+import com.method5.jot.rpc.PolkadotWs;
 
 public class HelloPolkadot {
     public static void main(String[] args) throws Exception {
-        try (PolkadotWsClient rpc = new PolkadotWsClient("wss://polkadot.api.onfinality.io/public-ws")) {
-            System.out.println("Connected to chain: " + SystemRpc.chain(rpc));
-            System.out.println("Genesis hash: " + HexUtil.bytesToHex(ChainRpc.getGenesisBlockHash(rpc)));
+        try (PolkadotWs api = new PolkadotWs("wss://polkadot.api.onfinality.io/public-ws")) {
+            System.out.println("Connected to chain: " + api.query().system().chain());
+            System.out.println("Genesis hash: " + api.query().chain().genesisBlockHash());
         }
     }
 }

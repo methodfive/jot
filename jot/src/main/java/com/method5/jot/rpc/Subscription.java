@@ -16,11 +16,11 @@ public class Subscription<T> {
     private final SubscriptionType subscriptionType;
     private final Consumer<T> onMessage;
     private final ExecutorService executor;
-    private final PolkadotWsClient client;
+    private final PolkadotWs client;
     private final String subscriptionID;
     private final MessageParser<T> parser;
 
-    public Subscription(SubscriptionType subscriptionType, PolkadotWsClient client, Consumer<T> onMessage) throws Exception {
+    public Subscription(SubscriptionType subscriptionType, PolkadotWs client, Consumer<T> onMessage) throws Exception {
         this.subscriptionType = subscriptionType;
         this.client = client;
         this.onMessage = onMessage;

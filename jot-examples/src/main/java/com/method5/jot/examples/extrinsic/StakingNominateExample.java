@@ -1,11 +1,11 @@
 package com.method5.jot.examples.extrinsic;
 
-import com.method5.jot.query.AuthorRpc;
-import com.method5.jot.rpc.PolkadotRpcClient;
+import com.method5.jot.examples.Config;
+import com.method5.jot.extrinsic.call.Call;
+import com.method5.jot.rpc.PolkadotWs;
+import com.method5.jot.signing.SigningProvider;
+import com.method5.jot.util.ExampleBase;
 import com.method5.jot.wallet.Wallet;
-import com.method5.jot.examples.ExampleConstants;
-import com.method5.jot.extrinsic.ExtrinsicSigner;
-import com.method5.jot.extrinsic.call.StakingPallet;
 import com.method5.jot.entity.MultiAddress;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,35 +13,29 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StakingNominateExample {
+public class StakingNominateExample extends ExampleBase {
     private static final Logger logger = LoggerFactory.getLogger(StakingNominateExample.class);
 
     public static void main(String[] args) throws Exception {
-        // Load (or generate) new wallet
-        Wallet wallet = Wallet.generate();
+        Wallet wallet = Wallet.fromMnemonic(Config.MNEMONIC_PHRASE);
 
-        try (PolkadotRpcClient client = new PolkadotRpcClient(new String[] { ExampleConstants.RPC_SERVER }, 10000)) {
-
-            // Build call data for Staking.nominate
-            byte[] callData = StakingPallet.nominate(
-                    client.getResolver(),
-                    new ArrayList<>(List.of(               // nomination targets
-                        MultiAddress.fromSS58("114SUbKCXjmb9czpWTtS3JANSmNRwVa4mmsMrWYpRG1kDH5"),
-                        MultiAddress.fromSS58("11uMPbeaEDJhUxzU4ZfWW9VQEsryP9XqFcNRfPdYda6aFWJ"),
-                        MultiAddress.fromSS58("1737bipUqNUHYjUB5HCezyYqto5ZjFiMSXNAX8fWktnD5AS")
-                    ))
-            );
-
-            // Create and sign extrinsic
-            byte[] extrinsic = ExtrinsicSigner.signAndBuild(client,
-                    wallet.getSigner(),
-                    callData
-            );
-
-            // Submit extrinsic to RPC
-            String hash = AuthorRpc.submitExtrinsic(client, extrinsic);
-
-            logger.info("Extrinsic hash: {}", hash);
+        try (PolkadotWs api = new PolkadotWs(Config.WSS_SERVER, 10000)) {
+            execute(api, wallet.getSigner());
         }
+    }
+
+    private static void execute(PolkadotWs api, SigningProvider signingProvider) throws Exception {
+        // Nomination targets
+        List<MultiAddress> nominationTargets = new ArrayList<>(List.of(
+                MultiAddress.fromSS58("114SUbKCXjmb9czpWTtS3JANSmNRwVa4mmsMrWYpRG1kDH5"),
+                MultiAddress.fromSS58("11uMPbeaEDJhUxzU4ZfWW9VQEsryP9XqFcNRfPdYda6aFWJ"),
+                MultiAddress.fromSS58("1737bipUqNUHYjUB5HCezyYqto5ZjFiMSXNAX8fWktnD5AS")
+        ));
+
+        Call call = api.tx().staking().nominate(nominationTargets);
+
+        String hash = call.signAndSend(signingProvider);
+
+        logger.info("Extrinsic hash: {}", hash);
     }
 }

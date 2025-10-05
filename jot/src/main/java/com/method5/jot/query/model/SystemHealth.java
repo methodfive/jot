@@ -69,4 +69,15 @@ public class SystemHealth {
         SystemHealth that = (SystemHealth) o;
         return isSyncing == that.isSyncing && peers == that.peers && shouldHavePeers == that.shouldHavePeers && diskUsage == that.diskUsage && isOffline == that.isOffline;
     }
+
+    @Override
+    public String toString() {
+        return "SystemHealth{" +
+                "isSyncing=" + isSyncing +
+                ", peers=" + peers +
+                ", shouldHavePeers=" + shouldHavePeers +
+                ", diskUsage=" + diskUsage +
+                ", isOffline=" + isOffline +
+                '}';
+    }
 }

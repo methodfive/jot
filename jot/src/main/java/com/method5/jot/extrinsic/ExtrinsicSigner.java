@@ -2,10 +2,8 @@ package com.method5.jot.extrinsic;
 
 import com.method5.jot.crypto.Hasher;
 import com.method5.jot.entity.Mortality;
-import com.method5.jot.query.ChainRpc;
-import com.method5.jot.query.SystemRpc;
 import com.method5.jot.query.model.SignedBlock;
-import com.method5.jot.rpc.PolkadotClient;
+import com.method5.jot.rpc.Api;
 import com.method5.jot.scale.ScaleWriter;
 import com.method5.jot.signing.SigningProvider;
 import com.method5.jot.util.HexUtil;
@@ -21,24 +19,24 @@ public final class ExtrinsicSigner {
     private ExtrinsicSigner() {}
 
     public static byte[] signAndBuild(
-            PolkadotClient client,
+            Api api,
             SigningProvider signingProvider,
             byte[] callData
     ) throws Exception {
-        byte[] finalizedBlockHash = ChainRpc.getFinalizedHead(client);
-        SignedBlock block = ChainRpc.getBlock(client, HexUtil.bytesToHex(finalizedBlockHash));
+        byte[] finalizedBlockHash = api.query().chain().finalizedHead();
+        SignedBlock block = api.query().chain().block(HexUtil.bytesToHex(finalizedBlockHash));
         int blockNumber = block.getBlock().getHeader().getNumber();
 
         return signAndBuild(
                 callData,
-                SystemRpc.accountNextIndex(client, SS58.encode(signingProvider.getPublicKey(), 0)),
+                api.query().system().accountNextIndex(SS58.encode(signingProvider.getPublicKey(), 0)),
                 BigInteger.ZERO,
                 signingProvider,
                 Mortality.mortal(blockNumber),
-                client.getChainSpec().getSpecVersion(),
-                client.getChainSpec().getTransactionVersion(),
-                client.getChainSpec().getGenesisHash(),
-                ChainRpc.getBlockHash(client, blockNumber));
+                api.getChainSpec().getSpecVersion(),
+                api.getChainSpec().getTransactionVersion(),
+                api.getChainSpec().getGenesisHash(),
+                HexUtil.hexToBytes(api.query().chain().blockHash(blockNumber)));
     }
 
     public static byte[] signAndBuild(

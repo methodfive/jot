@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.method5.jot.entity.metadata.MetadataV14;
 import com.method5.jot.metadata.CallIndexResolver;
 import com.method5.jot.metadata.MetadataParser;
+import com.method5.jot.rpc.Api;
+import com.method5.jot.rpc.NopApi;
 import com.method5.jot.spec.ChainSpec;
 import com.method5.jot.util.HexUtil;
 import org.junit.jupiter.api.BeforeAll;
@@ -17,6 +19,7 @@ public class TestBase {
     public static CallIndexResolver resolver;
     public static ChainSpec chainSpec;
     public static MetadataV14 metadata;
+    public static Api api;
 
     public static final String[] HTTPS_DOT_RPC_SERVERS = new String[] {
             "https://polkadot-rpc.dwellir.com",
@@ -40,5 +43,7 @@ public class TestBase {
 
         metadata = parser.parse(metadataBytes);
         chainSpec = new ChainSpec();
+
+        api = new NopApi(resolver);
     }
 }

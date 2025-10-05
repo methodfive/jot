@@ -1,42 +1,38 @@
 package com.method5.jot.examples.extrinsic;
 
-import com.method5.jot.examples.rpc.ConnectToHttpRpcExample;
-import com.method5.jot.query.AuthorRpc;
+import com.method5.jot.examples.Config;
+import com.method5.jot.extrinsic.call.Call;
 import com.method5.jot.query.model.AccountId;
-import com.method5.jot.rpc.PolkadotRpcClient;
+import com.method5.jot.rpc.PolkadotWs;
+import com.method5.jot.signing.SigningProvider;
+import com.method5.jot.util.ExampleBase;
 import com.method5.jot.wallet.Wallet;
-import com.method5.jot.examples.ExampleConstants;
-import com.method5.jot.extrinsic.call.BalancesPallet;
-import com.method5.jot.extrinsic.ExtrinsicSigner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class BalancesTransferAllExample {
+public class BalancesTransferAllExample extends ExampleBase {
     private static final Logger logger = LoggerFactory.getLogger(BalancesTransferAllExample.class);
 
     public static void main(String[] args) throws Exception {
-        // Load (or generate) new wallet
-        Wallet wallet = Wallet.generate();
+        Wallet wallet = Wallet.fromMnemonic(Config.MNEMONIC_PHRASE);
 
-        try (PolkadotRpcClient client = new PolkadotRpcClient(new String[] { ExampleConstants.RPC_SERVER }, 10000)) {
-
-            // Build call data for Balances.transferKeepAlive
-            byte[] callData = BalancesPallet.transferAll(
-                    client.getResolver(),
-                    AccountId.fromSS58("13NHcoGFJsHJoCYVsJrrv2ygLtz2XJSR17KrnA9QTNYz3Zkz"), // destination address,
-                    true                                                        // keep alive
-            );
-
-            // Create and sign extrinsic
-            byte[] extrinsic = ExtrinsicSigner.signAndBuild(client,
-                    wallet.getSigner(),
-                    callData
-            );
-
-            // Submit extrinsic to RPC
-            String hash = AuthorRpc.submitExtrinsic(client, extrinsic);
-
-            logger.info("Extrinsic hash: {}", hash);
+        try (PolkadotWs api = new PolkadotWs(Config.WSS_SERVER, 10000)) {
+            execute(api, wallet.getSigner());
         }
+    }
+
+    private static void execute(PolkadotWs api, SigningProvider signingProvider) throws Exception {
+        logger.info("Balances Transfer Example");
+
+        // Destination address
+        AccountId destination = AccountId.fromSS58("13NHcoGFJsHJoCYVsJrrv2ygLtz2XJSR17KrnA9QTNYz3Zkz");
+        // Keep alive
+        boolean keepAlive = true;
+
+        Call call = api.tx().balances().transferAll(destination, keepAlive);
+
+        String hash = call.signAndSend(signingProvider);
+
+        logger.info("Extrinsic hash: {}", hash);
     }
 }

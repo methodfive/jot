@@ -10,7 +10,7 @@ import java.math.BigDecimal;
  * submission; types and data models.
  */
 public class AccountVote {
-    private AccountVoteType type;
+    private final AccountVoteType type;
 
     private boolean aye;
     private Conviction conviction;

@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.TextNode;
 import com.method5.jot.TestBase;
-import com.method5.jot.rpc.PolkadotWsClient;
+import com.method5.jot.rpc.PolkadotWs;
 import com.method5.jot.util.HexUtil;
 import org.junit.jupiter.api.Test;
 
@@ -18,17 +18,18 @@ public class AuthorRpcTest extends TestBase {
 
     @Test
     public void testSubmitExtrinsic() throws Exception {
-        PolkadotWsClient client = mock(PolkadotWsClient.class);
+        PolkadotWs api = mock(PolkadotWs.class);
 
         byte[] extrinsic = new byte[1924];
 
         ArrayNode params = mapper.createArrayNode();
         params.add(HexUtil.bytesToHex(extrinsic));
 
-        when(client.send("author_submitExtrinsic", params)).thenReturn(new TextNode("00"));
-        when(client.getChainSpec()).thenReturn(chainSpec);
+        when(api.send("author_submitExtrinsic", params)).thenReturn(new TextNode("00"));
+        when(api.getChainSpec()).thenReturn(chainSpec);
+        when(api.query()).thenReturn(new Query(api));
 
-        String extrinsicHash = AuthorRpc.submitExtrinsic(client, extrinsic);
+        String extrinsicHash = api.query().author().submitExtrinsic(extrinsic);
 
         assertNotNull(extrinsicHash);
         assertEquals("00", extrinsicHash);

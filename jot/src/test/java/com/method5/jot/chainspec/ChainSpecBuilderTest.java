@@ -4,9 +4,9 @@ import com.method5.jot.TestBase;
 import com.method5.jot.entity.metadata.MetadataV14;
 import com.method5.jot.metadata.CallIndexResolver;
 import com.method5.jot.metadata.MetadataParser;
+import com.method5.jot.rpc.PolkadotRpc;
 import com.method5.jot.spec.ChainSpec;
 import com.method5.jot.spec.ChainSpecBuilder;
-import com.method5.jot.rpc.PolkadotRpcClient;
 import com.method5.jot.util.HexUtil;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -19,7 +19,7 @@ public class ChainSpecBuilderTest extends TestBase {
 
     @Test
     public void testBuildChainSpec() {
-        ChainSpecBuilder chainSpecBuilder = new ChainSpecBuilder(new PolkadotRpcClient(HTTPS_DOT_RPC_SERVERS, 10000));
+        ChainSpecBuilder chainSpecBuilder = new ChainSpecBuilder(new PolkadotRpc(HTTPS_DOT_RPC_SERVERS, 10000));
         ChainSpec chainSpec = chainSpecBuilder.build();
 
         assertNotNull(chainSpec);

@@ -61,6 +61,14 @@ public class SignedBlock {
         public int hashCode() {
             return Objects.hash(header, extrinsics);
         }
+
+        @Override
+        public String toString() {
+            return "Block{" +
+                    "header=" + header +
+                    ", extrinsics=" + extrinsics +
+                    '}';
+        }
     }
 
     public Block getBlock() {
@@ -81,5 +89,12 @@ public class SignedBlock {
     @Override
     public int hashCode() {
         return Objects.hashCode(block);
+    }
+
+    @Override
+    public String toString() {
+        return "SignedBlock{" +
+                "block=" + block +
+                '}';
     }
 }

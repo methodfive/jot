@@ -10,7 +10,7 @@ import com.method5.jot.TestBase;
 import com.method5.jot.query.model.ChainType;
 import com.method5.jot.query.model.SystemHealth;
 import com.method5.jot.query.model.SystemProperties;
-import com.method5.jot.rpc.PolkadotWsClient;
+import com.method5.jot.rpc.PolkadotWs;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigInteger;
@@ -25,15 +25,16 @@ public class SystemRpcTest extends TestBase {
 
     @Test
     public void testAccountNextIndex() throws Exception {
-        PolkadotWsClient client = mock(PolkadotWsClient.class);
+        PolkadotWs api = mock(PolkadotWs.class);
 
         ArrayNode params = mapper.createArrayNode();
         params.add("13UVJyLnbVp9RBZYFwFGyDvVd1y27Tt8tkntv6Q7JVPhFsTB");
 
-        when(client.send("system_accountNextIndex", params)).thenReturn(new BigIntegerNode(BigInteger.TEN));
-        when(client.getChainSpec()).thenReturn(chainSpec);
+        when(api.send("system_accountNextIndex", params)).thenReturn(new BigIntegerNode(BigInteger.TEN));
+        when(api.getChainSpec()).thenReturn(chainSpec);
+        when(api.query()).thenReturn(new Query(api));
 
-        BigInteger nextIndex = SystemRpc.accountNextIndex(client, "13UVJyLnbVp9RBZYFwFGyDvVd1y27Tt8tkntv6Q7JVPhFsTB");
+        BigInteger nextIndex = api.query().system().accountNextIndex("13UVJyLnbVp9RBZYFwFGyDvVd1y27Tt8tkntv6Q7JVPhFsTB");
 
         assertNotNull(nextIndex);
         assertEquals(BigInteger.TEN, nextIndex);
@@ -41,12 +42,13 @@ public class SystemRpcTest extends TestBase {
 
     @Test
     public void testVersion() throws Exception {
-        PolkadotWsClient client = mock(PolkadotWsClient.class);
+        PolkadotWs api = mock(PolkadotWs.class);
 
-        when(client.send("system_version", JsonNodeFactory.instance.arrayNode())).thenReturn(new TextNode("12345"));
-        when(client.getChainSpec()).thenReturn(chainSpec);
+        when(api.send("system_version", JsonNodeFactory.instance.arrayNode())).thenReturn(new TextNode("12345"));
+        when(api.getChainSpec()).thenReturn(chainSpec);
+        when(api.query()).thenReturn(new Query(api));
 
-        String version = SystemRpc.version(client);
+        String version = api.query().system().version();
 
         assertNotNull(version);
         assertEquals("12345", version);
@@ -54,12 +56,13 @@ public class SystemRpcTest extends TestBase {
 
     @Test
     public void testChain() throws Exception {
-        PolkadotWsClient client = mock(PolkadotWsClient.class);
+        PolkadotWs api = mock(PolkadotWs.class);
 
-        when(client.send("system_chain", JsonNodeFactory.instance.arrayNode())).thenReturn(new TextNode("test"));
-        when(client.getChainSpec()).thenReturn(chainSpec);
+        when(api.send("system_chain", JsonNodeFactory.instance.arrayNode())).thenReturn(new TextNode("test"));
+        when(api.getChainSpec()).thenReturn(chainSpec);
+        when(api.query()).thenReturn(new Query(api));
 
-        String chain = SystemRpc.chain(client);
+        String chain = api.query().system().chain();
 
         assertNotNull(chain);
         assertEquals("test", chain);
@@ -67,12 +70,13 @@ public class SystemRpcTest extends TestBase {
 
     @Test
     public void testName() throws Exception {
-        PolkadotWsClient client = mock(PolkadotWsClient.class);
+        PolkadotWs api = mock(PolkadotWs.class);
 
-        when(client.send("system_name", JsonNodeFactory.instance.arrayNode())).thenReturn(new TextNode("test"));
-        when(client.getChainSpec()).thenReturn(chainSpec);
+        when(api.send("system_name", JsonNodeFactory.instance.arrayNode())).thenReturn(new TextNode("test"));
+        when(api.getChainSpec()).thenReturn(chainSpec);
+        when(api.query()).thenReturn(new Query(api));
 
-        String chain = SystemRpc.name(client);
+        String chain = api.query().system().name();
 
         assertNotNull(chain);
         assertEquals("test", chain);
@@ -80,16 +84,17 @@ public class SystemRpcTest extends TestBase {
 
     @Test
     public void testProperties() throws Exception {
-        PolkadotWsClient client = mock(PolkadotWsClient.class);
+        PolkadotWs api = mock(PolkadotWs.class);
 
         SystemProperties expectedProperties = new  SystemProperties();
         expectedProperties.setTokenDecimals(99);
         expectedProperties.setTokenSymbol("DOT");
 
-        when(client.send("system_properties", JsonNodeFactory.instance.arrayNode())).thenReturn(mapper.convertValue(expectedProperties, JsonNode.class));
-        when(client.getChainSpec()).thenReturn(chainSpec);
+        when(api.send("system_properties", JsonNodeFactory.instance.arrayNode())).thenReturn(mapper.convertValue(expectedProperties, JsonNode.class));
+        when(api.getChainSpec()).thenReturn(chainSpec);
+        when(api.query()).thenReturn(new Query(api));
 
-        SystemProperties properties = SystemRpc.properties(client);
+        SystemProperties properties = api.query().system().properties();
 
         assertNotNull(properties);
         assertEquals(99, properties.getTokenDecimals());
@@ -98,14 +103,15 @@ public class SystemRpcTest extends TestBase {
 
     @Test
     public void testChainType() throws Exception {
-        PolkadotWsClient client = mock(PolkadotWsClient.class);
+        PolkadotWs api = mock(PolkadotWs.class);
 
         ChainType expectedChainType = ChainType.DEVELOPMENT;
 
-        when(client.send("system_chainType", JsonNodeFactory.instance.arrayNode())).thenReturn(mapper.convertValue(expectedChainType, JsonNode.class));
-        when(client.getChainSpec()).thenReturn(chainSpec);
+        when(api.send("system_chainType", JsonNodeFactory.instance.arrayNode())).thenReturn(mapper.convertValue(expectedChainType, JsonNode.class));
+        when(api.getChainSpec()).thenReturn(chainSpec);
+        when(api.query()).thenReturn(new Query(api));
 
-        ChainType chainType = SystemRpc.chainType(client);
+        ChainType chainType = api.query().system().chainType();
 
         assertNotNull(chainType);
         assertEquals(expectedChainType, chainType);
@@ -113,14 +119,15 @@ public class SystemRpcTest extends TestBase {
 
     @Test
     public void testSystemHealth() throws Exception {
-        PolkadotWsClient client = mock(PolkadotWsClient.class);
+        PolkadotWs api = mock(PolkadotWs.class);
 
         SystemHealth expectedHealth = new SystemHealth();
 
-        when(client.send("system_health", JsonNodeFactory.instance.arrayNode())).thenReturn(mapper.convertValue(expectedHealth, JsonNode.class));
-        when(client.getChainSpec()).thenReturn(chainSpec);
+        when(api.send("system_health", JsonNodeFactory.instance.arrayNode())).thenReturn(mapper.convertValue(expectedHealth, JsonNode.class));
+        when(api.getChainSpec()).thenReturn(chainSpec);
+        when(api.query()).thenReturn(new Query(api));
 
-        SystemHealth systemHealth = SystemRpc.health(client);
+        SystemHealth systemHealth = api.query().system().health();
 
         assertNotNull(systemHealth);
         assertEquals(systemHealth, expectedHealth);

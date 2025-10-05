@@ -1,5 +1,6 @@
 package com.method5.jot.examples.keys;
 
+import com.method5.jot.util.ExampleBase;
 import com.method5.jot.util.HexUtil;
 import com.method5.jot.wallet.Wallet;
 import org.slf4j.Logger;
@@ -7,10 +8,16 @@ import org.slf4j.LoggerFactory;
 
 import java.nio.charset.StandardCharsets;
 
-public class GenericWalletExample {
+public class GenericWalletExample extends ExampleBase {
     private static final Logger logger = LoggerFactory.getLogger(GenericWalletExample.class);
 
     public static void main(String[] args) throws Exception {
+        execute();
+    }
+
+    private static void execute() throws Exception {
+        logger.info("SR25519 Wallet Example");
+
         // Generate new wallet using SR25519 keys
         Wallet wallet = Wallet.generate();
 
@@ -34,5 +41,8 @@ public class GenericWalletExample {
 
         // Verify signature
         boolean valid = wallet.verify(payload, signature);
+
+        logger.info("Signature: {}", HexUtil.bytesToHex(signature));
+        logger.info("Valid: {}", valid);
     }
 }

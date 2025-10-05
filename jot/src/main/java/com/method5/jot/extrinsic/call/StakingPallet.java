@@ -2,8 +2,9 @@ package com.method5.jot.extrinsic.call;
 
 import com.method5.jot.entity.MultiAddress;
 import com.method5.jot.entity.RewardDestination;
-import com.method5.jot.metadata.CallIndexResolver;
 import com.method5.jot.query.model.AccountId;
+import com.method5.jot.rpc.Api;
+import com.method5.jot.rpc.CallOrQuery;
 import com.method5.jot.scale.ScaleWriter;
 import com.method5.jot.util.UnitConverter;
 
@@ -15,60 +16,62 @@ import java.util.List;
  * StakingPallet — class for staking pallet in the Jot SDK. Provides extrinsic construction and
  * submission; pallet call builders.
  */
-public final class StakingPallet {
-    private StakingPallet() {}
+public class StakingPallet extends CallOrQuery {
+    public StakingPallet(Api api) {
+        super(api);
+    }
 
-    public static byte[] bond(CallIndexResolver resolver, BigDecimal amount, RewardDestination rewardDestination) {
+    public Call bond(BigDecimal amount, RewardDestination rewardDestination) {
         ScaleWriter writer = new ScaleWriter();
-        writer.writeBytes(resolver.resolveCallIndex("Staking", "bond"));
+        writer.writeBytes(getResolver().resolveCallIndex("Staking", "bond"));
         writer.writeCompact(UnitConverter.toPlanck(amount));
         writer.writeBytes(rewardDestination.encode());
-        return writer.toByteArray();
+        return new Call(api, writer.toByteArray());
     }
 
-    public static byte[] bondExtra(CallIndexResolver resolver, BigDecimal amount) {
+    public Call bondExtra(BigDecimal amount) {
         ScaleWriter writer = new ScaleWriter();
-        writer.writeBytes(resolver.resolveCallIndex("Staking", "bond_extra"));
+        writer.writeBytes(getResolver().resolveCallIndex("Staking", "bond_extra"));
         writer.writeCompact(UnitConverter.toPlanck(amount));
-        return writer.toByteArray();
+        return new Call(api, writer.toByteArray());
     }
 
-    public static byte[] nominate(CallIndexResolver resolver, List<MultiAddress> targets) {
+    public Call nominate(List<MultiAddress> targets) {
         ScaleWriter writer = new ScaleWriter();
-        writer.writeBytes(resolver.resolveCallIndex("Staking", "nominate"));
+        writer.writeBytes(getResolver().resolveCallIndex("Staking", "nominate"));
         writer.writeCompact(BigInteger.valueOf(targets.size()));
         for (MultiAddress target : targets) {
             writer.writeBytes(target.encode());
         }
-        return writer.toByteArray();
+        return new Call(api, writer.toByteArray());
     }
 
-    public static byte[] chill(CallIndexResolver resolver) {
+    public Call chill() {
         ScaleWriter writer = new ScaleWriter();
-        writer.writeBytes(resolver.resolveCallIndex("Staking", "chill"));
-        return writer.toByteArray();
+        writer.writeBytes(getResolver().resolveCallIndex("Staking", "chill"));
+        return new Call(api, writer.toByteArray());
     }
 
-    public static byte[] unbond(CallIndexResolver resolver, BigDecimal amount) {
+    public Call unbond(BigDecimal amount) {
 
         ScaleWriter writer = new ScaleWriter();
-        writer.writeBytes(resolver.resolveCallIndex("Staking", "unbond"));
+        writer.writeBytes(getResolver().resolveCallIndex("Staking", "unbond"));
         writer.writeCompact(UnitConverter.toPlanck(amount));
-        return writer.toByteArray();
+        return new Call(api, writer.toByteArray());
     }
 
-    public static byte[] rebond(CallIndexResolver resolver, BigDecimal amount) {
+    public Call rebond(BigDecimal amount) {
         ScaleWriter writer = new ScaleWriter();
-        writer.writeBytes(resolver.resolveCallIndex("Staking", "rebond"));
+        writer.writeBytes(getResolver().resolveCallIndex("Staking", "rebond"));
         writer.writeCompact(UnitConverter.toPlanck(amount));
-        return writer.toByteArray();
+        return new Call(api, writer.toByteArray());
     }
 
-    public static byte[] payoutStakers(CallIndexResolver resolver, AccountId validatorStash, int era) {
+    public Call payoutStakers(AccountId validatorStash, int era) {
         ScaleWriter writer = new ScaleWriter();
-        writer.writeBytes(resolver.resolveCallIndex("Staking", "payout_stakers"));
+        writer.writeBytes(getResolver().resolveCallIndex("Staking", "payout_stakers"));
         writer.writeBytes(validatorStash.getPublicKey());
         writer.writeInt(era);
-        return writer.toByteArray();
+        return new Call(api, writer.toByteArray());
     }
 }

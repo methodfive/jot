@@ -42,21 +42,22 @@ mvn exec:java -Dexec.mainClass="<ExampleClass>"
 
 ### 🔍 Queries (`com.method5.jot.examples.query`)
 
-| Example | Description |
-|---|---|
-| **ManualQueryExample** | Perform a manual RPC query with raw parameters and inspect the JSON response. |
-| **QueryAccountAndBalanceExample** | Retrieve `system.account` data and balances for a given address. |
-| **QueryAssetBalanceExample** | Query balances for assets on Asset Hub. |
-| **QueryBlockExample** | Fetch a block and print its contents. |
-| **QueryBlockHashExample** | Resolve block numbers to block hashes. |
-| **QueryBlockHeaderExample** | Query and decode block headers. |
-| **QueryBlockEventsExample** | Read and decode system events for a specific block. |
-| **QueryFeeInfoExample** | Retrieve fee and weight information for a call. |
-| **QueryFinalizedHeadExample** | Get the hash of the latest finalized block. |
-| **QueryMetadataExample** | Retrieve and decode runtime metadata. |
-| **QueryNonceExample** | Query an account’s current transaction nonce. |
-| **QueryRuntimeVersionExample** | Get the runtime version and spec information. |
-| **QuerySystemDetailsExample** | Fetch chain name, properties, and node system info. |
+| Example                           | Description                                                                   |
+|-----------------------------------|-------------------------------------------------------------------------------|
+| **ManualQueryExample**            | Perform a manual RPC query with raw parameters and inspect the JSON response. |
+| **QueryAccountAndBalanceExample** | Retrieve `system.account` data and balances for a given address.              |
+| **QueryAssetBalanceExample**      | Query balances for assets on Asset Hub.                                       |
+| **OfflineSigningExample**         | Sign an extrinic offline.                                                     |
+| **QueryBlockExample**             | Fetch a block and print its contents.                                         |
+| **QueryBlockHashExample**         | Resolve block numbers to block hashes.                                        |
+| **QueryBlockHeaderExample**       | Query and decode block headers.                                               |
+| **QueryBlockEventsExample**       | Read and decode system events for a specific block.                           |
+| **QueryFeeInfoExample**           | Retrieve fee and weight information for a call.                               |
+| **QueryFinalizedHeadExample**     | Get the hash of the latest finalized block.                                   |
+| **QueryMetadataExample**          | Retrieve and decode runtime metadata.                                         |
+| **QueryNonceExample**             | Query an account’s current transaction nonce.                                 |
+| **QueryRuntimeVersionExample**    | Get the runtime version and spec information.                                 |
+| **QuerySystemDetailsExample**     | Fetch chain name, properties, and node system info.                           |
 
 ---
 
@@ -92,6 +93,7 @@ mvn exec:java -Dexec.mainClass="<ExampleClass>"
 
 | Example | Description |
 |---|---|
+| **ReceiveExtrinsicResultExample** | Submit an extrinsic and wait for inclusion/finalization events. |
 | **BalancesTransferAllExample** | Submit a `balances.transferAll` transaction. |
 | **BalancesTransferAllowDeathExample** | Submit a `balances.transferAllowDeath` transaction. |
 | **BalancesTransferKeepAliveExample** | Submit a `balances.transferKeepAlive` transaction. |
@@ -99,7 +101,6 @@ mvn exec:java -Dexec.mainClass="<ExampleClass>"
 | **ConvictionVotingRemoveVoteExample** | Remove a previously cast governance vote. |
 | **MultisigAsMultiExample** | Create and send a multisig transaction with multiple signers. |
 | **MultisigApproveAsMultiExample** | Approve and execute an existing multisig transaction. |
-| **ReceiveExtrinsicResultExample** | Submit an extrinsic and wait for inclusion/finalization events. |
 | **StakingBondExample** | Bond funds to become a nominator or validator. |
 | **StakingBondExtraExample** | Add additional bonded funds. |
 | **StakingChillExample** | Stop nominating (chill). |

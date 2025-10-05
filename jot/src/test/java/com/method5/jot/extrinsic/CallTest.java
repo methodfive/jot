@@ -9,7 +9,7 @@ import com.method5.jot.query.ChainRpc;
 import com.method5.jot.query.Query;
 import com.method5.jot.query.SystemRpc;
 import com.method5.jot.query.model.SignedBlock;
-import com.method5.jot.rpc.NopApi;
+import com.method5.jot.rpc.OfflineApi;
 import com.method5.jot.rpc.PolkadotWs;
 import com.method5.jot.wallet.Wallet;
 import org.junit.jupiter.api.Test;
@@ -120,7 +120,7 @@ public class CallTest extends TestBase {
 
     @Test
     public void testWaitForResultsBadType() throws Exception {
-        NopApi api = mock(NopApi.class);
+        OfflineApi api = mock(OfflineApi.class);
         Transaction tx = mock(Transaction.class);
         SystemPallet systemPallet = mock(SystemPallet.class);
         SystemRpc systemRpc = mock(SystemRpc.class);

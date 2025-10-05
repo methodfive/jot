@@ -8,6 +8,7 @@ import com.method5.jot.metadata.CallIndexResolver;
 import com.method5.jot.metadata.MetadataCache;
 import com.method5.jot.metadata.MetadataParser;
 import com.method5.jot.query.Query;
+import com.method5.jot.query.model.RuntimeVersion;
 import com.method5.jot.spec.ChainSpec;
 import com.method5.jot.spec.ChainSpecBuilder;
 import com.method5.jot.util.HexUtil;
@@ -62,8 +63,8 @@ public abstract class Api implements AutoCloseable {
 
         try {
             String genesisHash = query().chain().genesisBlockHash();
-            long specVersion = query().state().runtimeVersion().getSpecVersion();
-            String cacheKey = MetadataCache.key(genesisHash, specVersion);
+            RuntimeVersion runtimeVersion = query().state().runtimeVersion();
+            String cacheKey = MetadataCache.key(genesisHash, runtimeVersion.getSpecVersion(), runtimeVersion.getTransactionVersion());
 
             MetadataCache.CachedBundle hit = MetadataCache.get(cacheKey);
             if (hit != null) {

@@ -4,6 +4,7 @@ import java.util.List;
 
 public class Config {
     // Mnemonic phrase for Jot examples (defaults to 5FLiJC6HyT8f25aLtXtFpAeVPpa2jVFWPBhwLyearfXnCirq)
+    public static final String WALLET_ADDRESS = "5FLiJC6HyT8f25aLtXtFpAeVPpa2jVFWPBhwLyearfXnCirq";
     public static final String MNEMONIC_PHRASE = "true this awkward beyond stand second garment throw bless two online hurry";
 
     // RPC servers for Jot examples

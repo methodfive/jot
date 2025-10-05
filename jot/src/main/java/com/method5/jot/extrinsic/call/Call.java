@@ -1,11 +1,15 @@
 package com.method5.jot.extrinsic.call;
 
+import com.method5.jot.entity.Mortality;
 import com.method5.jot.extrinsic.ExtrinsicResult;
 import com.method5.jot.extrinsic.ExtrinsicSigner;
 import com.method5.jot.rpc.Api;
+import com.method5.jot.rpc.OfflineApi;
 import com.method5.jot.rpc.PolkadotWs;
 import com.method5.jot.signing.SigningProvider;
 import com.method5.jot.util.HexUtil;
+
+import java.math.BigInteger;
 
 /**
  * Call — Base class for all calls (pallet extrinsics) in the Jot SDK.
@@ -33,6 +37,24 @@ public final class Call {
                 callData
         );
         return HexUtil.bytesToHex(extrinsic);
+    }
+
+    public String signOffline(SigningProvider signer, BigInteger nonce) throws Exception {
+        if(!(api instanceof OfflineApi)) {
+             return sign(signer);
+        } else {
+            OfflineApi offlineApi = (OfflineApi) api;
+            byte[] extrinsic = ExtrinsicSigner.signAndBuild(callData,
+                    nonce,
+                    BigInteger.ZERO,
+                    signer,
+                    Mortality.immortal(),
+                    (int)offlineApi.getSpecVersion(),
+                    (int)offlineApi.getTxVersion(),
+                    HexUtil.hexToBytes(offlineApi.getGenesisHash()),
+                    HexUtil.hexToBytes(offlineApi.getGenesisHash()));
+            return HexUtil.bytesToHex(extrinsic);
+        }
     }
 
     public ExtrinsicResult signAndWaitForResults(SigningProvider signer) throws Exception {

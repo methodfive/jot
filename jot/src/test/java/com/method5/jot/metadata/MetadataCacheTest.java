@@ -8,37 +8,51 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import java.io.IOException;
-import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.zip.GZIPOutputStream;
+import java.util.Comparator;
 
+import static com.method5.jot.metadata.MetadataCache.writeJsonGz;
+import static com.method5.jot.metadata.MetadataCache.writeTextGz;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class MetadataCacheTest {
     @TempDir
     Path tmpDir;
 
-    private String origOverride;
-
     @BeforeEach
     void initialize() {
-        origOverride = System.getProperty("jot.cache.dir");
         System.setProperty("jot.cache.dir", tmpDir.toString());
+        MetadataCache.clearMemory();
     }
 
     @AfterEach
     void destroy() {
-        if (origOverride == null) System.clearProperty("jot.cache.dir");
-        else System.setProperty("jot.cache.dir", origOverride);
+        System.clearProperty("jot.cache.dir");
+        MetadataCache.clearMemory();
+
+        try {
+            if (tmpDir != null && Files.exists(tmpDir)) {
+                Files.walk(tmpDir)
+                        .sorted(Comparator.reverseOrder())
+                        .forEach(p -> {
+                            try {
+                                Files.deleteIfExists(p);
+                            } catch (IOException ignored) {
+                            }
+                        });
+            }
+        } catch (IOException ignored) {
+        }
     }
 
     @Test
     void putThenGetok() {
         String genesis = "0x000000000000000000000000000000000000000000000000000000000000abcd";
         long specVer = 42L;
-        String key = MetadataCache.key(genesis, specVer);
+        long txVer = 46L;
+        String key = MetadataCache.key(genesis, specVer, txVer);
 
         String metadataHex = "deadbeef00aa55";
 
@@ -67,7 +81,7 @@ public class MetadataCacheTest {
 
     @Test
     void corruptedManifestHash() throws IOException {
-        String key = MetadataCache.key("0x1111", 7L);
+        String key = MetadataCache.key("0x1111", 7L, 33L);
         Path root = tmpDir;
         Path dir = root.resolve(key);
         Files.createDirectories(dir);
@@ -83,17 +97,5 @@ public class MetadataCacheTest {
 
         MetadataCache.CachedBundle got = MetadataCache.get(key);
         assertNull(got);
-    }
-
-    private static void writeJsonGz(Path p, String rawJson) throws IOException {
-        try (OutputStream out = new GZIPOutputStream(Files.newOutputStream(p))) {
-            out.write(rawJson.getBytes(StandardCharsets.UTF_8));
-        }
-    }
-
-    private static void writeTextGz(Path p, String text) throws IOException {
-        try (OutputStream out = new GZIPOutputStream(Files.newOutputStream(p))) {
-            out.write(text.getBytes(StandardCharsets.UTF_8));
-        }
     }
 }

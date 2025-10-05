@@ -83,7 +83,7 @@ public final class ExtrinsicSigner {
         payload.writeBytes(genesisHash);
         payload.writeBytes(blockHash);
 
-        payload.writeByte(0); //metadata hash512 (len)
+        payload.writeByte(0); //metadata hash (len)
 
         byte[] rawPayload = payload.toByteArray();
 

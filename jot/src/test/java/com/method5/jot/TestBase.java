@@ -5,7 +5,7 @@ import com.method5.jot.entity.metadata.MetadataV14;
 import com.method5.jot.metadata.CallIndexResolver;
 import com.method5.jot.metadata.MetadataParser;
 import com.method5.jot.rpc.Api;
-import com.method5.jot.rpc.NopApi;
+import com.method5.jot.rpc.OfflineApi;
 import com.method5.jot.spec.ChainSpec;
 import com.method5.jot.util.HexUtil;
 import org.junit.jupiter.api.BeforeAll;
@@ -44,6 +44,6 @@ public class TestBase {
         metadata = parser.parse(metadataBytes);
         chainSpec = new ChainSpec();
 
-        api = new NopApi(resolver);
+        api = new OfflineApi(resolver);
     }
 }

@@ -24,7 +24,10 @@ public class StakingNominateExample extends ExampleBase {
         }
     }
 
-    private static void execute(PolkadotWs api, SigningProvider signingProvider) throws Exception {
+    public static void execute(PolkadotWs api, SigningProvider signingProvider) throws Exception {
+        logger.info("Staking Nominate Example");
+        logger.info("------------------------");
+
         // Nomination targets
         List<MultiAddress> nominationTargets = new ArrayList<>(List.of(
                 MultiAddress.fromSS58("114SUbKCXjmb9czpWTtS3JANSmNRwVa4mmsMrWYpRG1kDH5"),

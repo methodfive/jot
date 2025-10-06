@@ -19,8 +19,9 @@ public class QueryAssetBalanceExample extends ExampleBase {
         }
     }
 
-    private static void execute(PolkadotWs api) throws Exception {
+    public static void execute(PolkadotWs api) throws Exception {
         logger.info("Query Asset Balance Example");
+        logger.info("------------------------");
 
         String address = "5EMMKa93Qfu7Zk3wBryt8MiVH646auLMakb19wBMiSSAWE8U";
         BigInteger assetID = BigInteger.valueOf(31337); // USDC

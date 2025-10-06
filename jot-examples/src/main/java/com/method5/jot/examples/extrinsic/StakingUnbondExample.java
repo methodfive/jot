@@ -22,7 +22,10 @@ public class StakingUnbondExample extends ExampleBase {
         }
     }
 
-    private static void execute(PolkadotWs api, SigningProvider signingProvider) throws Exception {
+    public static void execute(PolkadotWs api, SigningProvider signingProvider) throws Exception {
+        logger.info("Staking Unbond Example");
+        logger.info("------------------------");
+
         // Amount
         BigDecimal amount = new BigDecimal("0.01");
 

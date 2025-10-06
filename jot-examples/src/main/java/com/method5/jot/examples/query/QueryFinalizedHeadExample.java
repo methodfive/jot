@@ -16,11 +16,12 @@ public class QueryFinalizedHeadExample extends ExampleBase {
         }
     }
 
-    private static void execute(PolkadotWs api) throws Exception {
+    public static void execute(PolkadotWs api) throws Exception {
         logger.info("Query Finalized Head Example");
+        logger.info("------------------------");
 
         byte[] blockHash = api.query().chain().finalizedHead();
 
-        logger.info("Finalized head hash: {}", HexUtil.bytesToHex(blockHash));
+        logger.info("Found finalized head: {}", HexUtil.bytesToHex(blockHash));
     }
 }

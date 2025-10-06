@@ -21,7 +21,10 @@ public class StakingPayoutStakersExample extends ExampleBase {
         }
     }
 
-    private static void execute(PolkadotWs api, SigningProvider signingProvider) throws Exception {
+    public static void execute(PolkadotWs api, SigningProvider signingProvider) throws Exception {
+        logger.info("Payout Stakers Example");
+        logger.info("------------------------");
+
         // Stash
         AccountId stash = AccountId.fromSS58("114SUbKCXjmb9czpWTtS3JANSmNRwVa4mmsMrWYpRG1kDH5");
         // Era

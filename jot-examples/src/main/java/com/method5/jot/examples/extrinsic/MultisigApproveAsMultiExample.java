@@ -27,8 +27,9 @@ public class MultisigApproveAsMultiExample extends ExampleBase {
         }
     }
 
-    private static void execute(PolkadotWs api, SigningProvider signingProvider) throws Exception {
+    public static void execute(PolkadotWs api, SigningProvider signingProvider) throws Exception {
         logger.info("Multisig Approve As Multi Example");
+        logger.info("------------------------");
 
         // Multisig participants
         List<AccountId> signers = Arrays.asList(

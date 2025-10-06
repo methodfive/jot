@@ -22,7 +22,10 @@ public class UtilityBatchExample extends ExampleBase {
         }
     }
 
-    private static void execute(PolkadotWs api, SigningProvider signingProvider) throws Exception {
+    public static void execute(PolkadotWs api, SigningProvider signingProvider) throws Exception {
+        logger.info("Utility Batch Example");
+        logger.info("------------------------");
+
         // Calls to batch
         List<Call> innerCalls = List.of(
                 api.tx().system().remark("test"),

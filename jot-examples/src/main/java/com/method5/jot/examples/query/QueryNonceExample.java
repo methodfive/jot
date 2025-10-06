@@ -17,12 +17,16 @@ public class QueryNonceExample extends ExampleBase {
         }
     }
 
-    private static void execute(PolkadotWs api) throws Exception {
+    public static void execute(PolkadotWs api) throws Exception {
         logger.info("Query Nonce Example");
+        logger.info("------------------------");
+
+        String address = "13NHcoGFJsHJoCYVsJrrv2ygLtz2XJSR17KrnA9QTNYz3Zkz";
 
         // Query nonce for wallet
-        BigInteger nonce = api.query().system().accountNextIndex("13NHcoGFJsHJoCYVsJrrv2ygLtz2XJSR17KrnA9QTNYz3Zkz");
+        BigInteger nonce = api.query().system().accountNextIndex(address);
 
-        logger.info("Nonce: {}", nonce);
+        logger.info("Address: {}", address);
+        logger.info("Found nonce: {}", nonce);
     }
 }

@@ -16,13 +16,14 @@ public class QueryBlockExample extends ExampleBase {
         }
     }
 
-    private static void execute(PolkadotWs api) throws Exception {
+    public static void execute(PolkadotWs api) throws Exception {
         logger.info("Query Block Example");
+        logger.info("------------------------");
 
         String blockHash = api.query().chain().genesisBlockHash();
-        logger.info("Genesis hash: {}", blockHash);
+        logger.info("Found genesis hash: {}", blockHash);
 
         SignedBlock block = api.query().chain().block(blockHash);
-        logger.info("Genesis block: {}", block);
+        logger.info("Found genesis block: {}", block);
     }
 }

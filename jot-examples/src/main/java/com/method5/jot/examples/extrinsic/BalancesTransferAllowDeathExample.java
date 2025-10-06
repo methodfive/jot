@@ -23,8 +23,9 @@ public class BalancesTransferAllowDeathExample extends ExampleBase {
         }
     }
 
-    private static void execute(PolkadotWs api, SigningProvider signingProvider) throws Exception {
+    public static void execute(PolkadotWs api, SigningProvider signingProvider) throws Exception {
         logger.info("Balances Transfer Allow Death Example");
+        logger.info("------------------------");
 
         // Destination address
         AccountId destination = AccountId.fromSS58("13NHcoGFJsHJoCYVsJrrv2ygLtz2XJSR17KrnA9QTNYz3Zkz");

@@ -26,7 +26,10 @@ public class OfflineSigningExample extends ExampleBase {
         }
     }
 
-    private static void execute(OfflineApi api, SigningProvider signingProvider) throws Exception {
+    public static void execute(OfflineApi api, SigningProvider signingProvider) throws Exception {
+        logger.info("Offline Signing Example");
+        logger.info("------------------------");
+
         // Call to submit and retrieve results for
         Call call = api.tx().system().remark("test");
 
@@ -34,7 +37,7 @@ public class OfflineSigningExample extends ExampleBase {
         String signedExtrinsic = call.signOffline(signingProvider, nonce);
 
         // Result
-        logger.info("Signed extrinsic: {}", signedExtrinsic);
+        logger.info("Created signed extrinsic for System.remark(\"test\"): {}", signedExtrinsic);
     }
 
     static

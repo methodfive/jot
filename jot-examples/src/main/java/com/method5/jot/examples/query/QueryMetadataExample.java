@@ -16,12 +16,13 @@ public class QueryMetadataExample extends ExampleBase {
         }
     }
 
-    private static void execute(PolkadotWs api) throws Exception {
+    public static void execute(PolkadotWs api) throws Exception {
         logger.info("Query Metadata Example");
+        logger.info("------------------------");
 
         byte[] metadata = api.query().state().metadata();
 
-        logger.info("Metadata: {}", HexUtil.bytesToHex(metadata));
+        logger.info("Found metadata blob: {}...", HexUtil.bytesToHex(metadata).substring(0, Math.min(metadata.length, 256)));
 
         // See ParsingMetadataExample.java for parsing
     }

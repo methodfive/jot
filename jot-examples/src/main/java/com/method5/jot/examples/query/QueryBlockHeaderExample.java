@@ -17,13 +17,14 @@ public class QueryBlockHeaderExample extends ExampleBase {
         }
     }
 
-    private static void execute(PolkadotWs api) throws Exception {
+    public static void execute(PolkadotWs api) throws Exception {
         logger.info("Query Block Header Example");
+        logger.info("------------------------");
 
         byte[] blockHash = api.query().chain().finalizedHead();
-        logger.info("Finalized head hash512: {}", HexUtil.bytesToHex(blockHash));
+        logger.info("Block hash: {}", HexUtil.bytesToHex(blockHash));
 
         BlockHeader blockHeader = api.query().chain().header(HexUtil.bytesToHex(blockHash));
-        logger.info("Finalized block header: {}", blockHeader);
+        logger.info("Found block header: {}", blockHeader);
     }
 }

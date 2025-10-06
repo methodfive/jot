@@ -15,8 +15,9 @@ public class GenericWalletExample extends ExampleBase {
         execute();
     }
 
-    private static void execute() throws Exception {
+    public static void execute() throws Exception {
         logger.info("SR25519 Wallet Example");
+        logger.info("------------------------");
 
         // Generate new wallet using SR25519 keys
         Wallet wallet = Wallet.generate();
@@ -42,7 +43,7 @@ public class GenericWalletExample extends ExampleBase {
         // Verify signature
         boolean valid = wallet.verify(payload, signature);
 
-        logger.info("Signature: {}", HexUtil.bytesToHex(signature));
-        logger.info("Valid: {}", valid);
+        logger.info("Created signature: {}", HexUtil.bytesToHex(signature));
+        logger.info("Is valid: {}", valid);
     }
 }

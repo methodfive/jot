@@ -15,11 +15,15 @@ public class QueryBlockHashExample extends ExampleBase {
         }
     }
 
-    private static void execute(PolkadotWs api) throws Exception {
+    public static void execute(PolkadotWs api) throws Exception {
         logger.info("Query Block Hash Example");
+        logger.info("------------------------");
 
-        String blockHash = api.query().chain().blockHash(0);
+        int blockNumber = 100;
 
-        logger.info("Genesis hash: {}", blockHash);
+        String blockHash = api.query().chain().blockHash(blockNumber);
+
+        logger.info("Block number: {}", blockNumber);
+        logger.info("Found hash: {}", blockHash);
     }
 }

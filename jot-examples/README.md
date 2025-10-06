@@ -1,7 +1,10 @@
 # 🧩 Jot Examples
 
-Runnable examples that demonstrate how to use the **Jot (Polkadot Java SDK)** to connect to a node, query on-chain data, and submit transactions.  
-These examples are configured to run against the **Westend** test network and are intended to **succeed when run** using a funded test account.
+Runnable examples demonstrating how to use the Jot (Polkadot Java SDK) to connect to a node, query on-chain data, and submit transactions.
+
+All examples are configured for the **Westend** test network and are designed to run successfully when using a **funded** test account.
+
+> 💡 Note: For examples that submit extrinsics, **successfully** means the transaction is broadcast to the blockchain and a valid transaction hash is returned. Some calls may still fail at the protocol level (for example, attempting Staking.unbond on an account that is not currently staking).
 
 ---
 
@@ -29,11 +32,14 @@ From the `jot-examples` module:
 # Build everything
 mvn -q -DskipTests package
 
-# Run any example (Replace <ExampleClass> with one below)
-mvn exec:java -Dexec.mainClass="<ExampleClass>"
+# Run a specific example (Replace class with one below)
+mvn exec:java -Dexec.mainClass="com.method5.jot.examples.query.QueryAccountAndBalanceExample"
 
-# For example:
-# mvn exec:java -Dexec.mainClass="com.method5.jot.examples.query.QueryAccountAndBalanceExample"
+# Run all examples not requiring funds
+mvn exec:java -Dexec.mainClass="com.method5.jot.util.RunAllReadOnly"
+
+# Run all examples
+mvn exec:java -Dexec.mainClass="com.method5.jot.util.RunAll"
 ```
 
 ---

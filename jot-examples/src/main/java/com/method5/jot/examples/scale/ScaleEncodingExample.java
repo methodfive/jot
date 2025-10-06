@@ -16,8 +16,9 @@ public class ScaleEncodingExample extends ExampleBase {
         execute();
     }
 
-    private static void execute() {
+    public static void execute() {
         logger.info("Scale Encoding Example");
+        logger.info("------------------------");
 
         // Encode example
         ScaleWriter scaleWriter = new ScaleWriter();

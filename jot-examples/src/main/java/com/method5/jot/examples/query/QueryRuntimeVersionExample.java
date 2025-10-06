@@ -16,16 +16,17 @@ public class QueryRuntimeVersionExample extends ExampleBase {
         }
     }
 
-    private static void execute(PolkadotWs api) throws Exception {
+    public static void execute(PolkadotWs api) throws Exception {
         logger.info("Query Runtime Version Example");
+        logger.info("------------------------");
 
         RuntimeVersion runtimeVersion = api.query().state().runtimeVersion();
 
-        logger.info("Spec name: {}", runtimeVersion.getSpecName());
-        logger.info("Impl name: {}", runtimeVersion.getImplName());
-        logger.info("Transaction version: {}", runtimeVersion.getTransactionVersion());
-        logger.info("Impl version: {}", runtimeVersion.getImplVersion());
-        logger.info("Spec version: {}", runtimeVersion.getSpecVersion());
-        logger.info("Authoring version: {}", runtimeVersion.getAuthoringVersion());
+        logger.info("Found spec name: {}", runtimeVersion.getSpecName());
+        logger.info("Found impl name: {}", runtimeVersion.getImplName());
+        logger.info("Found tx version: {}", runtimeVersion.getTransactionVersion());
+        logger.info("Found impl version: {}", runtimeVersion.getImplVersion());
+        logger.info("Found spec version: {}", runtimeVersion.getSpecVersion());
+        logger.info("Found authoring version: {}", runtimeVersion.getAuthoringVersion());
     }
 }

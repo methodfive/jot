@@ -21,14 +21,21 @@ public class ReceiveExtrinsicResultExample extends ExampleBase {
         }
     }
 
-    private static void execute(PolkadotWs api, SigningProvider signingProvider) throws Exception {
+    public static void execute(PolkadotWs api, SigningProvider signingProvider) throws Exception {
+        logger.info("Retrieve Extrinsic Result Example");
+        logger.info("------------------------");
+
         // Call to submit and retrieve results for
         Call call = api.tx().system().remark("test");
+
+        logger.info("Submitting extrinsic..");
 
         // Submit to RPC and wait for result
         ExtrinsicResult result = call.signAndWaitForResults(signingProvider);
 
         // Result
+        logger.info("Hash: {}", result.getHash());
+
         logger.info("Successful: {}", result.isSuccess());
 
         // Individual events related to extrinsic

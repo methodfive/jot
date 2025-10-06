@@ -13,8 +13,9 @@ public class AddressConversionExample extends ExampleBase {
         execute();
     }
 
-    private static void execute() {
+    public static void execute() {
         logger.info("Address Conversion Example");
+        logger.info("------------------------");
 
         // Extract public key from polkadot address
         byte[] publicKey = SS58.decode("12T8sPbDjkP3MafjbKJhZAzHGXMPNDEMqc6H96bvfi5AJGkG");

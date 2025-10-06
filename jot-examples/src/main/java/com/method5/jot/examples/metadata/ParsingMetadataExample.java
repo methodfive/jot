@@ -19,18 +19,19 @@ public class ParsingMetadataExample extends ExampleBase {
         }
     }
 
-    private static void execute(PolkadotWs api) {
+    public static void execute(PolkadotWs api) {
         logger.info("Parsing Metadata Example");
+        logger.info("------------------------");
 
         CallIndexResolver resolver = api.getResolver();
         MetadataV14 metadata = api.getMetadata();
 
         logger.info("Metadata V14 retrieved and parsed");
-        logger.info("{} pallets", metadata.getPallets().size());
-        logger.info("{} extrinsic", metadata.getExtrinsics().size());
-        logger.info("{} types", metadata.getTypes().size());
+        logger.info("Found {} pallets", metadata.getPallets().size());
+        logger.info("Found {} extrinsic", metadata.getExtrinsics().size());
+        logger.info("Found {} types", metadata.getTypes().size());
 
-        logger.info("Call index for System.remark: {}", Arrays.toString(resolver.resolveCallIndex("System", "remark")));
-        logger.info("Call index for Balances.transferAll: {}", Arrays.toString(resolver.resolveCallIndex("Balances", "transfer_all")));
+        logger.info("Determined call index for System.remark: {}", Arrays.toString(resolver.resolveCallIndex("System", "remark")));
+        logger.info("Determined call index for Balances.transferAll: {}", Arrays.toString(resolver.resolveCallIndex("Balances", "transfer_all")));
     }
 }

@@ -24,8 +24,9 @@ public class ConvictionVotingVoteExample extends ExampleBase {
         }
     }
 
-    private static void execute(PolkadotWs api, SigningProvider signingProvider) throws Exception {
+    public static void execute(PolkadotWs api, SigningProvider signingProvider) throws Exception {
         logger.info("Conviction Voting Vote Example");
+        logger.info("------------------------");
 
         // Referendum index
         int referendumIndex = 12345;

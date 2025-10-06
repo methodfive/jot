@@ -17,16 +17,17 @@ public class QueryAccountAndBalanceExample extends ExampleBase {
         }
     }
 
-    private static void execute(PolkadotWs api) throws Exception {
+    public static void execute(PolkadotWs api) throws Exception {
         logger.info("Query Account and Balance Example");
+        logger.info("------------------------");
 
         String address = "5CfP97wzNCKkgHsTpD8geoqnKnNv9DydD1y5yfgqtAeVJzMm";
 
         AccountInfo accountInfo = api.query().storage().accountInfo(AccountId.fromSS58(address));
 
         logger.info("Address: {}", address);
-        logger.info("free balance: {}", accountInfo.getFree());
-        logger.info("reserved balance: {}", accountInfo.getReserved());
-        logger.info("frozen balance: {}", accountInfo.getFrozen());
+        logger.info("Found free balance: {}", accountInfo.getFree());
+        logger.info("Found reserved balance: {}", accountInfo.getReserved());
+        logger.info("Found frozen balance: {}", accountInfo.getFrozen());
     }
 }

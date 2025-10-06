@@ -18,16 +18,19 @@ public class QueryBlockEventsExample extends ExampleBase {
         }
     }
 
-    private static void execute(PolkadotWs api) throws Exception {
+    public static void execute(PolkadotWs api) throws Exception {
         logger.info("Query Block Events Example");
+        logger.info("------------------------");
+
+        String hash = "0xccebfcc8199ceded491460e3279d14433f29f861885934ff01ad1952d788a274";
 
         // Query events for block hash
-        List<EventRecord> events = api.query().storage().systemEvents("0xccebfcc8199ceded491460e3279d14433f29f861885934ff01ad1952d788a274");
+        List<EventRecord> events = api.query().storage().systemEvents(hash);
 
-        logger.info("Found {} events", events.size());
+        logger.info("Found {} events total for hash {}", events.size(), hash);
 
-        for(EventRecord event : events) {
-            logger.info(event.toString());
+        if(!events.isEmpty()) {
+            logger.info("First event: {}", events.getFirst().toString());
         }
     }
 }

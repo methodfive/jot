@@ -21,18 +21,19 @@ public class ManualQueryExample extends ExampleBase {
         }
     }
 
-    private static void execute(PolkadotWs api) throws RpcException {
+    public static void execute(PolkadotWs api) throws RpcException {
         logger.info("Manual Query Example");
+        logger.info("------------------------");
 
         // Various manual rpc call examples
 
         // Request chain name
         String chain = api.send("system_chain", JsonNodeFactory.instance.arrayNode()).asText();
-        logger.info("Found Chain: {}", chain);
+        logger.info("Found chain: {}", chain);
 
         // Request chain version
         String chainVersion = api.send("system_version", JsonNodeFactory.instance.arrayNode()).asText();
-        logger.info("Found Chain Version: {}", chainVersion);
+        logger.info("Found chain version: {}", chainVersion);
 
         // Request nonce for a specific wallet
         ObjectMapper objectMapper = new ObjectMapper();

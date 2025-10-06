@@ -20,11 +20,14 @@ public class QueryFeeInfoExample extends ExampleBase {
         }
     }
 
-    private static void execute(PolkadotWs api, SigningProvider signingProvider) throws Exception {
+    public static void execute(PolkadotWs api, SigningProvider signingProvider) throws Exception {
         logger.info("Query Fee Info Example");
+        logger.info("------------------------");
 
         // Build and sign call for System.remark
         String extrinsic = api.tx().system().remark("test").sign(signingProvider);
+
+        logger.info("Checking fee info for System.remark(\"test\")");
 
         // Query fee info for extrinsic
         FeeInfo feeInfo = api.query().payment().queryInfo(extrinsic);

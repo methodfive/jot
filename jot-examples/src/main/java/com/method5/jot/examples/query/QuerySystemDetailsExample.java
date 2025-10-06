@@ -18,23 +18,24 @@ public class QuerySystemDetailsExample extends ExampleBase {
         }
     }
 
-    private static void execute(PolkadotWs api) throws Exception {
+    public static void execute(PolkadotWs api) throws Exception {
         logger.info("Query System Details Example");
+        logger.info("------------------------");
 
         String chain = api.query().system().chain();
-        logger.info("Chain: {}", chain);
+        logger.info("Found chain: {}", chain);
 
         String name = api.query().system().name();
-        logger.info("Node name: {}", name);
+        logger.info("Found node name: {}", name);
 
         ChainType chainType = api.query().system().chainType();
-        logger.info("Chain type: {}", chainType.getValue());
+        logger.info("Found chain type: {}", chainType.getValue());
 
         SystemHealth systemHealth = api.query().system().health();
-        logger.info("System health: {}", systemHealth);
+        logger.info("Found system health: {}", systemHealth);
 
         String version = api.query().system().version();
-        logger.info("Node version: {}", version);
+        logger.info("Found node version: {}", version);
 
         SystemProperties properties = api.query().system().properties();
         logger.info("System properties: {}", properties);

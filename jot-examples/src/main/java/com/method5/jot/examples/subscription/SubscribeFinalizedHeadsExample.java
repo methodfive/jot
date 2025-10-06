@@ -20,8 +20,9 @@ public class SubscribeFinalizedHeadsExample extends ExampleBase {
         }
     }
 
-    private static void execute(PolkadotWs api) throws Exception {
+    public static void execute(PolkadotWs api) throws Exception {
         logger.info("Subscribe Finalized Heads Example");
+        logger.info("------------------------");
 
         Thread.sleep(100);
 

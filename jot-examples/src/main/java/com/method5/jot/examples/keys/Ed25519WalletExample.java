@@ -15,13 +15,13 @@ public class Ed25519WalletExample extends ExampleBase {
         execute();
     }
 
-    private static void execute() throws Exception {
+    public static void execute() throws Exception {
         logger.info("Ed25519 Wallet Example");
+        logger.info("------------------------");
 
         // Generate new wallet using ED25519 keys
         Wallet wallet = Wallet.generate(Wallet.KeyType.ED25519);
 
-        logger.info("Mnemonic Phrase: Not available for ed25519");
         logger.info("Key type: {}", wallet.getKeyType());
         logger.info("Private key bytes: {}", HexUtil.bytesToHex(wallet.getPrivateKeyBytes()));
         logger.info("Public key: {}", HexUtil.bytesToHex(wallet.getSigner().getPublicKey()));
@@ -36,7 +36,7 @@ public class Ed25519WalletExample extends ExampleBase {
         // Verify signature
         boolean valid = wallet.verify(payload, signature);
 
-        logger.info("Signature: {}", HexUtil.bytesToHex(signature));
-        logger.info("Valid: {}", valid);
+        logger.info("Created signature: {}", HexUtil.bytesToHex(signature));
+        logger.info("Is valid: {}", valid);
     }
 }

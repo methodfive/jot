@@ -82,7 +82,7 @@ System.out.println(wallet.getAddress());
 
 ### 💸 Send a Transfer (Balances.transferKeepAlive)
 ```java
-try (PolkadotRpc api = new PolkadotRpc(new String[] { ExampleConstants.RPC_SERVER }, 10000)) {
+try (PolkadotRpc api = new PolkadotRpc(new String[] { Config.WSS_SERVER }, 10000)) {
     String to = "15..."; // destination address
     BigInteger amount = BigInteger.valueOf(1); // 1 DOT
     

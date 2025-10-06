@@ -39,7 +39,7 @@ mvn exec:java -Dexec.mainClass="com.method5.jot.examples.query.QueryAccountAndBa
 # Run all examples not requiring funds
 mvn exec:java -Dexec.mainClass="com.method5.jot.util.RunAllReadOnly"
 
-# Run all examples
+# Run all examples (requires funded wallet)
 mvn exec:java -Dexec.mainClass="com.method5.jot.util.RunAll"
 ```
 

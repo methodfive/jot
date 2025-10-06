@@ -155,6 +155,7 @@ Transaction examples need WND to cover fees. If you see errors like **Inability 
 
 ## 🔗 Useful Links
 
-- Jot (Polkadot Java SDK): https://github.com/Method5/jot
+- Jot GitHub: https://github.com/methodfive/jot
+- Jot Docs: https://methodfive.github.io/jot/
 - Westend Faucet: https://faucet.polkadot.io/
 - Westend Explorer: https://westend.subscan.io

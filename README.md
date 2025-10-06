@@ -152,7 +152,7 @@ if (!result.isSuccess()) {
 
 👉 API reference: [Javadoc](https://methodfive.github.io/jot/api/index.html).  
 
-👉 See [jot-examples](https://github.com/methodfive/jot/tree/main/jot-examples/src/main/java/com/method5/jot/examples) module for 50+ ready to run examples.
+👉 See [jot-examples](https://github.com/methodfive/jot/tree/main/jot-examples) module for 50+ ready to run examples.
 
 ---
 

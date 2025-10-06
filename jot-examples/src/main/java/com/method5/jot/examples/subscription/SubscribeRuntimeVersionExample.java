@@ -4,7 +4,6 @@ import com.method5.jot.examples.Config;
 import com.method5.jot.query.model.RuntimeVersion;
 import com.method5.jot.rpc.PolkadotWs;
 import com.method5.jot.rpc.Subscription;
-import com.method5.jot.rpc.SubscriptionType;
 import com.method5.jot.util.ExampleBase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

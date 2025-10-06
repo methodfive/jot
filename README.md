@@ -172,10 +172,11 @@ If you want to build Jot from source, you’ll need:
 Building Jot:
 
 ```bash
-# (Optional) make sure the build script is executable
-chmod 755 ./build.sh
+# Setup environment
+export MAVEN_OPTS="--enable-native-access=ALL-UNNAMED"
 
-./build.sh
+# Compile Jot
+mvn clean package
 ```
 
 ---

@@ -35,6 +35,8 @@ import static org.mockito.Mockito.*;
 public class WsApiTest extends TestBase {
     private static final ObjectMapper mapper = new ObjectMapper();
 
+    private static final int TIMEOUT = 10000;
+
     @Test
     public void testCanCreateAndCloseWsClient() {
         try (PolkadotWs api = new PolkadotWs("ws://localhost:9944")) {
@@ -56,7 +58,7 @@ public class WsApiTest extends TestBase {
 
     @Test
     public void testConnectAndRetrieveData() {
-        try (PolkadotWs api = new PolkadotWs(DOT_RPC_SERVERS, 1000)) {
+        try (PolkadotWs api = new PolkadotWs(DOT_RPC_SERVERS, TIMEOUT)) {
             assertNotNull(api);
             Thread.sleep(100);
 
@@ -73,7 +75,7 @@ public class WsApiTest extends TestBase {
         servers[0] = "wss://invalid-endpoint";
         System.arraycopy(DOT_RPC_SERVERS, 0, servers, 1, DOT_RPC_SERVERS.length);
 
-        try (PolkadotWs api = new PolkadotWs(servers, 1000)) {
+        try (PolkadotWs api = new PolkadotWs(servers, TIMEOUT)) {
             assertNotNull(api);
             Thread.sleep(100);
 
@@ -86,7 +88,7 @@ public class WsApiTest extends TestBase {
 
     @Test
     public void testSubscribe() {
-        try (PolkadotWs api = new PolkadotWs(DOT_RPC_SERVERS, 1000)) {
+        try (PolkadotWs api = new PolkadotWs(DOT_RPC_SERVERS, TIMEOUT)) {
             assertNotNull(api);
             Thread.sleep(100);
 
@@ -113,12 +115,12 @@ public class WsApiTest extends TestBase {
 
         when(api.send("author_submitExtrinsic", params)).thenReturn(new TextNode("00"));
         when(api.getChainSpec()).thenReturn(chainSpec);
-        when(api.waitForExtrinsic("00", PolkadotWs.Confirmation.BEST, 1000)).thenCallRealMethod();
-        when(api.waitForEvents(PolkadotWs.Confirmation.BEST, "00", 1000)).thenReturn(new ArrayList<>(List.of(new EventRecord(new Phase(Phase.Type.FINALIZATION, 0), "System", "ExtrinsicSuccess", null))));
-        when(api.submitAndWaitForExtrinsic(new byte[0], PolkadotWs.Confirmation.BEST, 1000)).thenCallRealMethod();
+        when(api.waitForExtrinsic("00", PolkadotWs.Confirmation.BEST, TIMEOUT)).thenCallRealMethod();
+        when(api.waitForEvents(PolkadotWs.Confirmation.BEST, "00", TIMEOUT)).thenReturn(new ArrayList<>(List.of(new EventRecord(new Phase(Phase.Type.FINALIZATION, 0), "System", "ExtrinsicSuccess", null))));
+        when(api.submitAndWaitForExtrinsic(new byte[0], PolkadotWs.Confirmation.BEST, TIMEOUT)).thenCallRealMethod();
         when(api.query()).thenReturn(new Query(api));
 
-        ExtrinsicResult result = api.submitAndWaitForExtrinsic(new byte[0], PolkadotWs.Confirmation.BEST, 1000);
+        ExtrinsicResult result = api.submitAndWaitForExtrinsic(new byte[0], PolkadotWs.Confirmation.BEST, TIMEOUT);
         assertTrue(result.isSuccess());
     }
 
@@ -131,12 +133,12 @@ public class WsApiTest extends TestBase {
 
         when(api.send("author_submitExtrinsic", params)).thenReturn(new TextNode("00"));
         when(api.getChainSpec()).thenReturn(chainSpec);
-        when(api.waitForExtrinsic("00", PolkadotWs.Confirmation.BEST, 1000)).thenCallRealMethod();
-        when(api.waitForEvents(PolkadotWs.Confirmation.BEST, "00", 1000)).thenReturn(new ArrayList<>(List.of(new EventRecord(new Phase(Phase.Type.FINALIZATION, 0), "System", "ExtrinsicFailed", new HashMap<>()))));
-        when(api.submitAndWaitForExtrinsic(new byte[0], PolkadotWs.Confirmation.BEST, 1000)).thenCallRealMethod();
+        when(api.waitForExtrinsic("00", PolkadotWs.Confirmation.BEST, TIMEOUT)).thenCallRealMethod();
+        when(api.waitForEvents(PolkadotWs.Confirmation.BEST, "00", TIMEOUT)).thenReturn(new ArrayList<>(List.of(new EventRecord(new Phase(Phase.Type.FINALIZATION, 0), "System", "ExtrinsicFailed", new HashMap<>()))));
+        when(api.submitAndWaitForExtrinsic(new byte[0], PolkadotWs.Confirmation.BEST, TIMEOUT)).thenCallRealMethod();
         when(api.query()).thenReturn(new Query(api));
 
-        ExtrinsicResult result = api.submitAndWaitForExtrinsic(new byte[0], PolkadotWs.Confirmation.BEST, 1000);
+        ExtrinsicResult result = api.submitAndWaitForExtrinsic(new byte[0], PolkadotWs.Confirmation.BEST, TIMEOUT);
         assertFalse(result.isSuccess());
     }
 
@@ -211,7 +213,7 @@ public class WsApiTest extends TestBase {
         AtomicReference<List<EventRecord>> resultRef = new AtomicReference<>();
         Thread t = new Thread(() -> {
             try {
-                resultRef.set(api.waitForEvents(targetExtrinsicHash, 1000));
+                resultRef.set(api.waitForEvents(targetExtrinsicHash, TIMEOUT));
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }

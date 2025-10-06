@@ -9,9 +9,11 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class RpcApiTest extends TestBase {
+    private static final int TIMEOUT = 10000;
+
     @Test
     public void testCanCreateAndCloseRpcClient() {
-        try (PolkadotRpc client = new PolkadotRpc(HTTPS_DOT_RPC_SERVERS, 10000)) {
+        try (PolkadotRpc client = new PolkadotRpc(HTTPS_DOT_RPC_SERVERS, TIMEOUT)) {
             assertNotNull(client);
 
         } catch (Exception e) {
@@ -31,7 +33,7 @@ public class RpcApiTest extends TestBase {
 
     @Test
     public void testConnectAndRetrieveData() {
-        try (PolkadotRpc api = new PolkadotRpc(HTTPS_DOT_RPC_SERVERS, 1000)) {
+        try (PolkadotRpc api = new PolkadotRpc(HTTPS_DOT_RPC_SERVERS, TIMEOUT)) {
             assertNotNull(api);
 
             assertEquals("Polkadot", api.query().system().chain());
@@ -42,7 +44,7 @@ public class RpcApiTest extends TestBase {
 
     @Test
     public void testConnectAndRetrieveMetadata() {
-        try (PolkadotRpc api = new PolkadotRpc(HTTPS_DOT_RPC_SERVERS, 1000)) {
+        try (PolkadotRpc api = new PolkadotRpc(HTTPS_DOT_RPC_SERVERS, TIMEOUT)) {
             assertNotNull(api);
 
             assertNotNull(api.getMetadata());
@@ -59,7 +61,7 @@ public class RpcApiTest extends TestBase {
         servers[0] = "http://invalid-endpoint";
         System.arraycopy(HTTPS_DOT_RPC_SERVERS, 0, servers, 1, HTTPS_DOT_RPC_SERVERS.length);
 
-        try (PolkadotRpc client = new PolkadotRpc(servers, 1000)) {
+        try (PolkadotRpc client = new PolkadotRpc(servers, TIMEOUT)) {
             assertNotNull(client);
 
             JsonNode idNode = client.send("system_chain", JsonNodeFactory.instance.arrayNode());
@@ -71,6 +73,6 @@ public class RpcApiTest extends TestBase {
 
     @Test
     public void testNoServers() {
-        assertThrows(Exception.class, () -> new PolkadotRpc(null, 1000));
+        assertThrows(Exception.class, () -> new PolkadotRpc(null, TIMEOUT));
     }
 }

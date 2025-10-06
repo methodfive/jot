@@ -13,7 +13,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.attribute.FileTime;
 import java.time.Instant;
-import java.util.Comparator;
 
 import static com.method5.jot.metadata.MetadataCache.writeJsonGz;
 import static com.method5.jot.metadata.MetadataCache.writeTextGz;
@@ -26,27 +25,13 @@ public class MetadataCacheTest {
     @BeforeEach
     void initialize() {
         System.setProperty("jot.cache.dir", tmpDir.toString());
-        MetadataCache.clearMemory();
+        MetadataCache.clear();
     }
 
     @AfterEach
     void destroy() {
         System.clearProperty("jot.cache.dir");
-        MetadataCache.clearMemory();
-
-        try {
-            if (tmpDir != null && Files.exists(tmpDir)) {
-                Files.walk(tmpDir)
-                        .sorted(Comparator.reverseOrder())
-                        .forEach(p -> {
-                            try {
-                                Files.deleteIfExists(p);
-                            } catch (IOException ignored) {
-                            }
-                        });
-            }
-        } catch (IOException ignored) {
-        }
+        MetadataCache.clear();
     }
 
     @Test

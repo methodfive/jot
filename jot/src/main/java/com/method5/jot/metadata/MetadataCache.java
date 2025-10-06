@@ -122,6 +122,24 @@ public final class MetadataCache {
         MEM.clear();
     }
 
+    public static void clear() {
+        clearMemory();
+        try {
+            final Path ROOT = CacheDirs.defaultCacheDir("jot");
+            if (Files.exists(ROOT)) {
+                Files.walk(ROOT)
+                        .sorted(Comparator.reverseOrder())
+                        .forEach(p -> {
+                            try {
+                                Files.deleteIfExists(p);
+                            } catch (IOException ignored) {
+                            }
+                        });
+            }
+        } catch (IOException ignored) {
+        }
+    }
+
     public static CachedBundle getLatest() {
         return getLatest(null);
     }

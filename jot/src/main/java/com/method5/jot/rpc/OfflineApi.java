@@ -31,9 +31,12 @@ public class OfflineApi extends Api {
             throw new UnsupportedOperationException("Metadata not initialized");
         }
     }
-    public OfflineApi(CallIndexResolver resolver) {
+    public OfflineApi(CallIndexResolver resolver, String genesisHash, long specVersion, long txVersion) {
         super();
         this.resolver = resolver;
+        this.genesisHash = genesisHash;
+        this.specVersion = specVersion;
+        this.txVersion = txVersion;
         this.isInitialized = true;
     }
 

@@ -4,8 +4,6 @@ import com.method5.jot.TestBase;
 import com.method5.jot.util.HexUtil;
 import org.junit.jupiter.api.Test;
 
-import java.nio.charset.StandardCharsets;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 

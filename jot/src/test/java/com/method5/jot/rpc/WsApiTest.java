@@ -32,7 +32,7 @@ import java.util.function.Consumer;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-public class PolkadotWsClientTest extends TestBase {
+public class WsApiTest extends TestBase {
     private static final ObjectMapper mapper = new ObjectMapper();
 
     @Test

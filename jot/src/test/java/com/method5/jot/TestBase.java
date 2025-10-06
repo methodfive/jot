@@ -19,6 +19,7 @@ public class TestBase {
     public static CallIndexResolver resolver;
     public static ChainSpec chainSpec;
     public static MetadataV14 metadata;
+    public static String metadataHex;
     public static Api api;
 
     public static final String[] HTTPS_DOT_RPC_SERVERS = new String[] {
@@ -35,8 +36,8 @@ public class TestBase {
 
     @BeforeAll
     public static void initialize() throws IOException {
-        String hex = Files.readString(Paths.get("src/test/resources/metadata.hex")).trim();
-        byte[] metadataBytes = HexUtil.hexToBytes(hex);
+        metadataHex = Files.readString(Paths.get("src/test/resources/metadata.hex")).trim();
+        byte[] metadataBytes = HexUtil.hexToBytes(metadataHex);
 
         resolver = new CallIndexResolver();
         MetadataParser parser = new MetadataParser(resolver);
@@ -44,6 +45,6 @@ public class TestBase {
         metadata = parser.parse(metadataBytes);
         chainSpec = new ChainSpec();
 
-        api = new OfflineApi(resolver);
+        api = new OfflineApi(resolver, "00", 0, 0);
     }
 }

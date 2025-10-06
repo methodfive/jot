@@ -7,8 +7,10 @@ import com.fasterxml.jackson.databind.node.BigIntegerNode;
 import com.fasterxml.jackson.databind.node.TextNode;
 import com.method5.jot.TestBase;
 import com.method5.jot.entity.Mortality;
+import com.method5.jot.extrinsic.call.Call;
 import com.method5.jot.query.Query;
 import com.method5.jot.query.model.SignedBlock;
+import com.method5.jot.rpc.OfflineApi;
 import com.method5.jot.rpc.PolkadotWs;
 import com.method5.jot.spec.ChainSpec;
 import com.method5.jot.util.HexUtil;
@@ -70,5 +72,16 @@ public class ExtrinsicSignerTest extends TestBase {
         assertNotNull(extrinsicBytes);
 
         assertEquals("9c05030068b48f12d74877afb8c3a3db239fa11179ab344e071b8a53a9ca2e865b29d026025a6202000408000a0000000100000000000000000000000000000000000000000000000000000000000000000000", HexUtil.bytesToHex(extrinsicBytes));
+    }
+
+    @Test
+    public void testSignOffline() throws Exception {
+        Wallet wallet = Wallet.generate();
+        try(OfflineApi api = new OfflineApi(resolver, "00", 0, 0)) {
+            Call call = api.tx().system().remark("test");
+
+            String signedExtrinsic = call.signOffline(wallet.getSigner(), BigInteger.TEN);
+            assertNotNull(signedExtrinsic);
+        }
     }
 }

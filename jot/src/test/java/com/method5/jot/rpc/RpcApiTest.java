@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class PolkadotRpcClientTest extends TestBase {
+public class RpcApiTest extends TestBase {
     @Test
     public void testCanCreateAndCloseRpcClient() {
         try (PolkadotRpc client = new PolkadotRpc(HTTPS_DOT_RPC_SERVERS, 10000)) {

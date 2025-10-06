@@ -22,6 +22,15 @@ public class SystemProperties {
     @JsonProperty
     private Map<String, Object> additional;
 
+    public SystemProperties() {
+    }
+
+    public SystemProperties(Integer ss58Format, String tokenSymbol, Integer tokenDecimals) {
+        this.ss58Format = ss58Format;
+        this.tokenSymbol = tokenSymbol;
+        this.tokenDecimals = tokenDecimals;
+    }
+
     public Integer getSs58Format() {
         return ss58Format;
     }

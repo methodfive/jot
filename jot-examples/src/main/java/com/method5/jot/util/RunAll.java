@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
 public class RunAll extends ExampleBase {
     private static final Logger logger = LoggerFactory.getLogger(RunAll.class);
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         logger.info("Executing all Jot examples");
 
         Wallet wallet = Wallet.fromMnemonic(Config.MNEMONIC_PHRASE);

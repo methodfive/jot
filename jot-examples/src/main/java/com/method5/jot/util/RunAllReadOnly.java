@@ -15,40 +15,52 @@ import com.method5.jot.wallet.Wallet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class RunAllReadOnly {
+public class RunAllReadOnly extends ExampleBase {
     private static final Logger logger = LoggerFactory.getLogger(RunAllReadOnly.class);
 
     public static void main(String[] args) throws Exception {
-        logger.info("Executing read-only Jot examples");
+        logger.info("Executing all Jot examples");
 
         try (PolkadotWs api = new PolkadotWs(Config.WSS_SERVER, 10000)) {
-            ManualQueryExample.execute(api);
-            QueryAccountAndBalanceExample.execute(api);
-            QueryBlockExample.execute(api);
-            QueryBlockHashExample.execute(api);
-            QueryBlockHeaderExample.execute(api);
-            QueryBlockEventsExample.execute(api);
-            QueryFinalizedHeadExample.execute(api);
-            QueryMetadataExample.execute(api);
-            QueryNonceExample.execute(api);
-            QueryRuntimeVersionExample.execute(api);
-            QuerySystemDetailsExample.execute(api);
-            SubscribeAllHeadsExample.execute(api);
-            SubscribeBestHeadsExample.execute(api);
-            SubscribeFinalizedHeadsExample.execute(api);
-            SubscribeLatestHeadsExample.execute(api);
-            SubscribeRuntimeVersionExample.execute(api);
-            ParsingMetadataExample.execute(api);
+            runSafely("ManualQueryExample", () -> ManualQueryExample.execute(api));
+            runSafely("QueryAccountAndBalanceExample", () -> QueryAccountAndBalanceExample.execute(api));
+            runSafely("QueryBlockExample", () -> QueryBlockExample.execute(api));
+            runSafely("QueryBlockHashExample", () -> QueryBlockHashExample.execute(api));
+            runSafely("QueryBlockHeaderExample", () -> QueryBlockHeaderExample.execute(api));
+            runSafely("QueryBlockEventsExample", () -> QueryBlockEventsExample.execute(api));
+            runSafely("QueryFinalizedHeadExample", () -> QueryFinalizedHeadExample.execute(api));
+            runSafely("QueryMetadataExample", () -> QueryMetadataExample.execute(api));
+            runSafely("QueryNonceExample", () -> QueryNonceExample.execute(api));
+            runSafely("QueryRuntimeVersionExample", () -> QueryRuntimeVersionExample.execute(api));
+            runSafely("QuerySystemDetailsExample", () -> QuerySystemDetailsExample.execute(api));
+            runSafely("SubscribeAllHeadsExample", () -> SubscribeAllHeadsExample.execute(api));
+            runSafely("SubscribeBestHeadsExample", () -> SubscribeBestHeadsExample.execute(api));
+            runSafely("SubscribeFinalizedHeadsExample", () -> SubscribeFinalizedHeadsExample.execute(api));
+            runSafely("SubscribeLatestHeadsExample", () -> SubscribeLatestHeadsExample.execute(api));
+            runSafely("SubscribeRuntimeVersionExample", () -> SubscribeRuntimeVersionExample.execute(api));
+            runSafely("ParsingMetadataExample", () -> ParsingMetadataExample.execute(api));
         }
 
-        Ed25519WalletExample.execute();
-        ScaleEncodingExample.execute();
-        AddressConversionExample.execute();
-        GenericWalletExample.execute();
+        runSafely("Ed25519WalletExample", Ed25519WalletExample::execute);
+        runSafely("ScaleEncodingExample", ScaleEncodingExample::execute);
+        runSafely("AddressConversionExample", AddressConversionExample::execute);
+        runSafely("GenericWalletExample", GenericWalletExample::execute);
 
         Wallet wallet = Wallet.generate();
         try (OfflineApi api = new OfflineApi()) {
-            OfflineSigningExample.execute(api, wallet.getSigner());
+            runSafely("OfflineSigningExample", () -> OfflineSigningExample.execute(api, wallet.getSigner()));
+        }
+
+        logger.info("All examples finished.");
+    }
+
+    private static void runSafely(String name, RunAll.ThrowingRunnable task) {
+        try {
+            logger.info("→ Running {}", name);
+            task.run();
+            logger.info("✓ Completed {}", name);
+        } catch (Exception e) {
+            logger.error("✗ Failed {}: {}", name, e.getMessage(), e);
         }
     }
 }

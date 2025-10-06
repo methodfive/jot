@@ -20,6 +20,7 @@ public class QueryFinalizedHeadExample extends ExampleBase {
         logger.info("Query Finalized Head Example");
 
         byte[] blockHash = api.query().chain().finalizedHead();
+
         logger.info("Finalized head hash: {}", HexUtil.bytesToHex(blockHash));
     }
 }

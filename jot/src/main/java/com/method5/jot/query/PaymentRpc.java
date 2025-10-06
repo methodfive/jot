@@ -23,6 +23,7 @@ public class PaymentRpc extends CallOrQuery {
     }
 
     public FeeInfo queryInfo(String extrinsic, String at) throws Exception {
+        if(extrinsic != null && !extrinsic.startsWith("0x")) extrinsic = "0x" + extrinsic;
         ArrayNode params = mapper.createArrayNode();
         params.add(extrinsic);
         if (at != null) {

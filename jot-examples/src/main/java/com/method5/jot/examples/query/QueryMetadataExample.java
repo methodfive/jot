@@ -20,6 +20,7 @@ public class QueryMetadataExample extends ExampleBase {
         logger.info("Query Metadata Example");
 
         byte[] metadata = api.query().state().metadata();
+
         logger.info("Metadata: {}", HexUtil.bytesToHex(metadata));
 
         // See ParsingMetadataExample.java for parsing

@@ -20,6 +20,7 @@ public class QueryRuntimeVersionExample extends ExampleBase {
         logger.info("Query Runtime Version Example");
 
         RuntimeVersion runtimeVersion = api.query().state().runtimeVersion();
+
         logger.info("Spec name: {}", runtimeVersion.getSpecName());
         logger.info("Impl name: {}", runtimeVersion.getImplName());
         logger.info("Transaction version: {}", runtimeVersion.getTransactionVersion());

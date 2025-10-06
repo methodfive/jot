@@ -31,6 +31,7 @@ public abstract class Api implements AutoCloseable {
     protected CallIndexResolver resolver;
     protected MetadataV14 metadata;
 
+    protected Subscriber subscribe;
     protected Query query;
     protected Transaction tx;
 
@@ -43,6 +44,9 @@ public abstract class Api implements AutoCloseable {
         this.timeoutInMillis = 0L;
         this.tx = new Transaction(this);
         this.query = new Query(this);
+        if(this instanceof PolkadotWs) {
+            this.subscribe = new Subscriber((PolkadotWs)this);
+        }
     }
 
     protected Api(String[] servers, long timeoutInMillis) {
@@ -50,6 +54,9 @@ public abstract class Api implements AutoCloseable {
         this.timeoutInMillis = timeoutInMillis;
         this.tx = new Transaction(this);
         this.query = new Query(this);
+        if(this instanceof PolkadotWs) {
+            this.subscribe = new Subscriber((PolkadotWs)this);
+        }
 
         if (servers == null || servers.length == 0) {
             throw new IllegalArgumentException("At least one RPC URL is required");
@@ -142,6 +149,11 @@ public abstract class Api implements AutoCloseable {
             initializeMetadata();
         }
         return metadata;
+    }
+
+    public Subscriber subscribe() {
+        if(subscribe == null) { throw new UnsupportedOperationException("Subscribe requires PolkadotWs impl"); }
+        return subscribe;
     }
 
     public Query query() {

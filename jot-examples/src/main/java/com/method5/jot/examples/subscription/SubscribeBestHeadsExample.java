@@ -4,7 +4,6 @@ import com.method5.jot.examples.Config;
 import com.method5.jot.query.model.BlockHeader;
 import com.method5.jot.rpc.PolkadotWs;
 import com.method5.jot.rpc.Subscription;
-import com.method5.jot.rpc.SubscriptionType;
 import com.method5.jot.util.ExampleBase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,9 +28,7 @@ public class SubscribeBestHeadsExample extends ExampleBase {
         CountDownLatch latch = new CountDownLatch(2);
 
         // Subscribe to new heads
-        Subscription<BlockHeader> subscription = new Subscription<>(
-                SubscriptionType.BEST_HEAD,
-                api,
+        Subscription<BlockHeader> subscription = api.subscribe().bestHeads(
                 header -> {
                     logger.info("New head: {}", header);
                     latch.countDown();

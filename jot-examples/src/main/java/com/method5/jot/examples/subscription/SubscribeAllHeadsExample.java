@@ -29,9 +29,7 @@ public class SubscribeAllHeadsExample extends ExampleBase {
         CountDownLatch latch = new CountDownLatch(2);
 
         // Subscribe to all heads
-        Subscription<BlockHeader> subscription = new Subscription<>(
-                SubscriptionType.ALL_HEADS,
-                api,
+        Subscription<BlockHeader> subscription = api.subscribe().allHeads(
                 header -> {
                     logger.info("New head: {}", header);
                     latch.countDown();

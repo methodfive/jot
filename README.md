@@ -104,11 +104,9 @@ System.out.println(decoded);
 ### 📥 Subscribe to finalized blocks
 ```java
 // Subscribe to finalized blocks
-Subscription<BlockHeader> subscription = new Subscription<>(
-    SubscriptionType.FINALIZED_HEAD,
-    api,
+Subscription<BlockHeader> subscription = api.subscribe().finalizedHeads(
     header -> {
-        System.out.println("New head: " + header);
+        System.out.println("New finalized head: " + header);
     }
 );
 

@@ -27,9 +27,7 @@ public class SubscribeRuntimeVersionExample extends ExampleBase {
         CountDownLatch latch = new CountDownLatch(2);
 
         // Subscribe to updates to the runtime version
-        Subscription<RuntimeVersion> subscription = new Subscription<>(
-                SubscriptionType.RUNTIME_VERSION,
-                api,
+        Subscription<RuntimeVersion> subscription = api.subscribe().runtimeVersions(
                 runtimeVersion -> {
                     logger.info("New runtime version: {}", runtimeVersion);
                     latch.countDown();

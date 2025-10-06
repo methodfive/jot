@@ -29,9 +29,7 @@ public class SubscribeFinalizedHeadsExample extends ExampleBase {
         CountDownLatch latch = new CountDownLatch(2);
 
         // Subscribe to finalized heads
-        Subscription<BlockHeader> subscription = new Subscription<>(
-                SubscriptionType.FINALIZED_HEAD,
-                api,
+        Subscription<BlockHeader> subscription = api.subscribe().finalizedHeads(
                 header -> {
                     logger.info("New head: {}", header);
                     latch.countDown();

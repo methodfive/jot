@@ -26,11 +26,12 @@ Edit this file to set:
 
 ## ▶️ How to Run
 
-From the `jot-examples` module:
-
 ```bash
 # Build everything
-mvn -q -DskipTests package
+mvn -q -DskipTests clean install
+
+# Change to jot-examples module directory
+cd jot-examples
 
 # Run a specific example (Replace class with one below)
 mvn exec:java -Dexec.mainClass="com.method5.jot.examples.query.QueryAccountAndBalanceExample"

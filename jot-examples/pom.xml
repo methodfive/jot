@@ -23,6 +23,10 @@
     </license>
   </licenses>
 
+  <properties>
+    <exec.mainClass>com.method5.jot.examples.keys.GenericWalletExample</exec.mainClass>
+  </properties>
+
   <build>
     <plugins>
       <plugin>
@@ -38,7 +42,7 @@
         <artifactId>exec-maven-plugin</artifactId>
         <version>3.6.0</version>
         <configuration>
-          <mainClass>com.method5.jot.examples.keys.GenericWalletExample</mainClass>
+          <mainClass>${exec.mainClass}</mainClass>
           <cleanupDaemonThreads>false</cleanupDaemonThreads>
         </configuration>
       </plugin>

@@ -17,4 +17,8 @@ public class Config {
             "wss://asset-hub-westend-rpc.n.dwellir.com",
             "wss://asset-hub-westend.rpc.permanence.io")
             .toArray(String[]::new);
+
+    public static final String[] FREQUENCY_WSS_SERVER = List.of(
+        "ws://localhost:9944"
+        ).toArray(String[]::new);
 }

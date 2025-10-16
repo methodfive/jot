@@ -1,6 +1,9 @@
 package com.method5.jot.examples.extrinsic;
 
+import com.method5.jot.entity.DispatchError;
+import com.method5.jot.events.EventRecord;
 import com.method5.jot.examples.Config;
+import com.method5.jot.extrinsic.ExtrinsicResult;
 import com.method5.jot.extrinsic.call.Call;
 import com.method5.jot.query.model.AccountId;
 import com.method5.jot.rpc.PolkadotWs;
@@ -11,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public class BalancesTransferAllowDeathExample extends ExampleBase {
     private static final Logger logger = LoggerFactory.getLogger(BalancesTransferAllowDeathExample.class);
@@ -18,7 +22,7 @@ public class BalancesTransferAllowDeathExample extends ExampleBase {
     public static void main(String[] args) throws Exception {
         Wallet wallet = Wallet.fromMnemonic(Config.MNEMONIC_PHRASE);
 
-        try (PolkadotWs api = new PolkadotWs(Config.WSS_SERVER, 10000)) {
+        try (PolkadotWs api = new PolkadotWs(Config.FREQUENCY_WSS_SERVER, 10000)) {
             execute(api, wallet.getSigner());
         }
     }

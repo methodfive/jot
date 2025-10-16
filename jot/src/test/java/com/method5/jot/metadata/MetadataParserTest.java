@@ -22,16 +22,20 @@ public class MetadataParserTest extends TestBase {
         byte[] nonExistentCheck = resolver.resolveCallIndex("Null", "null");
         byte[] transferIndex = resolver.resolveCallIndex("Balances", "force_transfer");
         byte[] remarkIndex = resolver.resolveCallIndex("System", "remark");
+//        byte[] createMsaIndex = resolver.resolveCallIndex("Msa", "create");
 
         assertNull(nonExistentCheck);
         assertNotNull(transferIndex, "Balances.forceTransfer not registered");
         assertNotNull(remarkIndex, "System.remark not registered");
+//        assertNotNull(createMsaIndex, "Msa.remark not registered");
 
         assertEquals(2, transferIndex.length, "Call index should be 2 bytes");
         assertEquals(2, remarkIndex.length, "Call index should be 2 bytes");
+//        assertEquals(2, createMsaIndex.length, "Call index should be 2 bytes");
 
         logger.info("Balances.transfer = [{}, {}]", transferIndex[0], transferIndex[1]);
         logger.info("System.remark = [{}, {}]", remarkIndex[0], remarkIndex[1]);
+//        logger.info("Msa.create = [{}, {}]", createMsaIndex[0], createMsaIndex[1]);
     }
 
     @Test

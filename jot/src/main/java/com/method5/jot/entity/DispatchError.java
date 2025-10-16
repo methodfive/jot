@@ -2,7 +2,10 @@ package com.method5.jot.entity;
 
 import com.method5.jot.metadata.CallIndexResolver;
 import com.method5.jot.metadata.RuntimeTypeDecoder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.Objects;
 
@@ -10,6 +13,7 @@ import java.util.Objects;
  * DispatchError — class for dispatch error in the Jot SDK. Provides types and data models.
  */
 public class DispatchError {
+    private static final Logger logger = LoggerFactory.getLogger(DispatchError.class);
     public enum Kind {
         MODULE,
         NAMED,
@@ -59,9 +63,22 @@ public class DispatchError {
 
         if ("Module".equals(variant)) {
             Map<String, Object> field0 = (Map<String, Object>) outer.get("field0");
+
             if (field0 != null) {
-                int index = (int) field0.getOrDefault("index", -1);
-                int error = (int) field0.getOrDefault("error", -1);
+                int index;
+                int error;
+                if(field0.getOrDefault("index", -1) instanceof Byte indexByte) {
+                    index = ((Number) indexByte).intValue();
+                } else {
+                    index = (int) field0.getOrDefault("index", -1);
+                }
+                //Is there a better way to do this?
+                if(field0.get("error") instanceof ArrayList errorList) {
+                    error = ((Number) errorList.getFirst()).intValue();
+                } else {
+                    error = (int) field0.getOrDefault("error", -1);
+                }
+
                 String name = resolver != null ? resolver.getModuleError(index, error) : "Unknown module error";
                 return module(index, error, name);
             }

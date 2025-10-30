@@ -18,7 +18,7 @@ public class CallIndexResolver {
     private final Map<String, byte[]> callMap = new HashMap<>();
     private final Map<Integer, String> moduleIndexToName = new HashMap<>();
     private final Map<String, List<String>> moduleFunctions = new HashMap<>();
-    private final Map<String, List<String>> moduleEvents = new HashMap<>();
+    public final Map<String, List<String>> moduleEvents = new HashMap<>();
     private final Map<String, Map<Integer, String>> moduleErrors = new HashMap<>();
 
     public CallIndexResolver() {}
